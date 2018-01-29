@@ -108,7 +108,7 @@ class Signup extends Component {
                 </form>
 
                 {(this.state.error !== '') ?
-                  <Alert bsStyle="warning" style={{marginTop: "25px"}}>
+                  <Alert bsStyle="danger" style={{marginTop: "25px"}}>
                     {this.state.error}
                   </Alert>
                 :
