@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import { Grid, Col, Row, Panel, 
          FormGroup, Button,
          ControlLabel, FormControl } from 'react-bootstrap';
 import API from '../utils/API';
 
-class Login extends Component {
+class Signup extends Component {
 
   state = {
+    firstName: "",
+    lastName: "",
     email: "",
-    password: "",
-    redirectToReferrer: false
+    password: ""
   };
 
   handleChange = (event) => {
-
     this.setState({
       [event.target.name]: event.target.value
     });
@@ -23,19 +22,15 @@ class Login extends Component {
   handleSubmit = (event) => {
 
     event.preventDefault();
-    API.login({email: this.state.email, password: this.state.password});
+    API.signup({
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      email: this.state.email,
+      password: this.state.password
+    });
   };
 
   render() {
-
-    const { from } = this.props.location.state || { from: { pathname: '/' } };
-    const { redirectToReferrer } = this.state;
-
-    if(redirectToReferrer){
-      return(
-        <Redirect to={from}/>
-      );
-    }
 
     return(
       <Grid>
@@ -48,7 +43,25 @@ class Login extends Component {
               <Panel.Body style={{padding: "40px"}}>
                 <form onSubmit={this.handleSubmit}>
                 <FormGroup controlId="loginForm">
-                  <ControlLabel>Email address:</ControlLabel>
+                  <ControlLabel>First name:</ControlLabel>
+                  <FormControl
+                    componentClass="input"
+                    type="text"
+                    name="firstName"
+                    placeholder="Enter first name"
+                    value={this.state.firstName}
+                    onChange={this.handleChange}
+                  />
+                  <ControlLabel style={{marginTop: "10px"}}>Last name:</ControlLabel>
+                  <FormControl
+                    componentClass="input"
+                    type="text"
+                    name="lastName"
+                    placeholder="Enter last name"
+                    value={this.state.lastName}
+                    onChange={this.handleChange}
+                  />
+                  <ControlLabel style={{marginTop: "10px"}}>Email address:</ControlLabel>
                   <FormControl
                     componentClass="input"
                     type="email"
@@ -77,4 +90,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Signup;
