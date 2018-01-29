@@ -42,7 +42,7 @@ function getToken(req, res, next) {
 app.post("/api/post", getToken, (req, res) => {
 
   jwt.verify(req.token, process.env.SECRET_KEY,
-      {expiresIn: 60}, (err, data) => {
+      {expiresIn: '4h'}, (err, data) => {
     if(err){
       res.sendStatus(403);
     } else{
@@ -66,12 +66,16 @@ app.post("/api/login", (req, res) => {
       if(!bcrypt.compareSync(req.body.password, user.password)){
         res.status(401).send({ message: "Password is incorrect." });
       } else{
-        jwt.sign({_id: user._id}, process.env.SECRET_KEY, (err, token) => {
+        jwt.sign({
+          _id: user._id,
+          firstName: user.firstName,
+          lastName: user.lastName
+        }, process.env.SECRET_KEY, (err, token) => {
           if(err){
             console.log("error: "+err);
             res.status(401).send({ message: "Authentication error." });
           } else{
-            res.json({token: token});
+            res.json({ token: token });
           }
         });
       }
@@ -100,13 +104,17 @@ app.post("/api/signup", (req, res) => {
       db.User.create(newUser)
       .then( (result) => {
 
-        jwt.sign({_id: result._id}, process.env.SECRET_KEY, (err, token) => {
-          res.json({token: token});
+        jwt.sign({
+          _id: result._id,
+          firstName: result.firstName,
+          lastName: result.lastName
+        }, process.env.SECRET_KEY, (err, token) => {
+          res.json({ token: token });
         });
       })
       .catch( (err) => {
         console.log("error: "+err);
-        res.status(401).send({message: err});  
+        res.status(401).send({ message: err });  
       });
     }
   })

@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import API from '../utils/API';
 
 const AuthButton = withRouter(({ history }) => (
   API.isAuthenticated() ? (
-    <p>
-      Welcome! <button onClick={() => {
-        API.logout(() => history.push('/'))
-      }}>Log out</button>
-    </p>
+    <Link to="/">
+      Welcome {API.getName()}! <Button bsSize="xsmall" onClick={ () => {
+        API.logout( () => history.push('/'))
+      }}>Log out</Button>
+    </Link>
   ) : (
     <Link to="/login"> Log In</Link>
   )
