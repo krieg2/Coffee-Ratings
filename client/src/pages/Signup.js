@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Grid, Col, Row, Panel, 
-         FormGroup, Button,
+         FormGroup, Button, Alert,
          ControlLabel, FormControl } from 'react-bootstrap';
 import API from '../utils/API';
 
@@ -10,7 +11,9 @@ class Signup extends Component {
     firstName: "",
     lastName: "",
     email: "",
-    password: ""
+    password: "",
+    redirectToReferrer: false,
+    error: ""
   };
 
   handleChange = (event) => {
@@ -22,15 +25,35 @@ class Signup extends Component {
   handleSubmit = (event) => {
 
     event.preventDefault();
+
     API.signup({
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       email: this.state.email,
       password: this.state.password
+    },
+      (res) => {
+
+        if(res.data.message){
+          //This is an error.
+          this.setState({ error: res.data.message });
+        } else{
+          this.setState({ redirectToReferrer: true });
+        }
     });
   };
 
   render() {
+
+    const { from } = this.props.location.state || { from: { pathname: '/' } };
+    const { redirectToReferrer } = this.state;
+
+    if(redirectToReferrer){
+
+      return(
+        <Redirect to={from}/>
+      );
+    }
 
     return(
       <Grid>
@@ -41,6 +64,7 @@ class Signup extends Component {
             <Panel style={{boxShadow: "10px 10px 20px"}}>
               <Panel.Heading>Log In</Panel.Heading>
               <Panel.Body style={{padding: "40px"}}>
+
                 <form onSubmit={this.handleSubmit}>
                 <FormGroup controlId="loginForm">
                   <ControlLabel>First name:</ControlLabel>
@@ -82,6 +106,14 @@ class Signup extends Component {
                 </FormGroup>
                 <Button bsStyle="default" type="submit">Submit</Button>
                 </form>
+
+                {(this.state.error !== '') ?
+                  <Alert bsStyle="warning" style={{marginTop: "25px"}}>
+                    {this.state.error}
+                  </Alert>
+                :
+                  null
+                }
               </Panel.Body>
             </Panel>
           </Col>

@@ -1,5 +1,18 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import API from '../utils/API';
+
+const AuthButton = withRouter(({ history }) => (
+  API.isAuthenticated() ? (
+    <p>
+      Welcome! <button onClick={() => {
+        API.logout(() => history.push('/'))
+      }}>Log out</button>
+    </p>
+  ) : (
+    <Link to="/login"> Log In</Link>
+  )
+));
 
 class Home extends Component {
 
@@ -17,7 +30,7 @@ class Home extends Component {
               <li><Link to="#">  Coffee Reviews </Link></li>
               <li><Link to="#">| Shop Reviews                 </Link></li>
               <li><Link to="/signup">Sign Up</Link></li>
-              <li><Link to="/login"> Log In</Link></li>
+              <li><AuthButton /></li>
             </ul>
           </div>
         </nav>

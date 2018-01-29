@@ -57,22 +57,29 @@ app.post("/api/post", getToken, (req, res) => {
 app.post("/api/login", (req, res) => {
 
   db.User.findOne({email: req.body.email})
-  .then( (err, user) => {
+  .then( (user) => {
 
-    if(err){
-      console.log("error:"+err);
-    } else if(!user){
-      res.status(401).json({ message: "User not found." });
+    if(!user){
+      res.status(401).send({ message: "User not found." });
     } else if(user){
 
       if(!bcrypt.compareSync(req.body.password, user.password)){
-        res.status(401).json({ message: "Password is incorrect." });
+        res.status(401).send({ message: "Password is incorrect." });
       } else{
         jwt.sign({_id: user._id}, process.env.SECRET_KEY, (err, token) => {
-          res.json({token: token});
+          if(err){
+            console.log("error: "+err);
+            res.status(401).send({ message: "Authentication error." });
+          } else{
+            res.json({token: token});
+          }
         });
       }
     }
+  })
+  .catch( (err) => {
+    console.log("error: "+err);
+    res.status(401).send({ message: "Error." });
   });
   
 });
@@ -80,29 +87,32 @@ app.post("/api/login", (req, res) => {
 app.post("/api/signup", (req, res) => {
 
   db.User.findOne({email: req.body.email})
-  .then( (err, user) => {
-    if(err){
-      console.log("error:"+err);
-      res.status(400).send({message: err});
-    } else if(user){
+  .then( (user) => {
+    
+    if(user){
       res.status(401).json({ message: "User already exists." });
     } else if(!user){
 
       let newUser = req.body;
       newUser.password = bcrypt.hashSync(req.body.password, 10);
+
       //Create the user record.
       db.User.create(newUser)
-      .then(function(result){
-        if(err){
-          console.log("error:"+err);
-          res.status(400).send({message: err});  
-        } else{
-          jwt.sign({_id: result._id}, process.env.SECRET_KEY, (err, token) => {
-            res.json({token: token});
-          });
-        }
+      .then( (result) => {
+
+        jwt.sign({_id: result._id}, process.env.SECRET_KEY, (err, token) => {
+          res.json({token: token});
+        });
+      })
+      .catch( (err) => {
+        console.log("error: "+err);
+        res.status(401).send({message: err});  
       });
     }
+  })
+  .catch( (err) => {
+    console.log("error: "+err);
+    res.status(401).json({ message: "Error." });
   });
 });
 

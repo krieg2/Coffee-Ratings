@@ -7,8 +7,9 @@ const initialState = {
 };
 
 export default {
-  logout: function(){
+  logout: function(callback){
     initialState.isAuthenticated = false;
+    callback();
   },
   setToken: function(token){
     if(token){
@@ -18,20 +19,28 @@ export default {
       delete axios.defaults.headers.common['Authorization'];
     }
   },
-  login: function(data){
+  login: function(data, callback){
     axios.post('/api/login', data)
     .then( res => {
 
       localStorage.setItem('jwtToken', res.data.token);
       this.setToken(res.data.token);
+      callback(res);
+    })
+    .catch( (err) => {
+      callback(err.response);
     });
   },
-  signup: function(data){
+  signup: function(data, callback){
     axios.post('/api/signup', data)
     .then( res => {
 
       localStorage.setItem('jwtToken', res.data.token);
       this.setToken(res.data.token);
+      callback(res);
+     })
+     .catch( (err) => {
+       callback(err.response);
      });
   },
   isAuthenticated: function(){
