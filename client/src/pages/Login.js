@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Grid, Col, Row, Panel, 
-         FormGroup, Button,
+         FormGroup, Button, Alert,
          ControlLabel, FormControl } from 'react-bootstrap';
 import API from '../utils/API';
 
@@ -10,7 +10,8 @@ class Login extends Component {
   state = {
     email: "",
     password: "",
-    redirectToReferrer: false
+    redirectToReferrer: false,
+    error: ""
   };
 
   handleChange = (event) => {
@@ -23,7 +24,20 @@ class Login extends Component {
   handleSubmit = (event) => {
 
     event.preventDefault();
-    API.login({email: this.state.email, password: this.state.password});
+
+    API.login({
+      email: this.state.email,
+      password: this.state.password
+    },
+      (res) => {
+
+        if(res.data.message){
+          //This is an error.
+          this.setState({ error: res.data.message });
+        } else{
+          this.setState({ redirectToReferrer: true });
+        }
+    });
   };
 
   render() {
@@ -32,6 +46,7 @@ class Login extends Component {
     const { redirectToReferrer } = this.state;
 
     if(redirectToReferrer){
+
       return(
         <Redirect to={from}/>
       );
@@ -46,6 +61,7 @@ class Login extends Component {
             <Panel style={{boxShadow: "10px 10px 20px"}}>
               <Panel.Heading>Log In</Panel.Heading>
               <Panel.Body style={{padding: "40px"}}>
+
                 <form onSubmit={this.handleSubmit}>
                 <FormGroup controlId="loginForm">
                   <ControlLabel>Email address:</ControlLabel>
@@ -69,6 +85,14 @@ class Login extends Component {
                 </FormGroup>
                 <Button bsStyle="default" type="submit">Submit</Button>
                 </form>
+
+                {(this.state.error !== '') ?
+                  <Alert bsStyle="warning" style={{marginTop: "25px"}}>
+                    {this.state.error}
+                  </Alert>
+                :
+                  null
+                }
               </Panel.Body>
             </Panel>
           </Col>
