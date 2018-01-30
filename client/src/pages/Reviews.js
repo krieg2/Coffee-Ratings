@@ -26,7 +26,7 @@ class Login extends Component {
     return(
       <Grid fluid>
         <Row>
-          <Col xs={2} sm={2} md={2}>
+          <Col xs={3} sm={3} md={2}>
             <Panel>
 		      <Panel.Heading style={{backgroundColor: "#dd8047"}}>Search filters</Panel.Heading>
 		      <Panel.Body style={{padding: "20px"}}>
