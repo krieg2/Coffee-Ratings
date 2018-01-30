@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import API from '../utils/API';
+import Banner from '../components/Banner.js';
 
 const AuthButton = withRouter(({ history }) => (
   API.isAuthenticated() ? (
@@ -15,6 +16,7 @@ const AuthButton = withRouter(({ history }) => (
   )
 ));
 
+//style={{backgroundColor: "#dd8047"}}
 class Home extends Component {
 
   render() {
@@ -35,13 +37,14 @@ class Home extends Component {
             </ul>
           </div>
         </nav>
-
-        <div className="jumbotron text-center" style={{backgroundColor: "#74533f"}}>
-          <h1 style={{color: "#ebd69c", textTransform: "uppercase"}}>Coffee rating app</h1>
-          <p style={{color: "#ebd69c"}}><em>Enhance Your Coffee Experience!</em></p> 
-        </div>
-      
+<div className="jumbotron text-center" style={{backgroundColor: "#74533f"}}>
+  <h1 style={{color: "#ebd69c", textTransform: "uppercase"}}>Coffee rating app</h1>
+  <p style={{color: "#ebd69c"}}><em>Life is too short to drink bad coffee!</em></p> 
+</div>      
         <div className="container">
+          <div className="row">
+            <Banner />
+          </div>
           <div className="row">
             <div className="col-sm-4" style={{backgroundColor: "#94b6d2"}}>
               <h3>Column 1</h3>
