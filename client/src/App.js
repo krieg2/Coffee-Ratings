@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route,
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Home from './pages/Home';
+import cafeLocator from './pages/cafeLocator'
 import API from './utils/API';
 import './App.css';
 
@@ -27,6 +28,7 @@ class App extends Component {
       <Router>
         <div>
           <Route exact path="/" component={Home} />
+          <Route exact path="/coffeLocator" component = {coffeLocator} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
         </div>
