@@ -1,46 +1,17 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
-import API from '../utils/API';
 import Banner from '../components/Banner.js';
 
-const AuthButton = withRouter(({ history }) => (
-  API.isAuthenticated() ? (
-    <Link to="/">
-      Welcome {API.getName()}! <Button bsSize="xsmall" onClick={ () => {
-        API.logout( () => history.push('/'))
-      }}>Log out</Button>
-    </Link>
-  ) : (
-    <Link to="/login"> Log In</Link>
-  )
-));
-
-//style={{backgroundColor: "#dd8047"}}
 class Home extends Component {
 
   render() {
 
     return (
       <div>
-        <nav className="navbar navbar-default">
-          <div className="container-fluid">
-            <div className="navbar-header">
-              <a className="navbar-brand" href="#">COFFEE RATING APP</a>
-            </div>
-            <ul className="nav navbar-nav">
-              <li className="active"><Link to="#">Home</Link></li>
-              <li><Link to="#">  Coffee Reviews </Link></li>
-              <li><Link to="#">| Shop Reviews                 </Link></li>
-              <li><Link to="/signup">Sign Up</Link></li>
-              <li><AuthButton /></li>
-            </ul>
-          </div>
-        </nav>
-<div className="jumbotron text-center" style={{backgroundColor: "#74533f"}}>
-  <h1 style={{color: "#ebd69c", textTransform: "uppercase"}}>Coffee rating app</h1>
-  <p style={{color: "#ebd69c"}}><em>Life is too short to drink bad coffee!</em></p> 
-</div>      
+        <div className="jumbotron text-center" style={{backgroundColor: "#74533f"}}>
+          <h1 style={{color: "#ebd69c", textTransform: "uppercase"}}>Coffee rating app</h1>
+          <p style={{color: "#ebd69c"}}><em>Life is too short to drink bad coffee!</em></p> 
+        </div>
+
         <div className="container">
           <div className="row">
             <Banner />
