@@ -56,7 +56,8 @@ class Login extends Component {
     let gridStyle = {
       background: `url(${background})`,
       backgroundSize: "cover",
-      backgroundRepeat: "no-repeat"
+      backgroundRepeat: "no-repeat",
+      height: "800px"
     };
 
     return(
