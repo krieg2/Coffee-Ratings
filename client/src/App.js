@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Home from './pages/Home';
 import Reviews from './pages/Reviews';
+import Rate from './pages/Rate';
 import { Navbar, Nav, Button, NavItem } from 'react-bootstrap';
 import API from './utils/API';
 import './App.css';
@@ -41,29 +42,33 @@ class App extends Component {
       <Router>
         <div>
           <Navbar staticTop>
-            <Nav bsStyle="pills" activeKey={1}>
-              <NavItem eventKey={1}>
-                <Link to="/">Home</Link>
-              </NavItem>
-              <NavItem eventKey={2}>
-                <Link to="/reviews">Coffee Reviews</Link>
-              </NavItem>
-              <NavItem eventKey={3}>
-                <Link to="/reviews">Shop Reviews</Link>
-              </NavItem>
-              <NavItem eventKey={4}>
-                <Link to="/signup">Sign Up</Link>
-              </NavItem>
-              <NavItem eventKey={5}>
-                <AuthButton />
-              </NavItem>
-            </Nav>
+            <Navbar.Toggle />
+            <Navbar.Collapse>
+              <Nav bsStyle="pills" activeKey={1}>
+                <NavItem eventKey={1}>
+                  <Link to="/">Home</Link>
+                </NavItem>
+                <NavItem eventKey={2}>
+                  <Link to="/reviews">Coffee Reviews</Link>
+                </NavItem>
+                <NavItem eventKey={3}>
+                  <Link to="/reviews">Shop Reviews</Link>
+                </NavItem>
+                <NavItem eventKey={4}>
+                  <Link to="/signup">Sign Up</Link>
+                </NavItem>
+                <NavItem eventKey={5}>
+                  <AuthButton />
+                </NavItem>
+              </Nav>
+            </Navbar.Collapse>
           </Navbar>
       
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/reviews" component={Reviews} />
+          <Route exact path="/rate" component={Rate} />
         </div>
       </Router>
     );
