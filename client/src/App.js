@@ -37,14 +37,27 @@ const AuthButton = withRouter(({ history }) => (
 
 class App extends Component {
 
+  state = {
+    selected: 1
+  };
+
+  handleSelect = (selectedKey) => {
+
+    if(selectedKey > 3){
+      selectedKey = 0;
+    }
+    this.setState({selected: selectedKey});
+  }
+
   render() {
     return (
       <Router>
         <div>
-          <Navbar staticTop>
+          <Navbar staticTop style={{borderBottom: '2px solid #dd8047'}}>
             <Navbar.Toggle />
             <Navbar.Collapse>
-              <Nav bsStyle="pills" activeKey={1}>
+              <Nav bsStyle="tabs" role="tablist" activeKey={this.state.selected}
+                   onSelect={key => this.handleSelect(key)}>
                 <NavItem eventKey={1}>
                   <Link to="/">Home</Link>
                 </NavItem>
@@ -54,6 +67,9 @@ class App extends Component {
                 <NavItem eventKey={3}>
                   <Link to="/reviews">Shop Reviews</Link>
                 </NavItem>
+              </Nav>
+              <Nav bsStyle="tabs" role="tablist" pullRight
+                   onSelect={key => this.handleSelect(key)}>
                 <NavItem eventKey={4}>
                   <Link to="/signup">Sign Up</Link>
                 </NavItem>
