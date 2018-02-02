@@ -8,14 +8,18 @@ import './styles.css';
 
 class Profile extends Component {
 
-  state = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    redirectToReferrer: false,
-    error: ""
-  };
+  constructor(props) {
+    super(props);
+    let user = API.getProfile();
+    this.state = {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      password: "",
+      message: "",
+      messageType: ""
+    };
+  }
 
   handleChange = (event) => {
     this.setState({
@@ -27,7 +31,7 @@ class Profile extends Component {
 
     event.preventDefault();
 
-    API.signup({
+    API.editUser({
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       email: this.state.email,
@@ -37,31 +41,21 @@ class Profile extends Component {
 
         if(res.data.message){
           //This is an error.
-          this.setState({ error: res.data.message });
+          this.setState({ message: res.data.message });
         } else{
-          this.setState({ redirectToReferrer: true });
+          //this.setState({ redirectToReferrer: true });
         }
     });
   };
 
   render() {
 
-    const { from } = this.props.location.state || { from: { pathname: '/' } };
-    const { redirectToReferrer } = this.state;
-
-    if(redirectToReferrer){
-
-      return(
-        <Redirect to={from}/>
-      );
-    }
-
     return(
       <Grid fluid className="loginPage">
         <Row>
           <Col xs={8} sm={6} md={5} className="centerCol lowerTop">
             <Panel style={{boxShadow: "10px 10px 20px"}}>
-              <Panel.Heading style={{backgroundColor: "#dd8047"}}>Sign Up</Panel.Heading>
+              <Panel.Heading style={{backgroundColor: "#dd8047"}}>Profile</Panel.Heading>
               <Panel.Body style={{padding: "40px"}}>
 
                 <form onSubmit={this.handleSubmit}>
@@ -106,9 +100,9 @@ class Profile extends Component {
                 <Button bsStyle="default" type="submit">Submit</Button>
                 </form>
 
-                {(this.state.error !== '') ?
-                  <Alert bsStyle="danger" style={{marginTop: "25px"}}>
-                    {this.state.error}
+                {(this.state.message !== '') ?
+                  <Alert bsStyle={this.state.messageType} style={{marginTop: "25px"}}>
+                    {this.state.message}
                   </Alert>
                 :
                   null

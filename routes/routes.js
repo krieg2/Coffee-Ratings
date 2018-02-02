@@ -47,7 +47,8 @@ module.exports = app => {
           jwt.sign({
             _id: user._id,
             firstName: user.firstName,
-            lastName: user.lastName
+            lastName: user.lastName,
+            email: user.email
           }, process.env.SECRET_KEY, (err, token) => {
             if(err){
               console.log("error: "+err);
