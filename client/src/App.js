@@ -79,10 +79,10 @@ class App extends Component {
                   <Link to="/">Home</Link>
                 </NavItem>
                 <NavItem eventKey={2}>
-                  <Link to="/cafelocator">Coffee Reviews</Link>
+                  <Link to="/reviews">Coffee Reviews</Link>
                 </NavItem>
                 <NavItem eventKey={3}>
-                  <Link to="/reviews">Shop Reviews</Link>
+                  <Link to="/cafelocator">Shop Reviews</Link>
                 </NavItem>
               </Nav>
               <Nav bsStyle="tabs" role="tablist" pullRight
