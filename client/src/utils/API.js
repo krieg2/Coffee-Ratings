@@ -64,6 +64,10 @@ export default {
   getName: function(){
 
     return initialState.user.firstName;
+  },
+  getProfile: function(){
+
+    return initialState.user;
   }
 };
 

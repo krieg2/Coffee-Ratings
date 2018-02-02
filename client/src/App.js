@@ -6,6 +6,7 @@ import Signup from './pages/Signup';
 import Home from './pages/Home';
 import Reviews from './pages/Reviews';
 import Rate from './pages/Rate';
+import Profile from './pages/Profile';
 import cafeLocator from './pages/cafeLocator'
 import { Navbar, Nav, Button, NavItem } from 'react-bootstrap';
 import API from './utils/API';
@@ -26,13 +27,22 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 
 const AuthButton = withRouter(({ history }) => (
   API.isAuthenticated() ? (
-    <Link to="/">
-      Welcome {API.getName()}! <Button bsSize="xsmall" onClick={ () => {
-        API.logout( () => history.push('/'))
-      }}>Log out</Button>
-    </Link>
+      <div>
+        <span>Welcome {API.getName()}!  </span>
+        <Button bsSize="xsmall" onClick={ () => {
+          API.logout( () => history.push('/'))
+        }}>Log out</Button>
+      </div>
   ) : (
-    <Link to="/login"> Log In</Link>
+    <Link to="/login">Log In</Link>
+  )
+));
+
+const ProfileButton = withRouter(({ history }) => (
+  API.isAuthenticated() ? (
+    <Link to="/profile">Profile</Link>
+  ) : (
+    <Link to="/signup">Sign Up</Link>
   )
 ));
 
@@ -78,7 +88,7 @@ class App extends Component {
               <Nav bsStyle="tabs" role="tablist" pullRight
                    onSelect={key => this.handleSelect(key)}>
                 <NavItem eventKey={4}>
-                  <Link to="/signup">Sign Up</Link>
+                  <ProfileButton />
                 </NavItem>
                 <NavItem eventKey={5}>
                   <AuthButton />
@@ -93,6 +103,7 @@ class App extends Component {
           <Route exact path="/reviews" component={Reviews} />
           <Route exact path="/cafelocator" component={cafeLocator} />
           <PrivateRoute exact path="/rate" component={Rate} />
+          <PrivateRoute exact path="/profile" component={Profile} />
         </div>
       </Router>
     );
