@@ -50,10 +50,16 @@ class App extends Component {
   }
 
   render() {
+
+    let navStyle = {
+      borderBottom: '2px solid #dd8047',
+      fontSize: '18px'
+    };
+
     return (
       <Router>
         <div>
-          <Navbar staticTop style={{borderBottom: '2px solid #dd8047'}}>
+          <Navbar staticTop style={navStyle}>
             <Navbar.Toggle />
             <Navbar.Collapse>
               <Nav bsStyle="tabs" role="tablist" activeKey={this.state.selected}

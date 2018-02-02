@@ -63,7 +63,7 @@ class Login extends Component {
     return(
       <Grid fluid>
         <Row>
-          <Col xs={12} sm={5} md={5} style={{margin: "0 auto", float: "none"}}>
+          <Col xs={12} sm={5} md={5} className="centerCol">
             <form>
               <FormGroup>
                 <ControlLabel>Coffee 1 review</ControlLabel>
