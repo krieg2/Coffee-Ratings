@@ -6,6 +6,7 @@ import Signup from './pages/Signup';
 import Home from './pages/Home';
 import Reviews from './pages/Reviews';
 import Rate from './pages/Rate';
+import cafeLocator from './pages/cafeLocator'
 import { Navbar, Nav, Button, NavItem } from 'react-bootstrap';
 import API from './utils/API';
 import './App.css';
@@ -68,7 +69,7 @@ class App extends Component {
                   <Link to="/">Home</Link>
                 </NavItem>
                 <NavItem eventKey={2}>
-                  <Link to="/reviews">Coffee Reviews</Link>
+                  <Link to="/cafelocator">Coffee Reviews</Link>
                 </NavItem>
                 <NavItem eventKey={3}>
                   <Link to="/reviews">Shop Reviews</Link>
@@ -85,11 +86,12 @@ class App extends Component {
               </Nav>
             </Navbar.Collapse>
           </Navbar>
-      
+
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/reviews" component={Reviews} />
+          <Route exact path="/cafelocator" component={cafeLocator} />
           <PrivateRoute exact path="/rate" component={Rate} />
         </div>
       </Router>
