@@ -1,13 +1,17 @@
 const express    = require("express");
 const bodyParser = require("body-parser");
 const path       = require("path");
+const morgan     = require("morgan");
 const mongoose   = require("mongoose");
 const PORT       = process.env.PORT || 3001;
 
 // Environment variables.
 require("dotenv").config();
+
 // Express.
 const app = express();
+//app.use(morgan(":req[Authorization] :method :url :status"));
+
 //MongoDB database config.
 mongoose.Promise = Promise;
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/coffeeRatings";

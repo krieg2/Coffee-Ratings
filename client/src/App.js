@@ -7,7 +7,7 @@ import Home from './pages/Home';
 import Reviews from './pages/Reviews';
 import Rate from './pages/Rate';
 import Profile from './pages/Profile';
-import cafeLocator from './pages/cafeLocator'
+import CafeLocator from './pages/CafeLocator'
 import { Navbar, Nav, Button, NavItem } from 'react-bootstrap';
 import API from './utils/API';
 import './App.css';
@@ -101,7 +101,7 @@ class App extends Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/reviews" component={Reviews} />
-          <Route exact path="/cafelocator" component={cafeLocator} />
+          <Route exact path="/cafelocator" component={CafeLocator} />
           <PrivateRoute exact path="/rate" component={Rate} />
           <PrivateRoute exact path="/profile" component={Profile} />
         </div>
