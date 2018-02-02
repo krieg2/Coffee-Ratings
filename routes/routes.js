@@ -3,35 +3,22 @@ const mongoose   = require("mongoose");
 const jwt        = require("jsonwebtoken");
 const db         = require("../models");
 
-function getToken(req, res, next) {
-  const bearerHeader = req.headers['Authorization'];
-  if(bearerHeader){
-    const bearer = bearerHeader.split(" ");
-    const token = bearer[1];
-    req.token = token;
-    next();
-  } else{
-    res.sendStatus(403);
-  }
-}
+function verifyToken(req, res, next) {
 
-module.exports = app => {
+  const token = req.header('Authorization');
 
-  app.post("/api/post", getToken, (req, res) => {
-
-    jwt.verify(req.token, process.env.SECRET_KEY,
-      {expiresIn: '4h'}, (err, data) => {
+  jwt.verify(token, process.env.SECRET_KEY,
+    (err, data) => {
       if(err){
         res.sendStatus(403);
       } else{
-        res.json({
-            message: "Post created.",
-            data: data
-        });
+        next();
       }
-    });
   });
+}
 
+module.exports = app => {
+  
   app.post("/api/login", (req, res) => {
 
     db.User.findOne({email: req.body.email})
@@ -48,7 +35,8 @@ module.exports = app => {
             _id: user._id,
             firstName: user.firstName,
             lastName: user.lastName,
-            email: user.email
+            email: user.email,
+            location: user.location
           }, process.env.SECRET_KEY, (err, token) => {
             if(err){
               console.log("error: "+err);
@@ -86,7 +74,9 @@ module.exports = app => {
           jwt.sign({
             _id: result._id,
             firstName: result.firstName,
-            lastName: result.lastName
+            lastName: result.lastName,
+            email: user.email,
+            location: user.location
           }, process.env.SECRET_KEY, (err, token) => {
             res.json({ token: token });
           });
@@ -103,4 +93,37 @@ module.exports = app => {
     });
   });
 
+  app.put("/api/updateUser/:id", verifyToken, (req, res) => {
+
+    db.User.findOneAndUpdate({_id: req.params.id}, { $set: req.body}, { new: true })
+    .then( (user) => {
+
+      if(!user){
+        res.status(401).send({ message: "User not found." });
+      } else if(user){
+
+        
+          jwt.sign({
+            _id: user._id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            location: user.location
+          }, process.env.SECRET_KEY, (err, token) => {
+            if(err){
+              console.log("error: "+err);
+              res.status(401).send({ message: "Authentication error." });
+            } else{
+              res.json({ token: token });
+            }
+          });
+
+      }
+    })
+    .catch( (err) => {
+      console.log("error: "+err);
+      res.status(401).send({ message: "Error." });
+    });
+  
+  });
 };

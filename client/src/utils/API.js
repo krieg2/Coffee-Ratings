@@ -1,12 +1,15 @@
-import axios from 'axios';
+import Axios from 'axios';
 import jwt from 'jsonwebtoken';
+const axios = Axios.create();
 
 const initialState = {
   isAuthenticated: false,
   user: {
     _id: '',
     firstName: '',
-    lastName: ''
+    lastName: '',
+    email: '',
+    location: ''
   }
 };
 
@@ -14,7 +17,7 @@ export default {
   logout: function(callback){
 
     initialState.isAuthenticated = false;
-    delete axios.defaults.headers.common['Authorization'];
+    delete Axios.defaults.headers.common['Authorization'];
     localStorage.removeItem('jwtToken');
     callback();
   },
@@ -26,9 +29,10 @@ export default {
       let decoded = jwt.decode(token);
       initialState.user = decoded;
 
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      Axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     } else{
-      delete axios.defaults.headers.common['Authorization'];
+      delete Axios.defaults.headers.common['Authorization'];
     }
   },
   login: function(data, callback){
@@ -47,6 +51,19 @@ export default {
   signup: function(data, callback){
 
     axios.post('/api/signup', data)
+    .then( res => {
+
+      localStorage.setItem('jwtToken', res.data.token);
+      this.setToken(res.data.token);
+      callback(res);
+     })
+     .catch( (err) => {
+       callback(err.response);
+     });
+  },
+  updateUser: function(id, data, callback){
+
+    axios.put('/api/updateUser/'+id, data, {headers: {Authorization: localStorage.getItem('jwtToken')}})
     .then( res => {
 
       localStorage.setItem('jwtToken', res.data.token);

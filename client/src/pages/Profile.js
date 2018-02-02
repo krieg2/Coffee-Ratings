@@ -10,12 +10,13 @@ class Profile extends Component {
 
   constructor(props) {
     super(props);
+
     let user = API.getProfile();
     this.state = {
+      id: user._id,
       firstName: user.firstName,
       lastName: user.lastName,
-      email: user.email,
-      password: "",
+      location: user.location,
       message: "",
       messageType: ""
     };
@@ -31,11 +32,10 @@ class Profile extends Component {
 
     event.preventDefault();
 
-    API.editUser({
+    API.updateUser(this.state.id, {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
-      email: this.state.email,
-      password: this.state.password
+      location: this.state.location
     },
       (res) => {
 
@@ -78,22 +78,13 @@ class Profile extends Component {
                     value={this.state.lastName}
                     onChange={this.handleChange}
                   />
-                  <ControlLabel style={{marginTop: "10px"}}>Email address:</ControlLabel>
+                  <ControlLabel style={{marginTop: "10px"}}>Location:</ControlLabel>
                   <FormControl
                     componentClass="input"
-                    type="email"
-                    name="email"
-                    placeholder="Enter email"
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                  />
-                  <ControlLabel style={{marginTop: "10px"}}>Password:</ControlLabel>
-                  <FormControl
-                    componentClass="input"
-                    type="Password"
-                    name="password"
-                    placeholder="Enter password"
-                    value={this.state.password}
+                    type="text"
+                    name="location"
+                    placeholder="Enter location"
+                    value={this.state.location}
                     onChange={this.handleChange}
                   />
                 </FormGroup>
