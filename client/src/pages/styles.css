@@ -1,0 +1,19 @@
+.loginPage {
+  background: url('../beans.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 800px;
+}
+
+.centerCol {
+  margin: 0 auto;
+  float: none;
+}
+
+.headings {
+  background: #dd8047;
+}
+
+.lowerTop {
+  margin-top: 100px;
+}

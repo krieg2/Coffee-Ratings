@@ -4,7 +4,7 @@ import { Grid, Col, Row, Panel,
          FormGroup, Button, Alert,
          ControlLabel, FormControl } from 'react-bootstrap';
 import API from '../utils/API';
-import background from '../beans.jpeg';
+import './styles.css';
 
 class Signup extends Component {
 
@@ -56,17 +56,10 @@ class Signup extends Component {
       );
     }
 
-    let gridStyle = {
-      background: `url(${background})`,
-      backgroundSize: "cover",
-      backgroundRepeat: "no-repeat",
-      height: "800px"
-    };
-
     return(
-      <Grid fluid style={gridStyle}>
+      <Grid fluid className="loginPage">
         <Row>
-          <Col xs={8} sm={6} md={5} style={{margin: "0 auto", float: "none", marginTop: "100px"}}>
+          <Col xs={8} sm={6} md={5} className="centerCol lowerTop">
             <Panel style={{boxShadow: "10px 10px 20px"}}>
               <Panel.Heading style={{backgroundColor: "#dd8047"}}>Sign Up</Panel.Heading>
               <Panel.Body style={{padding: "40px"}}>
