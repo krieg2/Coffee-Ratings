@@ -2,6 +2,7 @@ const bcrypt     = require("bcrypt");
 const mongoose   = require("mongoose");
 const jwt        = require("jsonwebtoken");
 const db         = require("../models");
+const request    = require("request");
 
 function verifyToken(req, res, next) {
 
@@ -119,6 +120,57 @@ module.exports = app => {
           });
 
       }
+    })
+    .catch( (err) => {
+      console.log("error: "+err);
+      res.status(401).send({ message: "Error." });
+    });
+  
+  });
+
+  app.get("/api/upcsearch/:upc", verifyToken, (req, res) => {
+
+    let options = {
+      url: "https://api.upcitemdb.com/prod/trial/lookup?upc="+req.params.upc
+    };
+
+    request(options, (error, response, body) => {
+
+      if(error){
+        console.log(error);
+        res.status(500).send({ message: "Error." });
+      } else{
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        if(body === ""){
+          console.log("Response missing.");
+          res.status(404).send({ message: "Response missing." });
+        } else{
+          res.send(JSON.parse(body));
+        }
+      }
+    });
+  });
+
+  app.post("/api/product", verifyToken, (req, res) => {
+
+    db.Product.create(req.body)
+    .then( (product) => {
+      res.status(200).send({ message: "Added." });
+    })
+    .catch( (err) => {
+      console.log("error: "+err);
+      res.status(401).send({ message: "Error." });
+    });
+  
+  });
+
+  app.get("/api/product", (req, res) => {
+
+    db.Product.find()
+    .then( (products) => {
+
+      res.json(products);
     })
     .catch( (err) => {
       console.log("error: "+err);
