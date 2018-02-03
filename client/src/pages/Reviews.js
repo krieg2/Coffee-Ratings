@@ -1,26 +1,33 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Col, Row, Panel, FormControl,
-         FormGroup, Checkbox, ControlLabel } from 'react-bootstrap';
+         FormGroup, Checkbox, 
+         Image, ControlLabel } from 'react-bootstrap';
 import API from '../utils/API';
 
 class Login extends Component {
 
-  state = {
-    filter: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      filter: "",
+      results: []
+    };
 
-  handleChange = (event) => {
+    API.getProducts( (res) => this.setState({results: res.data}));
+  }
+
+  //handleChange = (event) => {
 
     // this.setState({
     //   [event.target.name]: event.target.value
     // });
-  };
+  //};
 
-  handleSubmit = (event) => {
+  // handleSubmit = (event) => {
 
-    event.preventDefault();
-  };
+  //   event.preventDefault();
+  // };
 
   render() {
 
@@ -28,6 +35,7 @@ class Login extends Component {
       <Grid fluid>
         <Row>
           <Col xs={12} sm={3} md={3}>
+            <Link to="/createproduct">Add a Product</Link>
             <Panel>
     		      <Panel.Heading style={{backgroundColor: "#dd8047"}}>Search filters</Panel.Heading>
     		      <Panel.Body style={{padding: "20px"}}>
@@ -52,14 +60,23 @@ class Login extends Component {
     		      </Panel.Body>
     		    </Panel>
           </Col>
-          <Col xs={12} sm={9} md={9}>
-            <Panel>
-              <Panel.Heading style={{backgroundColor: "#dd8047"}}>Coffee 1</Panel.Heading>
-              <Panel.Body style={{padding: "10px"}}>
 
-                <Link to="/rate">Rate It</Link>
-              </Panel.Body>
-            </Panel>
+          <Col xs={12} sm={9} md={9}>
+            <Row>
+              {this.state.results.map( (item, index) => {
+                return (<Col xs={4} sm={4} md={4}>
+                  <Panel className="product">
+                  <Panel.Heading style={{backgroundColor: "#dd8047"}}>{item.brand}</Panel.Heading>
+                  <Panel.Body style={{padding: "40px"}}>
+                    <Image src={item.image} responsive />
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                    <Link to="/rate">Rate It</Link>
+                  </Panel.Body>
+                </Panel>
+                </Col>);
+              })}
+            </Row>
           </Col>
         </Row>
       </Grid>);

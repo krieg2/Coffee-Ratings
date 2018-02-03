@@ -17,7 +17,6 @@ export default {
   logout: function(callback){
 
     initialState.isAuthenticated = false;
-    delete Axios.defaults.headers.common['Authorization'];
     localStorage.removeItem('jwtToken');
     callback();
   },
@@ -28,11 +27,6 @@ export default {
       initialState.isAuthenticated = true;
       let decoded = jwt.decode(token);
       initialState.user = decoded;
-
-      Axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-    } else{
-      delete Axios.defaults.headers.common['Authorization'];
     }
   },
   login: function(data, callback){
@@ -85,6 +79,39 @@ export default {
   getProfile: function(){
 
     return initialState.user;
+  },
+  searchUPC: function(upc, callback){
+
+    axios.get("/api/upcsearch/"+upc, {headers: {Authorization: localStorage.getItem('jwtToken')}})
+    .then( res => {
+
+      callback(res);
+    })
+    .catch( (err) => {
+      callback(err.response);
+    });
+  },
+  addProduct: function(data, callback){
+
+    axios.post('/api/product/', data, {headers: {Authorization: localStorage.getItem('jwtToken')}})
+    .then( res => {
+
+      callback(res);
+    })
+    .catch( (err) => {
+      callback(err.response);
+    });
+  },
+  getProducts: function(callback){
+
+    axios.get('/api/product/')
+    .then( res => {
+
+      callback(res);
+    })
+    .catch( (err) => {
+      callback(err.response);
+    });
   }
 };
 
