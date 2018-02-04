@@ -3,7 +3,6 @@ import { Grid, Col, Row, Panel, FormControl,
          FormGroup, ControlLabel, 
          Button, Image } from 'react-bootstrap';
 import API from '../utils/API';
-import './styles.css';
 
 class CreateProduct extends Component {
 

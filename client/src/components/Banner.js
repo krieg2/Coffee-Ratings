@@ -22,7 +22,7 @@ class Banner extends Component {
   render() {
 
     return (
-      <div className="col" style={{height: '800px'}}>
+      <div className="col" style={{height: '800px', width: '100%', padding: "0", margin: "0"}}>
 
         <div style={{
           position: 'relative',
@@ -32,6 +32,7 @@ class Banner extends Component {
           backgroundImage: `url(${background})`,
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'top center',
+          backgroundSize: 'cover',
           backgroundAttachment: 'fixed',
           overflow: 'hidden'
         }}>

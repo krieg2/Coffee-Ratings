@@ -12,6 +12,7 @@ import CreateProduct from './pages/CreateProduct'
 import { Navbar, Nav, Button, NavItem } from 'react-bootstrap';
 import API from './utils/API';
 import './App.css';
+import './pages/styles.css';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={ props => (
@@ -35,15 +36,15 @@ const AuthButton = withRouter(({ history }) => (
         }}>Log out</Button>
       </div>
   ) : (
-    <Link to="/login">Log In</Link>
+    <Link to="/login"><Button>Log In</Button></Link>
   )
 ));
 
 const ProfileButton = withRouter(({ history }) => (
   API.isAuthenticated() ? (
-    <Link to="/profile">Profile</Link>
+    <Link to="/profile"><Button>Profile</Button></Link>
   ) : (
-    <Link to="/signup">Sign Up</Link>
+    <Link to="/signup"><Button>Sign Up</Button></Link>
   )
 ));
 
@@ -63,15 +64,10 @@ class App extends Component {
 
   render() {
 
-    let navStyle = {
-      borderBottom: '2px solid #dd8047',
-      fontSize: '18px'
-    };
-
     return (
       <Router>
         <div>
-          <Navbar staticTop style={navStyle}>
+          <Navbar staticTop>
             <Navbar.Toggle />
             <Navbar.Collapse>
               <Nav bsStyle="tabs" role="tablist" activeKey={this.state.selected}
