@@ -4,7 +4,6 @@ import { Grid, Col, Row, Panel,
          FormGroup, Button, Alert,
          ControlLabel, FormControl } from 'react-bootstrap';
 import API from '../utils/API';
-import './styles.css';
 
 class Profile extends Component {
 
