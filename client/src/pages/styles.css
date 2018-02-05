@@ -18,9 +18,15 @@
   margin-top: 100px;
 }
 
+.productCol {
+  margin: 0 auto;
+  float: none;
+  margin-top: 5%;
+}
+
 .product {
   width: 256px;
-  margin: 20px;
+  margin: 0 auto;
 }
 
 #jumbo {
@@ -29,10 +35,11 @@
   width: 100%;
   border-radius: 0px;
   margin: 0px;
+  border-top: 2px solid #dd8047;
+  border-bottom: 2px solid #dd8047;
 }
 
 .navbar {
-  border-bottom: 2px solid #dd8047;
   margin: 0px;
 }
 

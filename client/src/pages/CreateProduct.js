@@ -3,11 +3,13 @@ import { Grid, Col, Row, Panel, FormControl,
          FormGroup, ControlLabel, 
          Button, Image } from 'react-bootstrap';
 import API from '../utils/API';
+import { GridLoader } from 'halogenium';
 
 class CreateProduct extends Component {
 
   state = {
     upc: "",
+    searching: false,
     results: []
   };
 
@@ -23,12 +25,17 @@ class CreateProduct extends Component {
 
     event.preventDefault();
 
+    this.setState({
+      searching: true
+    });
+
     API.searchUPC(this.state.upc, (response) => {
       console.log(response.data.items);
       if(response.data.items){
-        this.setState({
-          results: response.data.items
-        });
+        setTimeout(() => this.setState({
+          results: response.data.items,
+          searching: false
+        }), 1000);
       }
     });
   };
@@ -53,7 +60,7 @@ class CreateProduct extends Component {
     return(
       <Grid fluid>
         <Row>
-          <Col xs={12} sm={5} md={5} className="centerCol">
+          <Col xs={12} sm={4} md={4} className="productCol">
             <form>
               <FormGroup>
                 <ControlLabel>Search a UPC code.</ControlLabel>
@@ -67,13 +74,19 @@ class CreateProduct extends Component {
                   value={this.state.upc}
                 />
               </FormGroup>
-              <Button onClick={this.handleSubmit} bsStyle="primary" type="submit">Search</Button>
+              <Button onClick={this.handleSubmit} bsStyle="default" type="submit">Search</Button>
               </form>
           </Col>
         </Row>
+
         <Row>
-          {this.state.results.map( (item, index) => {
-            return (<Col xs={1} sm={1} md={1}>
+          {(this.state.searching) ?
+          <Col xs={1} sm={1} md={1} className="productCol">
+            <GridLoader color="red" size="22px" margin="10px"/>
+          </Col>
+          :
+          this.state.results.map( (item, index) => {
+            return (<Col xs={12} sm={4} md={4} className="productCol">
               <Panel className="product">
                 <Panel.Heading style={{backgroundColor: "#dd8047"}}>{item.brand}</Panel.Heading>
                 <Panel.Body style={{padding: "40px"}}>

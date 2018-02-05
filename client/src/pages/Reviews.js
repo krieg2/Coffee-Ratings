@@ -61,7 +61,7 @@ class Login extends Component {
     		    </Panel>
           </Col>
 
-          <Col xs={12} sm={9} md={9}>
+          <Col xs={12} sm={9} md={9} style={{marginTop: "20px"}}>
             <Row>
               {this.state.results.map( (item, index) => {
                 return (<Col xs={4} sm={4} md={4}>

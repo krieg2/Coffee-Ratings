@@ -28,7 +28,6 @@ class Banner extends Component {
           position: 'relative',
           height: '100%',
           width: '100%',
-          border: '2px solid #dd8047',
           backgroundImage: `url(${background})`,
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'top center',
