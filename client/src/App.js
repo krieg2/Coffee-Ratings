@@ -106,19 +106,12 @@ class App extends Component {
  
 
         <footer className="page-footer blue center-on-small-only">
-          
-
-<div className="container text-center">
-
-  </div>
-
-            <div className="footer-copyright">
-    <a href="#"><i className="fa fa-facebook" style={{fontSize:'40px',padding:'40px'}}></i></a>
-    <a href="#"><i className="fa fa-twitter" style={{fontSize:'40px',padding:'40px'}}></i></a>
-    <a href="#"><i className="fa fa-google-plus" style={{fontSize:'40px',padding:'40px'}}></i></a>
-    <a href="#"><i className="fa fa-instagram" style={{fontSize:'40px',padding:'40px'}}></i></a>
-    <a href="#"><i className="fa fa-pinterest" style={{fontSize:'40px',padding:'40px'}} ></i></a>
-
+      <div className="footer-copyright">
+      <a href="https://www.facebook.com/coffee.app.58"><i className="fa fa-facebook" style={{fontSize:'40px',padding:'40px'}}></i></a>
+      <a href="https://twitter.com/app_coffee"><i className="fa fa-twitter" style={{fontSize:'40px',padding:'40px'}}></i></a>
+      <a href="https://plus.google.com/115860816639015232861"><i className="fa fa-google-plus" style={{fontSize:'40px',padding:'40px'}}></i></a>
+      <a href="https://www.instagram.com/coffeeratingapp/"><i className="fa fa-instagram" style={{fontSize:'40px',padding:'40px'}}></i></a>
+      <a href="https://www.pinterest.com/coffeeapp/"><i className="fa fa-pinterest" style={{fontSize:'40px',padding:'40px'}} ></i></a>
                 <div className="container-fluid" style={{color: "#ebd69c"}}>
             
  
