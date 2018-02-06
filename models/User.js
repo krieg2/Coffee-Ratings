@@ -1,7 +1,7 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-var Schema = new Schema({
+const UserSchema = new Schema({
   firstName: {
     type: String,
     required: true
@@ -14,6 +14,10 @@ var Schema = new Schema({
     type: String,
     required: true
   },
+  location: {
+    type: String,
+    required: false
+  },
   password: {
     type: String,
     required: true
@@ -25,7 +29,7 @@ var Schema = new Schema({
 });
 
 // Creates the model from the above schema.
-var User = mongoose.model("User", Schema);
+const User = mongoose.model("User", UserSchema);
 
 // Export the User model.
 module.exports = User;

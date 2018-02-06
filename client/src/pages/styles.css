@@ -1,0 +1,68 @@
+.loginPage {
+  background: url('../beans.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 800px;
+}
+
+.centerCol {
+  margin: 0 auto;
+  float: none;
+}
+
+.headings {
+  background: #dd8047;
+}
+
+.lowerTop {
+  margin-top: 100px;
+}
+
+.productCol {
+  margin: 0 auto;
+  float: none;
+  margin-top: 5%;
+}
+
+.product {
+  width: 256px;
+  margin: 0 auto;
+}
+
+#jumbo {
+  text-align: center;
+  background-color: #74533f;
+  width: 100%;
+  border-radius: 0px;
+  margin: 0px;
+  border-top: 2px solid #dd8047;
+  border-bottom: 2px solid #dd8047;
+}
+
+.navbar {
+  margin: 0px;
+}
+
+.navbar-nav > li > a > a {
+  font-size: 22px;
+  font-weight: 600px;
+  font-family: "Verdana, Geneva, sans-serif";
+  text-decoration: none;
+  color: grey;
+}
+
+.navbar-nav > li > a > a:hover {
+ color: black;
+}
+
+.page-footer {
+  background-color: #74533f;
+  padding: 80px;
+}
+
+.footer-copyright {
+  position: relative;
+  top: 50px;
+  text-align: center;
+}
+

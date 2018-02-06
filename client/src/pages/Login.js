@@ -53,13 +53,11 @@ class Login extends Component {
     }
 
     return(
-      <Grid>
-        <Row>
-          <Col xs={8} sm={6} md={5}
-               xsOffset={2} smOffset={3} mdOffset={4}
-               style={{marginTop: "100px"}}>
-            <Panel style={{boxShadow: "10px 10px 20px"}}>
-              <Panel.Heading>Log In</Panel.Heading>
+      <Grid fluid className="loginPage">
+        <Row>    
+          <Col xs={8} sm={6} md={5} className="centerCol lowerTop">
+          <Panel>
+              <Panel.Heading style={{backgroundColor: "#dd8047"}}>Log In</Panel.Heading>
               <Panel.Body style={{padding: "40px"}}>
 
                 <form onSubmit={this.handleSubmit}>

@@ -5,7 +5,10 @@
   "proxy": "http://localhost:3001/",
   "dependencies": {
     "axios": "^0.17.1",
+    "google-map-react": "^0.29.0",
+    "halogenium": "^2.2.3",
     "jsonwebtoken": "^8.1.1",
+    "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.2.0",
