@@ -101,9 +101,17 @@ class App extends Component {
           <Route exact path="/cafelocator" component={CafeLocator} />
           <PrivateRoute exact path="/rate" component={Rate} />
           <PrivateRoute exact path="/createproduct" component={CreateProduct} />
-          <PrivateRoute exact path="/profile" component={Profile} />
-        </div>
-      </Router>
+          <PrivateRoute exact path="/profile" component={Profile} />        
+        <footer className="page-footer blue center-on-small-only">
+            <div className="footer-copyright">
+                <div className="container-fluid" style={{color: "#ebd69c"}}>
+                    © 2018 Copyright COFFEE RATING APP
+                </div>
+            </div>
+          </footer>
+         </div>
+        </Router>
+
     );
   }
 }

@@ -41,15 +41,6 @@ class Home extends Component {
               <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
             </div>
           </Row>
-
-          <footer className="page-footer blue center-on-small-only">
-            <div className="footer-copyright">
-                <div className="container-fluid" style={{color: "#ebd69c"}}>
-                    © 2018 Copyright COFFEE RATING APP
-                </div>
-            </div>
-          </footer>
-
       </Grid>);
   }
 }
