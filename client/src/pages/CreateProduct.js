@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Col, Row, Panel, FormControl,
-         FormGroup, ControlLabel, 
+         FormGroup, ControlLabel, Alert,
          Button, Image } from 'react-bootstrap';
 import API from '../utils/API';
 import { GridLoader } from 'halogenium';
@@ -10,7 +10,8 @@ class CreateProduct extends Component {
   state = {
     upc: "",
     searching: false,
-    results: []
+    results: [],
+    error: ""
   };
 
   handleChange = (event) => {
@@ -26,17 +27,27 @@ class CreateProduct extends Component {
     event.preventDefault();
 
     this.setState({
-      searching: true
+      searching: true,
+      error: ""
     });
 
     API.searchUPC(this.state.upc, (response) => {
-      console.log(response.data.items);
-      if(response.data.items){
-        setTimeout(() => this.setState({
-          results: response.data.items,
-          searching: false
-        }), 1000);
+      //console.log(response.data.items);
+      let data = [];
+      let error = "";
+      if(response.data.message){
+        error = response.data.message;
+      } else if(response.data.items){
+        data = response.data.items;
+      } else {
+        error = "No results found.";
       }
+      // Wait at least 1s and display the animated spinner.
+      setTimeout(() => this.setState({
+        results: data,
+        searching: false,
+        error: error
+      }), 1000);
     });
   };
 
@@ -81,23 +92,32 @@ class CreateProduct extends Component {
 
         <Row>
           {(this.state.searching) ?
-          <Col xs={1} sm={1} md={1} className="productCol">
-            <GridLoader color="red" size="22px" margin="10px"/>
-          </Col>
+            <Col xs={1} sm={1} md={1} className="productCol">
+              <GridLoader color="red" size="22px" margin="10px"/>
+            </Col>
           :
-          this.state.results.map( (item, index) => {
-            return (<Col xs={12} sm={4} md={4} className="productCol">
-              <Panel className="product">
-                <Panel.Heading style={{backgroundColor: "#dd8047"}}>{item.brand}</Panel.Heading>
-                <Panel.Body style={{padding: "40px"}}>
-                  <Image src={item.images[0]} responsive />
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                  <Button onClick={() => this.handleClick(index)}>Add</Button>
-                </Panel.Body>
-              </Panel>
-            </Col>);
+            this.state.results.map( (item, index) => {
+              return (<Col xs={12} sm={4} md={4} className="productCol">
+                <Panel className="product">
+                  <Panel.Heading style={{backgroundColor: "#dd8047"}}>{item.brand}</Panel.Heading>
+                  <Panel.Body style={{padding: "40px"}}>
+                    <Image src={item.images[0]} responsive />
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                    <Button onClick={() => this.handleClick(index)}>Add</Button>
+                  </Panel.Body>
+                </Panel>
+              </Col>);
           })}
+          {(this.state.error !== '') ?
+            <Col xs={2} sm={2} md={2} className="productCol">
+              <Alert bsStyle="danger" style={{marginTop: "25px", overflow: "scroll"}}>
+                {this.state.error}
+              </Alert>
+            </Col>
+          :
+            null
+          }
         </Row>
       </Grid>);
   }
