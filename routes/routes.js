@@ -154,15 +154,25 @@ module.exports = app => {
 
   app.post("/api/product", verifyToken, (req, res) => {
 
-    db.Product.create(req.body)
-    .then( (product) => {
-      res.status(200).send({ message: "Added." });
-    })
-    .catch( (err) => {
-      console.log("error: "+err);
-      res.status(401).send({ message: "Error." });
+    db.Product.find().
+    where("upc").equals(req.body.upc)
+    .then( (products) => {
+
+      if(products.length > 0){
+
+        res.status(401).send({ message: "Product already exists." });
+      } else {
+
+        db.Product.create(req.body)
+        .then( (product) => {
+          res.status(200).send({ message: "Added." });
+        })
+        .catch( (err) => {
+          console.log("error: "+err);
+          res.status(401).send({ message: "Error." });
+        });
+      }
     });
-  
   });
 
   app.get("/api/product", (req, res) => {
@@ -177,5 +187,30 @@ module.exports = app => {
       res.status(401).send({ message: "Error." });
     });
   
+  });
+
+  app.post("/api/review/:id", verifyToken, (req, res) => {
+
+    db.Product.findById(req.params.id)
+    .then( (products) => {
+
+      if(products){
+
+        db.Review.create(req.body)
+        .then( (review) => {
+          return db.Product.findByIdAndUpdate(req.params.id,
+                { $push: {reviews: review._id } }, { new: true });
+        })
+        .then( (posted) => {
+          res.status(200).send({ message: "Added." });
+        })
+        .catch( (err) => {
+          console.log("error: "+err);
+          res.status(401).send({ message: "Error." });
+        });
+      } else{
+        res.status(401).send({ message: "Product not found." });
+      }
+    });
   });
 };

@@ -59,10 +59,13 @@ class CreateProduct extends Component {
       brand: this.state.results[index].brand,
       image: this.state.results[index].images[0],
       upc: this.state.results[index].upc
-    }
+    };
+
     API.addProduct(newProduct, (response) => {
-      //
-      console.log(response);
+
+      if(response.data.message){
+        this.setState({error: response.data.message});
+      }
     });
   };
 
@@ -91,6 +94,15 @@ class CreateProduct extends Component {
         </Row>
 
         <Row>
+          {(this.state.error !== '') ?
+            <Col xs={10} sm={3} md={3} className="productCol">
+              <Alert bsStyle="danger" style={{overflow: "scroll"}}>
+                {this.state.error}
+              </Alert>
+            </Col>
+          :
+            null
+          }
           {(this.state.searching) ?
             <Col xs={1} sm={1} md={1} className="productCol">
               <GridLoader color="red" size="22px" margin="10px"/>
@@ -99,25 +111,18 @@ class CreateProduct extends Component {
             this.state.results.map( (item, index) => {
               return (<Col xs={12} sm={4} md={4} className="productCol">
                 <Panel className="product">
-                  <Panel.Heading style={{backgroundColor: "#dd8047"}}>{item.brand}</Panel.Heading>
+                  <Panel.Heading style={{backgroundColor: "#dd8047"}}>{item.brand}
+                    <Button bsSize="small" className="addButton" onClick={() => this.handleClick(index)}>Add</Button>
+                  </Panel.Heading>
                   <Panel.Body style={{padding: "40px"}}>
                     <Image src={item.images[0]} responsive />
                     <h3>{item.title}</h3>
                     <p>{item.description}</p>
-                    <Button onClick={() => this.handleClick(index)}>Add</Button>
                   </Panel.Body>
                 </Panel>
               </Col>);
           })}
-          {(this.state.error !== '') ?
-            <Col xs={2} sm={2} md={2} className="productCol">
-              <Alert bsStyle="danger" style={{marginTop: "25px", overflow: "scroll"}}>
-                {this.state.error}
-              </Alert>
-            </Col>
-          :
-            null
-          }
+          
         </Row>
       </Grid>);
   }

@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ProductSchema = new Schema({
+  avgRating: {
+    type: Number,
+    required: false
+  },
   description: {
     type: String,
     required: false
@@ -25,7 +29,13 @@ const ProductSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  // The ref property links the ObjectId to the Review model.
+  reviews: [{
+    type: Schema.Types.ObjectId,
+    ref: "Review"
+  }]
+
 });
 
 // Creates the model from the above schema.
