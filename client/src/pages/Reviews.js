@@ -14,7 +14,13 @@ class Login extends Component {
       results: []
     };
 
-    API.getProducts( (res) => this.setState({results: res.data}));
+     API.getProducts( (res) => {
+
+       if(typeof(res.data) === 'object' &&
+          res.data.length > 0){
+         this.setState({results: res.data});
+       }
+     });
   }
 
   //handleChange = (event) => {
@@ -71,7 +77,7 @@ class Login extends Component {
                     <Image src={item.image} responsive />
                     <h3>{item.title}</h3>
                     <p>{item.description}</p>
-                    <Link to="/rate">Rate It</Link>
+                    <Link to={{pathname: "/rate", state: {item: item}}}><i class="fa fa-thumbs-up"></i>Rate It</Link>
                   </Panel.Body>
                 </Panel>
                 </Col>);

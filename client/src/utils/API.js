@@ -76,6 +76,10 @@ export default {
 
     return initialState.user.firstName;
   },
+  getUserId: function(){
+
+    return initialState.user._id;
+  },
   getProfile: function(){
 
     return initialState.user;
@@ -105,6 +109,17 @@ export default {
   getProducts: function(callback){
 
     axios.get('/api/product/')
+    .then( res => {
+
+      callback(res);
+    })
+    .catch( (err) => {
+      callback(err.response);
+    });
+  },
+  addReview: function(id, data, callback){
+
+    axios.post('/api/review/'+id, data, {headers: {Authorization: localStorage.getItem('jwtToken')}})
     .then( res => {
 
       callback(res);

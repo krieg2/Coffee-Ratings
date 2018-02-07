@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
 import { Grid, Col, Row, Panel, FormControl,
          FormGroup, Checkbox, ControlLabel, 
-         Button, ButtonGroup, Glyphicon } from 'react-bootstrap';
+         Button, ButtonGroup, Glyphicon,
+         Jumbotron, Image, ListGroup, ListGroupItem } from 'react-bootstrap';
 import API from '../utils/API';
 
 class Login extends Component {
 
   state = {
-    reviewText: "",
+    item: {},
+    comment: "",
     rating: 0,
     hover: [false, false, false, false, false]
   };
+
+  componentWillMount(){
+
+    this.setState({
+      item: this.props.location.state.item
+    });
+  }
 
   toggleHover = (index) => {
 
@@ -56,6 +65,31 @@ class Login extends Component {
   handleSubmit = (event) => {
 
     event.preventDefault();
+
+    let reviewObj = {
+      rating: this.state.rating,
+      comment: this.state.comment,
+      postedBy: API.getUserId()
+    };
+    API.addReview(this.state.item._id, reviewObj, (response) => {
+
+    //   let data = [];
+    //   let error = "";
+    //   if(response.data.message){
+    //     error = response.data.message;
+    //   } else if(response.data.items){
+    //     data = response.data.items;
+    //   } else {
+    //     error = "No results found.";
+    //   }
+    //   // Wait at least 1s and display the animated spinner.
+    //   setTimeout(() => this.setState({
+    //     results: data,
+    //     searching: false,
+    //     error: error
+    //   }), 1000);
+    });
+
   };
 
   render() {
@@ -63,19 +97,28 @@ class Login extends Component {
     return(
       <Grid fluid>
         <Row>
-          <Col xs={12} sm={5} md={5} className="centerCol">
+        <Jumbotron>
+          <h1>{this.state.item.brand}</h1>
+          <h2>{this.state.item.title}</h2>
+          <p>{this.state.item.description}</p>
+        </Jumbotron>
+        </Row>
+        <Row>
+          <Col xs={12} sm={4} md={4} className="topAndBottom">
+            <Image src={this.state.item.image} responsive />
+          </Col>
+          <Col xs={12} sm={5} md={5} className="topAndBottom">
             <form>
               <FormGroup>
-                <ControlLabel>Coffee 1 review</ControlLabel>
-                <p>Rate this coffee based on:
-                <ul>
-                  <li>Aroma</li>
-                  <li>Taste</li>
-                  <li>Finish</li>
-                  <li>Body</li>
-                  <li>Acidity</li>
-                </ul>
-                </p>
+                <ControlLabel>Star rating:</ControlLabel>
+                <p>Tell us what you think! Rate this coffee by giving it 1-5 stars and your comments. Here are some aspects to consider:</p>
+                <ListGroup style={{width: "100px"}}>
+                  <ListGroupItem bsStyle="info"><i class="fa fa-circle"></i>  Aroma</ListGroupItem>
+                  <ListGroupItem bsStyle="info"><i class="fa fa-circle"></i>  Taste</ListGroupItem>
+                  <ListGroupItem bsStyle="info"><i class="fa fa-circle"></i>  Finish</ListGroupItem>
+                  <ListGroupItem bsStyle="info"><i class="fa fa-circle"></i>  Body</ListGroupItem>
+                  <ListGroupItem bsStyle="info"><i class="fa fa-circle"></i>  Acidity</ListGroupItem>
+                </ListGroup>
                 <ButtonGroup bsSize="large" name="rating">
                   <Button onClick={() => this.handleChange({target: {name: 'rating', value: 1}})}
                           onMouseEnter={() => this.toggleHover(0)}
@@ -108,10 +151,10 @@ class Login extends Component {
                   style={{marginTop: "10px"}}
                   componentClass="textarea"
                   type="text"
-                  name="reviewText"
+                  name="comment"
                   placeholder="Enter text"
                   onChange={this.handleChange}
-                  value={this.state.searchText}
+                  value={this.state.comment}
                 />
               </FormGroup>
               <Button onClick={this.handleSubmit} bsStyle="primary" type="submit">Post Review</Button>
