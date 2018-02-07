@@ -154,15 +154,25 @@ module.exports = app => {
 
   app.post("/api/product", verifyToken, (req, res) => {
 
-    db.Product.create(req.body)
-    .then( (product) => {
-      res.status(200).send({ message: "Added." });
-    })
-    .catch( (err) => {
-      console.log("error: "+err);
-      res.status(401).send({ message: "Error." });
+    db.Product.find().
+    where("upc").equals(req.body.upc)
+    .then( (products) => {
+
+      if(products.length > 0){
+
+        res.status(401).send({ message: "Product already exists." });
+      } else {
+
+        db.Product.create(req.body)
+        .then( (product) => {
+          res.status(200).send({ message: "Added." });
+        })
+        .catch( (err) => {
+          console.log("error: "+err);
+          res.status(401).send({ message: "Error." });
+        });
+      }
     });
-  
   });
 
   app.get("/api/product", (req, res) => {

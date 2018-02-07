@@ -72,3 +72,7 @@
   text-align: center;
 }
 
+.addButton {
+  position: relative;
+  left: 45%;
+}
