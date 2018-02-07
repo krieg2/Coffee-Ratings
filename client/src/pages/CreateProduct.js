@@ -69,7 +69,7 @@ class CreateProduct extends Component {
   render() {
 
     return(
-      <Grid fluid>
+      <Grid fluid style={{marginBottom: "200px"}}>
         <Row>
           <Col xs={12} sm={4} md={4} className="productCol">
             <form>

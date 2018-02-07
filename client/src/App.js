@@ -65,9 +65,10 @@ class App extends Component {
   render() {
 
     return (
-      <Router>
-        <div>
-          <Navbar staticTop>
+      <div style={{margin: "0"}}>
+        <Router>
+          <div className="wrap">
+            <Navbar staticTop>
             <Navbar.Toggle />
             <Navbar.Collapse>
               <Nav bsStyle="tabs" role="tablist" activeKey={this.state.selected}
@@ -92,35 +93,30 @@ class App extends Component {
                 </NavItem>
               </Nav>
             </Navbar.Collapse>
-          </Navbar>
+            </Navbar>
 
-          <Route exact path="/" component={Home} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={Signup} />
-          <Route exact path="/reviews" component={Reviews} />
-          <Route exact path="/cafelocator" component={CafeLocator} />
-          <PrivateRoute exact path="/rate" component={Rate} />
-          <PrivateRoute exact path="/createproduct" component={CreateProduct} />
-          <PrivateRoute exact path="/profile" component={Profile} />        
-        
- 
+            <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Signup} />
+            <Route exact path="/reviews" component={Reviews} />
+            <Route exact path="/cafelocator" component={CafeLocator} />
+            <PrivateRoute exact path="/rate" component={Rate} />
+            <PrivateRoute exact path="/createproduct" component={CreateProduct} />
+            <PrivateRoute exact path="/profile" component={Profile} />
+          </div>
+        </Router>
 
         <footer className="page-footer blue center-on-small-only">
-      <div className="footer-copyright">
-      <a href="https://www.facebook.com/coffee.app.58"><i className="fa fa-facebook" style={{fontSize:'40px',padding:'40px'}}></i></a>
-      <a href="https://twitter.com/app_coffee"><i className="fa fa-twitter" style={{fontSize:'40px',padding:'40px'}}></i></a>
-      <a href="https://plus.google.com/115860816639015232861"><i className="fa fa-google-plus" style={{fontSize:'40px',padding:'40px'}}></i></a>
-      <a href="https://www.instagram.com/coffeeratingapp/"><i className="fa fa-instagram" style={{fontSize:'40px',padding:'40px'}}></i></a>
-      <a href="https://www.pinterest.com/coffeeapp/"><i className="fa fa-pinterest" style={{fontSize:'40px',padding:'40px'}} ></i></a>
-                <div className="container-fluid" style={{color: "#ebd69c"}}>
-            
- 
-                    © 2018 Copyright COFFEE RATING APP
-                </div>
-            </div>
-          </footer>
-         </div>
-        </Router>
+          <div className="footer-copyright">
+            <a href="https://www.facebook.com/coffee.app.58"><i className="fa fa-facebook" style={{fontSize:'40px',padding:'40px'}}></i></a>
+            <a href="https://twitter.com/app_coffee"><i className="fa fa-twitter" style={{fontSize:'40px',padding:'40px'}}></i></a>
+            <a href="https://plus.google.com/115860816639015232861"><i className="fa fa-google-plus" style={{fontSize:'40px',padding:'40px'}}></i></a>
+            <a href="https://www.instagram.com/coffeeratingapp/"><i className="fa fa-instagram" style={{fontSize:'40px',padding:'40px'}}></i></a>
+            <a href="https://www.pinterest.com/coffeeapp/"><i className="fa fa-pinterest" style={{fontSize:'40px',padding:'40px'}} ></i></a>
+            <div className="container-fluid" style={{color: "#ebd69c", margin: "0"}}>© 2018 Copyright COFFEE RATING APP</div>
+          </div>
+        </footer>
+      </div>
 
     );
   }

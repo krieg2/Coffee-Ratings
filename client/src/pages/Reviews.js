@@ -32,7 +32,7 @@ class Login extends Component {
   render() {
 
     return(
-      <Grid fluid>
+      <Grid fluid style={{minHeight: "100%"}}>
         <Row>
           <Col xs={12} sm={3} md={3}>
             <Link to="/createproduct">Add a Product</Link>
@@ -61,7 +61,7 @@ class Login extends Component {
     		    </Panel>
           </Col>
 
-          <Col xs={12} sm={9} md={9} style={{marginTop: "20px"}}>
+          <Col xs={12} sm={9} md={9} style={{marginTop: "20px", marginBottom: "40px"}}>
             <Row>
               {this.state.results.map( (item, index) => {
                 return (<Col xs={4} sm={4} md={4}>
