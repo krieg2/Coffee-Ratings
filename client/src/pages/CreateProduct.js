@@ -96,7 +96,7 @@ class CreateProduct extends Component {
         <Row>
           {(this.state.error !== '') ?
             <Col xs={10} sm={3} md={3} className="productCol">
-              <Alert bsStyle="danger" style={{overflow: "scroll"}}>
+              <Alert bsStyle="danger">
                 {this.state.error}
               </Alert>
             </Col>

@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Col, Row, Panel, FormControl,
          FormGroup, Checkbox, 
-         Image, ControlLabel } from 'react-bootstrap';
+         Image, ControlLabel, Well } from 'react-bootstrap';
 import API from '../utils/API';
+import { getStars } from '../utils/Helper';
 
 class Login extends Component {
 
@@ -71,15 +72,18 @@ class Login extends Component {
             <Row>
               {this.state.results.map( (item, index) => {
                 return (<Col xs={4} sm={4} md={4}>
-                  <Panel className="product">
-                  <Panel.Heading style={{backgroundColor: "#dd8047"}}>{item.brand}</Panel.Heading>
-                  <Panel.Body style={{padding: "40px"}}>
-                    <Image src={item.image} responsive />
-                    <h3>{item.title}</h3>
-                    <p>{item.description}</p>
-                    <Link to={{pathname: "/rate", state: {item: item}}}><i class="fa fa-thumbs-up"></i>Rate It</Link>
-                  </Panel.Body>
-                </Panel>
+
+                    <Link to={{pathname: "/product", state: {item: item}}}>
+                      <Panel className="product">
+                      <Panel.Heading style={{backgroundColor: "#dd8047"}}><b>{item.brand}</b></Panel.Heading>
+                      <Panel.Body style={{padding: "40px"}}>
+                        <p>{getStars(item.avgRating)}</p>
+                        <Image src={item.image} responsive />
+                        <h3>{item.title}</h3>
+                        <p>{item.description}</p>
+                      </Panel.Body>
+                      </Panel>
+                    </Link>
                 </Col>);
               })}
             </Row>
@@ -88,5 +92,6 @@ class Login extends Component {
       </Grid>);
   }
 }
+// <Link to={{pathname: "/rate", state: {item: item}}}><i class="fa fa-thumbs-up"></i>Rate It</Link>
 
 export default Login;

@@ -19,14 +19,39 @@
 }
 
 .productCol {
+  position: relative;
   margin: 0 auto;
   float: none;
   margin-top: 5%;
 }
 
 .product {
+  position: relative;
+  display: inline-block;
   width: 256px;
   margin: 0 auto;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.15);
+  transition: all 0.2s ease-in-out;
+}
+
+.product::after {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  box-shadow: 20px 20px 15px rgba(0,0,0,0.3);
+  transition: opacity 0.2s ease-in-out;
+}
+
+.product:hover {
+  transform: scale(1.05, 1.05);
+}
+
+.product:hover::after {
+  opacity: 1;
+}
+
+.product > a {
+  text-decoration: none;
 }
 
 #jumbo {
@@ -75,7 +100,19 @@
   margin-top: 40px;
   margin-bottom: 40px;
 }
+
 .addButton {
-  position: relative;
-  left: 45%;
+  float: right;
+  margin: 5px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.backButton {
+  float: right;
+  margin: 15px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
 }

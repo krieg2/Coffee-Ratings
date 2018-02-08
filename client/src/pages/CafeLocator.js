@@ -50,8 +50,6 @@ class CafeLocator extends Component {
     });
   }
 
-
-
 render(){
 console.log(this.state);
   return(

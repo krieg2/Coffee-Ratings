@@ -38,7 +38,7 @@ export default {
       this.setToken(res.data.token);
       callback(res);
     })
-    .catch( (err) => {
+    .catch( err => {
       callback(err.response);
     });
   },
@@ -51,7 +51,7 @@ export default {
       this.setToken(res.data.token);
       callback(res);
      })
-     .catch( (err) => {
+     .catch( err => {
        callback(err.response);
      });
   },
@@ -64,7 +64,7 @@ export default {
       this.setToken(res.data.token);
       callback(res);
      })
-     .catch( (err) => {
+     .catch( err => {
        callback(err.response);
      });
   },
@@ -91,7 +91,7 @@ export default {
 
       callback(res);
     })
-    .catch( (err) => {
+    .catch( err => {
       callback(err.response);
     });
   },
@@ -102,7 +102,7 @@ export default {
 
       callback(res);
     })
-    .catch( (err) => {
+    .catch( err => {
       callback(err.response);
     });
   },
@@ -113,7 +113,18 @@ export default {
 
       callback(res);
     })
-    .catch( (err) => {
+    .catch( err => {
+      callback(err.response);
+    });
+  },
+  getReviews: function(id, callback){
+
+    axios.get('/api/reviews/'+id)
+    .then( res => {
+
+      callback(res);
+    })
+    .catch( err => {
       callback(err.response);
     });
   },
@@ -124,7 +135,7 @@ export default {
 
       callback(res);
     })
-    .catch( (err) => {
+    .catch( err => {
       callback(err.response);
     });
   }
