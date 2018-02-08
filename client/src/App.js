@@ -10,7 +10,8 @@ import Profile from './pages/Profile';
 import Product from './pages/Product';
 import CafeLocator from './pages/CafeLocator'
 import CreateProduct from './pages/CreateProduct'
-import { Navbar, Nav, Button, NavItem } from 'react-bootstrap';
+import { Navbar, Nav, Button, NavItem,
+         DropdownButton, MenuItem } from 'react-bootstrap';
 import API from './utils/API';
 import './App.css';
 import './pages/styles.css';
@@ -30,20 +31,26 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 
 const AuthButton = withRouter(({ history }) => (
   API.isAuthenticated() ? (
-      <div>
-        <span>Welcome {API.getName()}!  </span>
-        <Button bsSize="xsmall" onClick={ () => {
-          API.logout( () => history.push('/'))
-        }}>Log out</Button>
-      </div>
+    <div>
+      <DropdownButton title="" pullRight>
+        <MenuItem eventKey="1" style={{textAlign: "center"}}>
+           <Link to="/profile"><i class="fa fa-user-plus" aria-hidden="true"></i>  Profile</Link>
+        </MenuItem>
+        <MenuItem eventKey="1" style={{textAlign: "center"}}>
+          <div onClick={ () => {
+            API.logout( () => history.push('/'))
+          }}><i class="fa fa-power-off" aria-hidden="true"></i>  Log out</div>
+        </MenuItem>
+      </DropdownButton>
+    </div>
   ) : (
     <Link to="/login"><Button>Log In</Button></Link>
   )
 ));
 
-const ProfileButton = withRouter(({ history }) => (
+const SignupButton = withRouter(({ history }) => (
   API.isAuthenticated() ? (
-    <Link to="/profile"><Button>Profile</Button></Link>
+    <span>Welcome {API.getName()}!</span>
   ) : (
     <Link to="/signup"><Button>Sign Up</Button></Link>
   )
@@ -87,7 +94,7 @@ class App extends Component {
               <Nav bsStyle="tabs" role="tablist" pullRight
                    onSelect={key => this.handleSelect(key)}>
                 <NavItem eventKey={4}>
-                  <ProfileButton />
+                  <SignupButton />
                 </NavItem>
                 <NavItem eventKey={5}>
                   <AuthButton />
