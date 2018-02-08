@@ -4,89 +4,80 @@ import GoogleMapReact from 'google-map-react';
 import { Link } from 'react-router-dom';
 import { Grid, Col, Row, Panel, FormControl,
          FormGroup, Checkbox, ControlLabel } from 'react-bootstrap';
+import ReactMapboxGl, { Layer, Feature, Marker } from "react-mapbox-gl";
 
-// const AnyReactComponent = ({ text }) => <div>{ text }</div>;
+const Map = ReactMapboxGl({
+  accessToken: "pk.eyJ1IjoicnVkY2tzOTEiLCJhIjoiY2o4ZHE1YXZtMHQ2NDJ4bW8xbGJzYmZrOCJ9.kGjczis6tYLYQLDnoRt_dg"
+});
+const zoom = [15];
 
-// class CafeLocator extends Component {
-
-//   static defaultProps = {
-//     center: { lat: 40.7446790, lng: -73.9485420 },
-//     zoom: 10
-//   };
-
-//   render() {
-
-//     let mapStyle = {
-//       margin: "50px",
-//       width: "300px",
-//       height: "300px"
-//     };
-
-//     return (
-//      <div className='google-map' style={mapStyle}>
-//      <GoogleMapReact defaultCenter={ this.props.center } defaultZoom={ this.props.zoom }>
-//        <AnyReactComponent lat={40.7446790} lng={-73.9485420} text={'Where\'s Waldo?'} />
-//      </GoogleMapReact>
-//      </div>
-//     )
-//   }
-// }
+var foursquare = require('react-foursquare')({
+  clientID: 'PYQYDOOXJSWESNJ23KFI4G3IQCA1JLEMQKU01AVZD0UCNEHK',
+  clientSecret: '5BLH0XBPXJ1OODQ3RXXZLXJEN3NZON5014SRLLP2DV0W1GCH'
+});
 
 
-import mapboxgl from 'mapbox-gl'
 
-mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA';
 
-class CafeLocator extends React.Component {
+class CafeLocator extends Component {
 
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      lng: 5,
-      lat: 34,
-      zoom: 1.5
-    };
-  }
+
+  constructor(props) {
+     super(props);
+     this.state = {
+       items: [],
+       latitude: 0,
+       longitude:0
+     };
+   }
 
   componentDidMount() {
-    const { lng, lat, zoom } = this.state;
-
-    const map = new mapboxgl.Map({
-      container: this.mapContainer,
-      style: 'mapbox://styles/mapbox/streets-v9',
-      center: [lng, lat],
-      zoom
-    });
-
-    map.on('move', () => {
-      const { lng, lat } = map.getCenter();
+    navigator.geolocation.getCurrentPosition((position)=>{
+      var params = {
+        "ll": position.coords.latitude +","+ position.coords.longitude,
+        "query": 'Cafe'
+      };
 
       this.setState({
-        lng: lng.toFixed(4),
-        lat: lat.toFixed(4),
-        zoom: map.getZoom().toFixed(2)
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      })
+
+      foursquare.venues.getVenues(params)
+      .then(res=> {
+        this.setState({ items: res.response.venues });
       });
     });
   }
 
-  render() {
-    const { lng, lat, zoom } = this.state;
 
-        let mapStyle = {
-      margin: "50px",
-      width: "300px",
-      height: "300px"
-    };
 
-    return (
-      <div>
-        <div className="mapboxmap" style={mapStyle}>
-          <div>{`Longitude: ${lng} Latitude: ${lat} Zoom: ${zoom}`}</div>
-        </div>
-        <div ref={el => this.mapContainer = el} className="" />
-      </div>
+render(){
+console.log(this.state);
+  return(
+    <div>
+          <Map
+        style="mapbox://styles/mapbox/streets-v8"
+        zoom={zoom}
+        containerStyle={{
+          margin: "50px",
+          height: "500px",
+          width: "500px"
+        }}
+        center={[this.state.longitude, this.state.latitude]}>
+          <Layer
+            type="symbol"
+            id="marker"
+            layout={{ "icon-image": "marker-15" }}>
+            <Feature coordinates={[this.state.longitude, this.state.latitude]}/>
+          </Layer>
+      </Map>
+
+    </div>
+
     );
-  }
+}
+
 }
 
 export default CafeLocator;
