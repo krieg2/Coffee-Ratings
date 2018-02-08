@@ -80,7 +80,7 @@ class CafeLocator extends React.Component {
 
     return (
       <div>
-        <div className="mapboxmap" style={mapStyle}>
+        <div className="mapboxmap" >
           <div>{`Longitude: ${lng} Latitude: ${lat} Zoom: ${zoom}`}</div>
         </div>
         <div ref={el => this.mapContainer = el} className="" />

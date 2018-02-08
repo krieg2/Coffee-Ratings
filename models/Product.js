@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const ProductSchema = new Schema({
   avgRating: {
     type: Number,
+    default: 0,
     required: false
   },
   description: {

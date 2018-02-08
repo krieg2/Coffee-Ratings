@@ -189,20 +189,40 @@ module.exports = app => {
   
   });
 
+  app.get("/api/reviews/:id", (req, res) => {
+
+    db.Product.findById(req.params.id)
+    .populate("reviews")
+    .then( (product) => {
+
+      res.json(product.reviews);
+    })
+    .catch( (err) => {
+      console.log("error: "+err);
+      res.status(401).send({ message: "Error." });
+    });
+  
+  });
+
   app.post("/api/review/:id", verifyToken, (req, res) => {
 
     db.Product.findById(req.params.id)
-    .then( (products) => {
+    .then( (product) => {
 
-      if(products){
+      if(product){
+
+        let avgRating = product.avgRating;
+
+        let newRating = avgRating + ((req.body.rating - avgRating) /
+                                     (product.reviews.length + 1)).toFixed(2);;
 
         db.Review.create(req.body)
         .then( (review) => {
           return db.Product.findByIdAndUpdate(req.params.id,
-                { $push: {reviews: review._id } }, { new: true });
+                { $push: {reviews: review._id }, $set: {avgRating: newRating} }, { new: true });
         })
         .then( (posted) => {
-          res.status(200).send({ message: "Added." });
+          res.status(200).send({ message: "Posted!" });
         })
         .catch( (err) => {
           console.log("error: "+err);
