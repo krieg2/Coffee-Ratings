@@ -174,12 +174,26 @@ module.exports = app => {
     });
   });
 
-  app.get("/api/product", (req, res) => {
+  app.get("/api/products", (req, res) => {
 
     db.Product.find()
     .then( (products) => {
 
       res.json(products);
+    })
+    .catch( (err) => {
+      console.log("error: "+err);
+      res.status(401).send({ messageText: "Error." });
+    });
+  
+  });
+
+  app.get("/api/product/:id", (req, res) => {
+
+    db.Product.findById(req.params.id)
+    .then( (product) => {
+
+      res.json(product);
     })
     .catch( (err) => {
       console.log("error: "+err);

@@ -20,17 +20,27 @@ class Product extends Component {
   componentWillMount(){
 
     let id = this.props.location.state.item._id;
-
     this.setState({
       item: this.props.location.state.item
     });
 
-    API.getReviews(id, (res) => {
+    API.getProduct(id, (product) => {
 
-      if(typeof(res.data) === 'object' &&
-        res.data.length > 0){
+      if(product.data){
 
-        this.setState({reviews: res.data});
+        this.setState({
+          item: product.data
+        });
+        API.getReviews(id, (reviews) => {
+
+          if(typeof(reviews.data) === 'object' &&
+            reviews.data.length > 0){
+
+            this.setState({
+              reviews: reviews.data
+            });
+          }
+        });
       }
     });
   }
