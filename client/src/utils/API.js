@@ -108,7 +108,18 @@ export default {
   },
   getProducts: function(callback){
 
-    axios.get('/api/product/')
+    axios.get('/api/products/')
+    .then( res => {
+
+      callback(res);
+    })
+    .catch( err => {
+      callback(err.response);
+    });
+  },
+  getProduct: function(id, callback){
+
+    axios.get('/api/product/'+id)
     .then( res => {
 
       callback(res);
