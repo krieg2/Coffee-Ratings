@@ -12,7 +12,7 @@ class Login extends Component {
     comment: "",
     rating: 0,
     hover: [false, false, false, false, false],
-    message: ""
+    messageText: ""
   };
 
   componentWillMount(){
@@ -74,10 +74,10 @@ class Login extends Component {
     };
     API.addReview(this.state.item._id, reviewObj, (response) => {
 
-      if(response.data.message){
+      if(response.data.messageText){
 
         this.setState({
-          message: response.data.message
+          messageText: response.data.messageText
         });
       }
 
@@ -103,7 +103,7 @@ class Login extends Component {
             </Col>
 
             <Col xs={12} sm={5} md={5} className="topAndBottom">
-              {this.state.message === "" ?
+              {this.state.messageText === "" ?
               <form>
                 <FormGroup>
                   <ControlLabel>Star rating:</ControlLabel>
@@ -157,7 +157,7 @@ class Login extends Component {
                 </form>
                 :
                 <Alert bsStyle="info">
-                  {this.state.message}
+                  {this.state.messageText}
                 </Alert>
               }
             </Col>

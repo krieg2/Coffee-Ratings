@@ -1,1 +1,85 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name="theme-color" content="#000000"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"><link rel="manifest" href="/manifest.json"><link rel="shortcut icon" href="/favicon.ico"><title>React Coffee App</title><script>var map,jjk="";function initMap(){map=new google.maps.Map(document.getElementById("map"),{center:{lat:-34.397,lng:150.644},zoom:8})}</script><script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbqAjR919-_SEZ1ZiZ3xWafWNJE73i2Z0" async defer="defer"></script><link href="/static/css/main.758ede93.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div><script type="text/javascript" src="/static/js/main.b1377817.js"></script></body></html>
+Html Webpack Plugin:
+<pre>
+  Error: Parse Error: <meta name="theme-color" content="#000000"<meta charset="UTF-8">
+      <meta name="description" content="Coffee Rating App">
+      <meta name="keywords" content="coffee,coffee shops,coffee shops near me,espresso,mocha,cappucci  no,coffee near me,green coffee,roast,coffee bean,coffee maker">
+      <meta name="author" content="Kyung Kim, Aaron Kriegler, Jim Kelly ">
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-113478793-1"></script>
+      <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-113478793-1');
+      </script>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.c  ss">
+      <!--
+        manifest.json provides metadata used when your web app is added to the
+        homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/w  eb-app-manifest/
+      -->
+      <link rel="manifest" href="/manifest.json">
+      <link rel="shortcut icon" href="/favicon.ico">
+      <!--
+        Notice the use of  in the tags above.
+        It will be replaced with the URL of the `public` folder during the build.
+        Only files inside the `public` folder can be referenced from the HTML.
+        Unlike "/favicon.ico" or "favicon.ico", "/favicon.ico" will
+        work correctly both with client-side routing and a non-root public URL.
+        Learn how to configure a non-root public URL by running `npm run build`.
+      -->
+      <title>React Coffee App</title>
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="s  tylesheet"/>
+    <link href="/static/css/main.37590eb9.css" rel="stylesheet"></head>
+    <body>
+      <noscript>
+        You need to enable JavaScript to run this app.
+      </noscript>
+      <div id="root"></div>
+      <!--
+        This HTML file is a template.
+        If you open it directly in the browser, you will see an empty page.
+        You can add webfonts, meta tags, or analytics to this file.
+        The build step will place the bundled scripts into the <body> tag.
+        To begin the development, run `npm start` or `yarn start`.
+        To create a production bundle, use `npm run build` or `yarn build`.
+      -->
+    <script type="text/javascript" src="/static/js/main.5d2dfbd3.js"></script></body>
+  </html>
+  
+  - htmlparser.js:235 new HTMLParser
+    [client]/[html-minifier]/src/htmlparser.js:235:13
+  
+  - htmlminifier.js:944 minify
+    [client]/[html-minifier]/src/htmlminifier.js:944:3
+  
+  - htmlminifier.js:1297 exports.minify
+    [client]/[html-minifier]/src/htmlminifier.js:1297:10
+  
+  - index.js:296 
+    [client]/[html-webpack-plugin]/index.js:296:16
+  
+  - util.js:16 tryCatcher
+    [client]/[bluebird]/js/release/util.js:16:23
+  
+  - promise.js:512 Promise._settlePromiseFromHandler
+    [client]/[bluebird]/js/release/promise.js:512:31
+  
+  - promise.js:569 Promise._settlePromise
+    [client]/[bluebird]/js/release/promise.js:569:18
+  
+  - promise.js:614 Promise._settlePromise0
+    [client]/[bluebird]/js/release/promise.js:614:10
+  
+  - promise.js:693 Promise._settlePromises
+    [client]/[bluebird]/js/release/promise.js:693:18
+  
+  - async.js:133 Async._drainQueue
+    [client]/[bluebird]/js/release/async.js:133:16
+  
+  - async.js:143 Async._drainQueues
+    [client]/[bluebird]/js/release/async.js:143:10
+  
+  - async.js:17 Immediate.Async.drainQueues
+    [client]/[bluebird]/js/release/async.js:17:14
+  
+</pre>

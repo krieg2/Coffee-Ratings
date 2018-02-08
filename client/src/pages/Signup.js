@@ -34,9 +34,9 @@ class Signup extends Component {
     },
       (res) => {
 
-        if(res.data.message){
+        if(res.data.messageText){
           //This is an error.
-          this.setState({ error: res.data.message });
+          this.setState({ error: res.data.messageText });
         } else{
           this.setState({ redirectToReferrer: true });
         }
