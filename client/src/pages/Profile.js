@@ -16,7 +16,7 @@ class Profile extends Component {
       firstName: user.firstName,
       lastName: user.lastName,
       location: user.location,
-      message: "",
+      messageText: "",
       messageType: ""
     };
   }
@@ -38,11 +38,13 @@ class Profile extends Component {
     },
       (res) => {
 
-        if(res.data.message){
-          //This is an error.
-          this.setState({ message: res.data.message });
-        } else{
-          //this.setState({ redirectToReferrer: true });
+        if(res.data.messageText){
+          //Capture the response message.
+          let messageType = (res.status < 400) ? "success" : "danger";
+          this.setState({
+            messageText: res.data.messageText,
+            messageType: messageType,
+          });
         }
     });
   };
@@ -90,9 +92,9 @@ class Profile extends Component {
                 <Button bsStyle="default" type="submit">Submit</Button>
                 </form>
 
-                {(this.state.message !== '') ?
+                {(this.state.messageText !== '') ?
                   <Alert bsStyle={this.state.messageType} style={{marginTop: "25px"}}>
-                    {this.state.message}
+                    {this.state.messageText}
                   </Alert>
                 :
                   null

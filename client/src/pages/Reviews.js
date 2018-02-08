@@ -71,7 +71,7 @@ class Login extends Component {
           <Col xs={12} sm={9} md={9} style={{marginTop: "20px", marginBottom: "40px"}}>
             <Row>
               {this.state.results.map( (item, index) => {
-                return (<Col xs={4} sm={4} md={4}>
+                return (<Col xs={4} sm={4} md={4} style={{marginBottom: "20px"}}>
 
                     <Link to={{pathname: "/product", state: {item: item}}}>
                       <Panel className="product">
@@ -92,6 +92,5 @@ class Login extends Component {
       </Grid>);
   }
 }
-// <Link to={{pathname: "/rate", state: {item: item}}}><i class="fa fa-thumbs-up"></i>Rate It</Link>
 
 export default Login;

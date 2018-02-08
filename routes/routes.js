@@ -26,11 +26,11 @@ module.exports = app => {
     .then( (user) => {
 
       if(!user){
-        res.status(401).send({ message: "User not found." });
+        res.status(401).send({ messageText: "User not found." });
       } else if(user){
 
         if(!bcrypt.compareSync(req.body.password, user.password)){
-          res.status(401).send({ message: "Password is incorrect." });
+          res.status(401).send({ messageText: "Password is incorrect." });
         } else{
           jwt.sign({
             _id: user._id,
@@ -41,7 +41,7 @@ module.exports = app => {
           }, process.env.SECRET_KEY, (err, token) => {
             if(err){
               console.log("error: "+err);
-              res.status(401).send({ message: "Authentication error." });
+              res.status(401).send({ messageText: "Authentication error." });
             } else{
               res.json({ token: token });
             }
@@ -51,7 +51,7 @@ module.exports = app => {
     })
     .catch( (err) => {
       console.log("error: "+err);
-      res.status(401).send({ message: "Error." });
+      res.status(401).send({ messageText: "Error." });
     });
   
   });
@@ -62,7 +62,7 @@ module.exports = app => {
     .then( (user) => {
     
       if(user){
-        res.status(401).json({ message: "User already exists." });
+        res.status(401).json({ messageText: "User already exists." });
       } else if(!user){
 
         let newUser = req.body;
@@ -76,21 +76,21 @@ module.exports = app => {
             _id: result._id,
             firstName: result.firstName,
             lastName: result.lastName,
-            email: user.email,
-            location: user.location
+            email: result.email,
+            location: result.location
           }, process.env.SECRET_KEY, (err, token) => {
             res.json({ token: token });
           });
         })
         .catch( (err) => {
           console.log("error: "+err);
-          res.status(401).send({ message: err });  
+          res.status(401).send({ messageText: err });  
         });
       }
     })
     .catch( (err) => {
       console.log("error: "+err);
-      res.status(401).json({ message: "Error." });
+      res.status(401).json({ messageText: "Error." });
     });
   });
 
@@ -100,10 +100,9 @@ module.exports = app => {
     .then( (user) => {
 
       if(!user){
-        res.status(401).send({ message: "User not found." });
+        res.status(401).send({ messageText: "User not found." });
       } else if(user){
 
-        
           jwt.sign({
             _id: user._id,
             firstName: user.firstName,
@@ -113,9 +112,9 @@ module.exports = app => {
           }, process.env.SECRET_KEY, (err, token) => {
             if(err){
               console.log("error: "+err);
-              res.status(401).send({ message: "Authentication error." });
+              res.status(401).send({ messageText: "Authentication error." });
             } else{
-              res.json({ token: token });
+              res.json({ token: token, messageText: "Saved." });
             }
           });
 
@@ -123,7 +122,7 @@ module.exports = app => {
     })
     .catch( (err) => {
       console.log("error: "+err);
-      res.status(401).send({ message: "Error." });
+      res.status(401).send({ messageText: "Error." });
     });
   
   });
@@ -138,13 +137,13 @@ module.exports = app => {
 
       if(error){
         console.log(error);
-        res.status(500).send({ message: "Error." });
+        res.status(500).send({ messageText: "Error." });
       } else{
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         if(body === ""){
           console.log("Response missing.");
-          res.status(404).send({ message: "Response missing." });
+          res.status(404).send({ messageText: "Response missing." });
         } else{
           res.send(JSON.parse(body));
         }
@@ -160,16 +159,16 @@ module.exports = app => {
 
       if(products.length > 0){
 
-        res.status(401).send({ message: "Product already exists." });
+        res.status(401).send({ messageText: "Product already exists." });
       } else {
 
         db.Product.create(req.body)
         .then( (product) => {
-          res.status(200).send({ message: "Added." });
+          res.status(200).send({ messageText: "Added." });
         })
         .catch( (err) => {
           console.log("error: "+err);
-          res.status(401).send({ message: "Error." });
+          res.status(401).send({ messageText: "Error." });
         });
       }
     });
@@ -184,7 +183,7 @@ module.exports = app => {
     })
     .catch( (err) => {
       console.log("error: "+err);
-      res.status(401).send({ message: "Error." });
+      res.status(401).send({ messageText: "Error." });
     });
   
   });
@@ -199,7 +198,7 @@ module.exports = app => {
     })
     .catch( (err) => {
       console.log("error: "+err);
-      res.status(401).send({ message: "Error." });
+      res.status(401).send({ messageText: "Error." });
     });
   
   });
@@ -213,8 +212,8 @@ module.exports = app => {
 
         let avgRating = product.avgRating;
 
-        let newRating = avgRating + ((req.body.rating - avgRating) /
-                                     (product.reviews.length + 1)).toFixed(2);;
+        let newRating = parseFloat(avgRating + ((req.body.rating - avgRating) /
+                                     (product.reviews.length + 1))).toFixed(2);
 
         db.Review.create(req.body)
         .then( (review) => {
@@ -222,14 +221,14 @@ module.exports = app => {
                 { $push: {reviews: review._id }, $set: {avgRating: newRating} }, { new: true });
         })
         .then( (posted) => {
-          res.status(200).send({ message: "Posted!" });
+          res.status(200).send({ messageText: "Posted!" });
         })
         .catch( (err) => {
           console.log("error: "+err);
-          res.status(401).send({ message: "Error." });
+          res.status(401).send({ messageText: "Error." });
         });
       } else{
-        res.status(401).send({ message: "Product not found." });
+        res.status(401).send({ messageText: "Product not found." });
       }
     });
   });

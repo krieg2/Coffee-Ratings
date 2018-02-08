@@ -11,7 +11,8 @@ class CreateProduct extends Component {
     upc: "",
     searching: false,
     results: [],
-    error: ""
+    messageText: "",
+    messageType: ""
   };
 
   handleChange = (event) => {
@@ -28,25 +29,30 @@ class CreateProduct extends Component {
 
     this.setState({
       searching: true,
-      error: ""
+      messageText: "",
+      messageType: ""
     });
 
     API.searchUPC(this.state.upc, (response) => {
-      //console.log(response.data.items);
+
       let data = [];
-      let error = "";
-      if(response.data.message){
-        error = response.data.message;
+      let message = "";
+      let messageType = "info";
+      if(response.data.messageText){
+        message = response.data.messageText;
+        messageType = (response.status < 400) ? "success" : "danger";
       } else if(response.data.items){
         data = response.data.items;
       } else {
-        error = "No results found.";
+        message = "No results found.";
+        messageType = "danger";
       }
       // Wait at least 1s and display the animated spinner.
       setTimeout(() => this.setState({
         results: data,
         searching: false,
-        error: error
+        messageText: message,
+        messageType: messageType
       }), 1000);
     });
   };
@@ -63,8 +69,12 @@ class CreateProduct extends Component {
 
     API.addProduct(newProduct, (response) => {
 
-      if(response.data.message){
-        this.setState({error: response.data.message});
+      if(response.data.messageText){
+        let messageType = (response.status < 400) ? "success" : "danger";
+        this.setState({
+          messageText: response.data.messageText,
+          messageType: messageType
+        });
       }
     });
   };
@@ -94,10 +104,10 @@ class CreateProduct extends Component {
         </Row>
 
         <Row>
-          {(this.state.error !== '') ?
+          {(this.state.messageText !== '') ?
             <Col xs={10} sm={3} md={3} className="productCol">
-              <Alert bsStyle="danger">
-                {this.state.error}
+              <Alert bsStyle={this.state.messageType}>
+                {this.state.messageText}
               </Alert>
             </Col>
           :
