@@ -11,10 +11,10 @@ const Map = ReactMapboxGl({
 });
 const zoom = [15];
 
-var foursquare = require('react-foursquare')({
-  clientID: 'PYQYDOOXJSWESNJ23KFI4G3IQCA1JLEMQKU01AVZD0UCNEHK',
-  clientSecret: '5BLH0XBPXJ1OODQ3RXXZLXJEN3NZON5014SRLLP2DV0W1GCH'
-});
+// var foursquare = require('react-foursquare')({
+//   clientID: 'PYQYDOOXJSWESNJ23KFI4G3IQCA1JLEMQKU01AVZD0UCNEHK',
+//   clientSecret: '5BLH0XBPXJ1OODQ3RXXZLXJEN3NZON5014SRLLP2DV0W1GCH'
+// });
 
 
 
@@ -43,10 +43,10 @@ class CafeLocator extends Component {
         longitude: position.coords.longitude
       })
 
-      foursquare.venues.getVenues(params)
-      .then(res=> {
-        this.setState({ items: res.response.venues });
-      });
+      // foursquare.venues.getVenues(params)
+      // .then(res=> {
+      //   this.setState({ items: res.response.venues });
+      // });
     });
   }
 
