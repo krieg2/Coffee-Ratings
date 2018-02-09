@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import { Grid, Col, Row, Panel, 
          FormGroup, Button, Alert,
          ControlLabel, FormControl } from 'react-bootstrap';

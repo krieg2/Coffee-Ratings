@@ -121,3 +121,14 @@
   text-decoration: none;
   color: #333;
 }
+
+.landing {
+  opacity: 1;
+  transform: translateY(0px);
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 5.55);
+}
+
+.animated-landing {
+  opacity: 0;
+  transform: translateY(30px);
+}

@@ -16,8 +16,14 @@ class Banner extends Component {
   };
 
   componentDidMount() {
-     window.onscroll = () => this.handleScroll()
-   }
+
+    window.addEventListener("scroll", this.handleScroll);
+  }
+
+  componentWillUnmount() {
+
+    window.removeEventListener("scroll", this.handleScroll);
+  }
 
   render() {
 

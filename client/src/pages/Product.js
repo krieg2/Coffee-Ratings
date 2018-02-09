@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Col, Row, Panel, FormControl,
-         FormGroup, Checkbox, ControlLabel, 
-         Button, ButtonGroup, Glyphicon, Well,
-         Jumbotron, Image, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Grid, Row, Button,
+         Well, Jumbotron } from 'react-bootstrap';
 import API from '../utils/API';
 import { getStars } from '../utils/Helper';
 
