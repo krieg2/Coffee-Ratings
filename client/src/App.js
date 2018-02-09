@@ -32,14 +32,14 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 const AuthButton = withRouter(({ history }) => (
   API.isAuthenticated() ? (
     <div>
-      <DropdownButton title="" pullRight>
+      <DropdownButton title="" pullRight id="menu">
         <MenuItem eventKey="1" style={{textAlign: "center"}}>
-           <Link to="/profile"><i class="fa fa-user-plus" aria-hidden="true"></i>  Profile</Link>
+           <Link to="/profile"><i className="fa fa-user-plus" aria-hidden="true"></i>  Profile</Link>
         </MenuItem>
         <MenuItem eventKey="1" style={{textAlign: "center"}}>
           <div onClick={ () => {
             API.logout( () => history.push('/'))
-          }}><i class="fa fa-power-off" aria-hidden="true"></i>  Log out</div>
+          }}><i className="fa fa-power-off" aria-hidden="true"></i>  Log out</div>
         </MenuItem>
       </DropdownButton>
     </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Grid, Col, Row, Panel, FormControl,
-         FormGroup, Checkbox, ControlLabel, 
+import { Grid, Col, Row, FormControl,
+         FormGroup, ControlLabel, 
          Button, ButtonGroup, Glyphicon, Alert,
          Jumbotron, Image, ListGroup, ListGroupItem } from 'react-bootstrap';
 import API from '../utils/API';

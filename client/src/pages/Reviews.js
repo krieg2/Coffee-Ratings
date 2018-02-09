@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Col, Row, Panel, FormControl,
+import { Grid, Col, Row, Panel,
          FormGroup, Checkbox, 
-         Image, ControlLabel, Well } from 'react-bootstrap';
+         Image, ControlLabel } from 'react-bootstrap';
 import API from '../utils/API';
 import { getStars } from '../utils/Helper';
 
