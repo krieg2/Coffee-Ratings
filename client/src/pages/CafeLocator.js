@@ -71,19 +71,9 @@ console.log("where am i?")
             layout={{ "icon-image": "marker-15" }}>
             <Feature coordinates={[this.state.longitude, this.state.latitude]}/>
           </Layer>
+      </Map>
+    </div>
 
-        </Map>
-      </Col>
-      <Col sm={6} md={6} lg={6} className="lowerTop">
-        {this.state.items.map( (item, index) => {
-          return (
-            <Well key={index}>
-              {item.name}
-            </Well>
-          );
-        })}
-      </Col>
-    </Row>
 
     );
 }
