@@ -7,6 +7,7 @@ import { Grid, Col, Row, Panel, FormControl,
          Well } from 'react-bootstrap';
 import ReactMapboxGl, { Layer, Feature, Marker } from "react-mapbox-gl";
 import request from 'react-foursquare';
+import markerUrl from '../mapbox-icon.png';
 
 const Map = ReactMapboxGl({
   accessToken: "pk.eyJ1IjoicnVkY2tzOTEiLCJhIjoiY2o4ZHE1YXZtMHQ2NDJ4bW8xbGJzYmZrOCJ9.kGjczis6tYLYQLDnoRt_dg"
@@ -71,7 +72,15 @@ console.log("where am i?")
             layout={{ "icon-image": "marker-15" }}>
             <Feature coordinates={[this.state.longitude, this.state.latitude]}/>
           </Layer>
-
+          {this.state.items.map( (item, index) => {
+            return (
+              <Marker
+                coordinates={[item.location.lng, item.location.lat]}
+                anchor="bottom">
+                <img src={markerUrl}/>
+              </Marker>
+            );
+          })}
         </Map>
       </Col>
       <Col sm={6} md={6} lg={6} className="lowerTop">
