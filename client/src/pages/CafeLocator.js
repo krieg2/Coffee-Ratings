@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import GoogleMapReact from 'google-map-react';
 import { Link } from 'react-router-dom';
 import { Grid, Col, Row, Panel, FormControl,
-         FormGroup, Checkbox, ControlLabel } from 'react-bootstrap';
+         FormGroup, Checkbox, ControlLabel,
+         Well } from 'react-bootstrap';
 import ReactMapboxGl, { Layer, Feature, Marker } from "react-mapbox-gl";
 import request from 'react-foursquare';
 
@@ -16,9 +17,6 @@ var foursquare = require('react-foursquare')({
   clientID: 'PYQYDOOXJSWESNJ23KFI4G3IQCA1JLEMQKU01AVZD0UCNEHK',
   clientSecret: '5BLH0XBPXJ1OODQ3RXXZLXJEN3NZON5014SRLLP2DV0W1GCH'
 });
-
-
-
 
 class CafeLocator extends Component {
 
@@ -55,16 +53,18 @@ render(){
 console.log(this.state);
 console.log("where am i?")
   return(
-    <div>
-          <Map
-        style="mapbox://styles/mapbox/streets-v8"
-        zoom={zoom}
-        containerStyle={{
-          margin: "50px",
-          height: "500px",
-          width: "500px"
-        }}
-        center={[this.state.longitude, this.state.latitude]}>
+    <Row>
+      <Col sm={6} md={6} lg={6}>
+        <Map
+          style="mapbox://styles/mapbox/streets-v8"
+          zoom={zoom}
+          containerStyle={{
+            margin: "50px",
+            height: "500px",
+            width: "500px"
+          }}
+          center={[this.state.longitude, this.state.latitude]}>
+
           <Layer
             type="symbol"
             id="marker"
@@ -72,8 +72,8 @@ console.log("where am i?")
             <Feature coordinates={[this.state.longitude, this.state.latitude]}/>
           </Layer>
       </Map>
-
     </div>
+
 
     );
 }
