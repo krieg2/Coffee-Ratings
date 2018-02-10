@@ -5,16 +5,17 @@ import { Link } from 'react-router-dom';
 import { Grid, Col, Row, Panel, FormControl,
          FormGroup, Checkbox, ControlLabel } from 'react-bootstrap';
 import ReactMapboxGl, { Layer, Feature, Marker } from "react-mapbox-gl";
+import request from 'react-foursquare';
 
 const Map = ReactMapboxGl({
   accessToken: "pk.eyJ1IjoicnVkY2tzOTEiLCJhIjoiY2o4ZHE1YXZtMHQ2NDJ4bW8xbGJzYmZrOCJ9.kGjczis6tYLYQLDnoRt_dg"
 });
 const zoom = [13];
 
-// var foursquare = require('react-foursquare')({
-//   clientID: 'PYQYDOOXJSWESNJ23KFI4G3IQCA1JLEMQKU01AVZD0UCNEHK',
-//   clientSecret: '5BLH0XBPXJ1OODQ3RXXZLXJEN3NZON5014SRLLP2DV0W1GCH'
-// });
+var foursquare = require('react-foursquare')({
+  clientID: 'PYQYDOOXJSWESNJ23KFI4G3IQCA1JLEMQKU01AVZD0UCNEHK',
+  clientSecret: '5BLH0XBPXJ1OODQ3RXXZLXJEN3NZON5014SRLLP2DV0W1GCH'
+});
 
 
 
@@ -43,15 +44,16 @@ class CafeLocator extends Component {
         longitude: position.coords.longitude
       })
 
-      // foursquare.venues.getVenues(params)
-      // .then(res=> {
-      //   this.setState({ items: res.response.venues });
-      // });
+      foursquare.venues.getVenues(params)
+      .then(res=> {
+        this.setState({ items: res.response.venues });
+      });
     });
   }
 
 render(){
 console.log(this.state);
+console.log("where am i?")
   return(
     <div>
           <Map
@@ -69,6 +71,7 @@ console.log(this.state);
             layout={{ "icon-image": "marker-15" }}>
             <Feature coordinates={[this.state.longitude, this.state.latitude]}/>
           </Layer>
+
       </Map>
 
     </div>

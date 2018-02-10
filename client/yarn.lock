@@ -5613,9 +5613,9 @@ react-error-overlay@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-4.0.0.tgz#d198408a85b4070937a98667f500c832f86bd5d4"
 
-react-foursquare@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/react-foursquare/-/react-foursquare-1.0.3.tgz#6ddcdc0eb2942f75dbc03a73262c52ee917a0cf8"
+react-foursquare@rudcks91/react-foursquare:
+  version "1.0.2"
+  resolved "https://codeload.github.com/rudcks91/react-foursquare/tar.gz/56d3fa3c3b1161c26ecd1b1ec877219265a2dc76"
 
 react-overlays@^0.8.0:
   version "0.8.3"
