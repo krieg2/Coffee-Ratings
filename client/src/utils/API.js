@@ -9,7 +9,8 @@ const initialState = {
     firstName: '',
     lastName: '',
     email: '',
-    location: ''
+    location: '',
+    photoUrl: ''
   }
 };
 

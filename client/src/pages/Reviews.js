@@ -4,7 +4,7 @@ import { Grid, Col, Row, Panel,
          FormGroup, Checkbox, 
          Image, ControlLabel } from 'react-bootstrap';
 import API from '../utils/API';
-import { getStars } from '../utils/Helper';
+import Stars from '../components/Stars';
 
 class Login extends Component {
 
@@ -77,7 +77,7 @@ class Login extends Component {
                       <Panel className="product">
                       <Panel.Heading style={{backgroundColor: "#dd8047"}}><b>{item.brand}</b></Panel.Heading>
                       <Panel.Body style={{padding: "40px"}}>
-                        <p>{getStars(item.avgRating)}</p>
+                        <p><Stars rating={item.avgRating} /></p>
                         <Image src={item.image} responsive />
                         <h3>{item.title}</h3>
                         <p>{item.description}</p>
