@@ -9,7 +9,7 @@ import ReactMapboxGl, { Layer, Feature, Marker } from "react-mapbox-gl";
 const Map = ReactMapboxGl({
   accessToken: "pk.eyJ1IjoicnVkY2tzOTEiLCJhIjoiY2o4ZHE1YXZtMHQ2NDJ4bW8xbGJzYmZrOCJ9.kGjczis6tYLYQLDnoRt_dg"
 });
-const zoom = [15];
+const zoom = [13];
 
 // var foursquare = require('react-foursquare')({
 //   clientID: 'PYQYDOOXJSWESNJ23KFI4G3IQCA1JLEMQKU01AVZD0UCNEHK',
@@ -26,8 +26,8 @@ class CafeLocator extends Component {
      super(props);
      this.state = {
        items: [],
-       latitude: 0,
-       longitude:0
+       latitude: 40.7513171,
+       longitude:-73.994459
      };
    }
 
