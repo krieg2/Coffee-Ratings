@@ -32,7 +32,7 @@ class Home extends Component {
             </Col>
             <Col sm={4} style={{padding: "20px"}}>
               <Landing title="Order" fontAwesome="fa fa-truck"
-                       description={"Purchase cofee online and have it shipped to your door."}
+                       description={"Purchase coffee online and have it shipped to your door."}
                        offset={3} />
             </Col>
           </Row>

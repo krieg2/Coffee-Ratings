@@ -5,13 +5,13 @@ import hands from '../hands.png';
 class Banner extends Component {
 
   state = {
-    scrollNum: 0
+    scrollPosition: 0
   };
 
   handleScroll = () => { 
 
     this.setState({
-      scrollNum: document.documentElement.scrollTop
+      scrollPosition: document.documentElement.scrollTop
     });
   };
 
@@ -63,7 +63,7 @@ class Banner extends Component {
               fontSize: '24px',
               fontWeight: '400',
               textShadow: '0px -1px 8px white,0px 1px 8px white,0px -2px 12px black,0px 2px 12px black',
-              transform: `translate(0px, ${this.state.scrollNum/1.5}%)`
+              transform: `translateY(${this.state.scrollPosition/1.5}%)`
             }}>
               <p>Read and post reviews of your favorite coffee beans and local coffee shops. Sign up for free today and start drinking better coffee!</p>
             </div>

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Grid, Col, Row, Panel, 
-         FormGroup, Button, Alert,
+import { Grid, Col, Row, Panel, Image,
+         FormGroup, Button, Alert, Clearfix,
          ControlLabel, FormControl } from 'react-bootstrap';
 import API from '../utils/API';
+import Filestack from '../components/Filestack.js';
 
 class Profile extends Component {
 
@@ -15,12 +16,58 @@ class Profile extends Component {
       firstName: user.firstName,
       lastName: user.lastName,
       location: user.location,
+      photoUrl: (user.photoUrl) ? user.photoUrl : 'http://via.placeholder.com/200x200',
       messageText: "",
       messageType: ""
     };
   }
 
+  handlePhotoUpload = (url) => {
+
+    this.setState({
+      photoUrl: url
+    });
+
+    API.updateUser(this.state.id, {
+      photoUrl: this.state.photoUrl
+    },
+      (res) => {
+
+        if(res.data.messageText){
+          //Capture the response message.
+          let messageType = (res.status < 400) ? "success" : "danger";
+          this.setState({
+            messageText: res.data.messageText,
+            messageType: messageType,
+          });
+        }
+    });
+  };
+
+  removePhoto = () => {
+
+    this.setState({
+      photoUrl: 'http://via.placeholder.com/200x200'
+    });
+
+    API.updateUser(this.state.id, {
+      photoUrl: ''
+    },
+      (res) => {
+
+        if(res.data.messageText){
+          //Capture the response message.
+          let messageType = (res.status < 400) ? "success" : "danger";
+          this.setState({
+            messageText: res.data.messageText,
+            messageType: messageType,
+          });
+        }
+    });
+  };
+
   handleChange = (event) => {
+
     this.setState({
       [event.target.name]: event.target.value
     });
@@ -33,7 +80,8 @@ class Profile extends Component {
     API.updateUser(this.state.id, {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
-      location: this.state.location
+      location: this.state.location,
+      photoUrl: this.state.photoUrl
     },
       (res) => {
 
@@ -55,46 +103,60 @@ class Profile extends Component {
         <Row>
           <Col xs={8} sm={6} md={5} className="centerCol lowerTop">
             <Panel style={{boxShadow: "10px 10px 20px"}}>
-              <Panel.Heading style={{backgroundColor: "#dd8047"}}>Profile</Panel.Heading>
+              <Panel.Heading style={{backgroundColor: "#dd8047"}}>
+              <h3 style={{textAlign: "center"}}>Profile</h3>
+              </Panel.Heading>
               <Panel.Body style={{padding: "40px"}}>
 
-                <form onSubmit={this.handleSubmit}>
-                <FormGroup controlId="loginForm">
-                  <ControlLabel>First name:</ControlLabel>
-                  <FormControl
-                    componentClass="input"
-                    type="text"
-                    name="firstName"
-                    placeholder="Enter first name"
-                    value={this.state.firstName}
-                    onChange={this.handleChange}
-                  />
-                  <ControlLabel style={{marginTop: "10px"}}>Last name:</ControlLabel>
-                  <FormControl
-                    componentClass="input"
-                    type="text"
-                    name="lastName"
-                    placeholder="Enter last name"
-                    value={this.state.lastName}
-                    onChange={this.handleChange}
-                  />
-                  <ControlLabel style={{marginTop: "10px"}}>Location:</ControlLabel>
-                  <FormControl
-                    componentClass="input"
-                    type="text"
-                    name="location"
-                    placeholder="Enter location"
-                    value={this.state.location}
-                    onChange={this.handleChange}
-                  />
-                </FormGroup>
-                <Button bsStyle="default" type="submit">Submit</Button>
-                </form>
-
+                <Row style={{marginBottom: "15px"}}>
+                  <Col md={6}>
+                    <Image src={this.state.photoUrl} className="profilePhoto" />
+                  </Col>
+                  <Col md={6}>
+                    <Filestack callback={this.handlePhotoUpload} />
+                    <Button onClick={this.removePhoto}>Remove Photo</Button>
+                  </Col>
+                </Row>
+                <Row>
+                  <form onSubmit={this.handleSubmit}>
+                  <FormGroup controlId="loginForm">
+                    <ControlLabel>First name:</ControlLabel>
+                    <FormControl
+                      componentClass="input"
+                      type="text"
+                      name="firstName"
+                      placeholder="Enter first name"
+                      value={this.state.firstName}
+                      onChange={this.handleChange}
+                    />
+                    <ControlLabel style={{marginTop: "10px"}}>Last name:</ControlLabel>
+                    <FormControl
+                      componentClass="input"
+                      type="text"
+                      name="lastName"
+                      placeholder="Enter last name"
+                      value={this.state.lastName}
+                      onChange={this.handleChange}
+                    />
+                    <ControlLabel style={{marginTop: "10px"}}>Location:</ControlLabel>
+                    <FormControl
+                      componentClass="input"
+                      type="text"
+                      name="location"
+                      placeholder="Enter location"
+                      value={this.state.location}
+                      onChange={this.handleChange}
+                    />
+                  </FormGroup>
+                  <Button bsStyle="default" type="submit">Submit</Button>
+                  </form>
+                </Row>
                 {(this.state.messageText !== '') ?
-                  <Alert bsStyle={this.state.messageType} style={{marginTop: "25px"}}>
-                    {this.state.messageText}
-                  </Alert>
+                  <Row>
+                    <Alert bsStyle={this.state.messageType} style={{marginTop: "25px"}}>
+                      {this.state.messageText}
+                    </Alert>
+                  </Row>
                 :
                   null
                 }

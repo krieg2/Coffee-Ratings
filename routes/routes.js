@@ -37,7 +37,8 @@ module.exports = app => {
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,
-            location: user.location
+            location: user.location,
+            photoUrl: user.photoUrl
           }, process.env.SECRET_KEY, (err, token) => {
             if(err){
               console.log("error: "+err);
@@ -77,7 +78,8 @@ module.exports = app => {
             firstName: result.firstName,
             lastName: result.lastName,
             email: result.email,
-            location: result.location
+            location: result.location,
+            photoUrl: user.photoUrl
           }, process.env.SECRET_KEY, (err, token) => {
             res.json({ token: token });
           });
@@ -108,7 +110,8 @@ module.exports = app => {
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,
-            location: user.location
+            location: user.location,
+            photoUrl: user.photoUrl
           }, process.env.SECRET_KEY, (err, token) => {
             if(err){
               console.log("error: "+err);
@@ -204,8 +207,10 @@ module.exports = app => {
 
   app.get("/api/reviews/:id", (req, res) => {
 
+    let fields = "firstName lastName location photoUrl";
     db.Product.findById(req.params.id)
-    .populate("reviews")
+    .populate({path: "reviews",     
+               populate: {path: "postedBy", select: fields}})
     .then( (product) => {
 
       res.json(product.reviews);

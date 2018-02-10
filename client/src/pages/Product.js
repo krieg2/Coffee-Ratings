@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Row, Button,
-         Well, Jumbotron } from 'react-bootstrap';
+import { Grid, Row, Col, Button,
+         Well, Jumbotron, Image } from 'react-bootstrap';
 import API from '../utils/API';
-import { getStars } from '../utils/Helper';
+import Stars from '../components/Stars';
 
 class Product extends Component {
 
@@ -30,7 +30,7 @@ class Product extends Component {
           item: product.data
         });
         API.getReviews(id, (reviews) => {
-
+//console.log(reviews);
           if(typeof(reviews.data) === 'object' &&
             reviews.data.length > 0){
 
@@ -54,15 +54,30 @@ class Product extends Component {
           <h2>{this.state.item.title}</h2>
           <p>{this.state.item.description}</p>
           <p>Average Rating: <span>{this.state.item.avgRating}</span></p>
-          <p>{getStars(this.state.item.avgRating)}</p>
+          <p><Stars rating={this.state.item.avgRating} /></p>
           <Link to={{pathname: "/rate", state: {item: this.state.item}}}><i className="fa fa-thumbs-up"></i>Rate It</Link>
         </Jumbotron>
         </Row>
-        {this.state.reviews.map( (review, index) => {
-        return (<Row key={index}>
-          <Well>{review.rating} {getStars(review.rating)} {review.comment}</Well>
-        </Row>);
-        })}
+        <Row>
+          <Col xs={12} sm={4} md={4} className="topAndBottom">
+            <Image src={this.state.item.image} responsive />
+          </Col>
+          <Col xs={12} sm={5} md={5} className="topAndBottom">
+            {this.state.reviews.map( (review, index) => {
+              return (
+                <Row key={index}>
+                  <Well>
+                    <div >
+                      <Image style={{width: "50px", height: "50px"}} src={review.postedBy.photoUrl} />
+                    </div>
+                    {review.postedBy.firstName} {review.postedBy.lastName} {review.rating}
+                    <Stars rating={review.rating} />
+                    {review.comment}
+                  </Well>
+                </Row>);
+            })}
+          </Col>
+        </Row>
       </Grid>);
   }
 }
