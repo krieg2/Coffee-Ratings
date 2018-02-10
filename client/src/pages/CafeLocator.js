@@ -31,6 +31,7 @@ class CafeLocator extends Component {
    }
 
   componentDidMount() {
+
     navigator.geolocation.getCurrentPosition((position)=>{
       var params = {
         "ll": position.coords.latitude +","+ position.coords.longitude,
