@@ -78,8 +78,7 @@ module.exports = app => {
             firstName: result.firstName,
             lastName: result.lastName,
             email: result.email,
-            location: result.location,
-            photoUrl: user.photoUrl
+            location: result.location
           }, process.env.SECRET_KEY, (err, token) => {
             res.json({ token: token });
           });

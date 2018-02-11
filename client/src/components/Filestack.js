@@ -25,16 +25,16 @@ class Filestack extends Component {
     };
 
     return(
-        <div style={{margin: "20px"}}>
-		<ReactFilestack
-		  apikey={"A7egOJAeHQfyA0UeMv5xHz"}
-		  buttonText="Add photo"
+      <div style={{margin: "10px 0 10px 0"}}>
+		    <ReactFilestack
+		      apikey={"A7egOJAeHQfyA0UeMv5xHz"}
+		      buttonText="Add photo"
           options={options}
-		  buttonClass="btn btn-default"
-		  onSuccess={this.onSuccess}
+		      buttonClass="btn btn-default"
+		      onSuccess={this.onSuccess}
           onError={this.onError}
-		/>
-        </div>);
+		    />
+      </div>);
     }
 }
 

@@ -8,6 +8,7 @@
 .centerCol {
   margin: 0 auto;
   float: none;
+  min-width: 300px;
 }
 
 .headings {

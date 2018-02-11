@@ -101,14 +101,13 @@ class Profile extends Component {
     return(
       <Grid fluid className="loginPage">
         <Row>
-          <Col xs={8} sm={6} md={5} className="centerCol lowerTop">
+          <Col xs={10} sm={8} md={6} className="centerCol lowerTop">
             <Panel style={{boxShadow: "10px 10px 20px"}}>
               <Panel.Heading style={{backgroundColor: "#dd8047"}}>
-              <h3 style={{textAlign: "center"}}>Profile</h3>
+                <h3 style={{textAlign: "center"}}>Profile</h3>
               </Panel.Heading>
-              <Panel.Body style={{padding: "40px"}}>
-
-                <Row style={{marginBottom: "15px"}}>
+              <Panel.Body>
+                <Row style={{padding: "10px"}}>
                   <Col md={6}>
                     <Image src={this.state.photoUrl} className="profilePhoto" />
                   </Col>
@@ -117,7 +116,7 @@ class Profile extends Component {
                     <Button onClick={this.removePhoto}>Remove Photo</Button>
                   </Col>
                 </Row>
-                <Row>
+                <Row style={{padding: "20px"}}>
                   <form onSubmit={this.handleSubmit}>
                   <FormGroup controlId="loginForm">
                     <ControlLabel>First name:</ControlLabel>
