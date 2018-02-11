@@ -1,29 +1,25 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const ProductSchema = new Schema({
+const CafeSchema = new Schema({
   avgRating: {
     type: Number,
     default: 0,
     required: false
   },
-  description: {
+  externalId: {
     type: String,
     required: false
   },
-  title: {
-    type: String,
-    required: true
-  },
-  brand: {
-    type: String,
-    required: true
-  },
-  image: {
+  url: {
     type: String,
     required: false
   },
-  upc: {
+  name: {
+    type: String,
+    required: true
+  },
+  address: {
     type: String,
     required: false
   },
@@ -40,7 +36,7 @@ const ProductSchema = new Schema({
 });
 
 // Creates the model from the above schema.
-const Product = mongoose.model("Product", ProductSchema);
+const Cafe = mongoose.model("Cafe", ProductSchema);
 
 // Export the model.
-module.exports = Product;
+module.exports = Cafe;

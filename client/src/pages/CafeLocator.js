@@ -75,6 +75,7 @@ console.log("where am i?")
           {this.state.items.map( (item, index) => {
             return (
               <Marker
+                key={index}
                 coordinates={[item.location.lng, item.location.lat]}
                 anchor="bottom">
                 <img src={markerUrl}/>
@@ -86,9 +87,11 @@ console.log("where am i?")
       <Col sm={6} md={6} lg={6} className="lowerTop">
         {this.state.items.map( (item, index) => {
           return (
-            <Well key={index}>
-              {item.name}
-            </Well>
+            <Link key={index} to={{pathname: "/cafe", state: {cafe: item}}}>
+              <Well>
+                {item.name}
+              </Well>
+            </Link>
           );
         })}
       </Col>

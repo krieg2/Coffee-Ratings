@@ -8,6 +8,7 @@ import Reviews from './pages/Reviews';
 import Rate from './pages/Rate';
 import Profile from './pages/Profile';
 import Product from './pages/Product';
+import Cafe from './pages/Cafe';
 import CafeLocator from './pages/CafeLocator'
 import CreateProduct from './pages/CreateProduct'
 import { Navbar, Nav, Button, NavItem,
@@ -133,6 +134,7 @@ class App extends Component {
             <Route exact path="/reviews" component={Reviews} />
             <Route exact path="/cafelocator" component={CafeLocator} />
             <Route exact path="/product" component={Product} />
+            <Route exact path="/cafe" component={Cafe} />
             <PrivateRoute exact path="/rate" component={Rate} />
             <PrivateRoute exact path="/createproduct" component={CreateProduct} />
             <PrivateRoute exact path="/profile" component={Profile} />
