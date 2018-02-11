@@ -24,7 +24,7 @@ class SearchProduct extends Component {
   };
 
   callback = (response) => {
-console.log(response);
+
     let data = [];
     let message = "";
     let messageType = "info";
@@ -89,50 +89,60 @@ console.log(response);
 
     return(
       <div>
-        <form>
-          <FormGroup>
-            {(this.props.searchType === 'upc') ?
-              <ControlLabel>Search a UPC code.</ControlLabel>
-            :
-              <ControlLabel>Search by product name.</ControlLabel>
-            }
-            <FormControl
-              style={{marginTop: "10px"}}
-              componentClass="input"
-              type="text"
-              name="searchText"
-              placeholder="Enter text"
-              onChange={this.handleChange}
-              value={this.state.searchText}
-            />
-          </FormGroup>
-          <Button onClick={this.handleSubmit} bsStyle="default" type="submit">Search</Button>
-        </form>
-        <br></br>
+
+        <Row>
+          <form style={{margin: "10px"}}>
+            <FormGroup>
+              {(this.props.searchType === 'upc') ?
+                <ControlLabel>Search a UPC code.</ControlLabel>
+              :
+                <ControlLabel>Search by product name.</ControlLabel>
+              }
+              <FormControl
+                componentClass="input"
+                type="text"
+                name="searchText"
+                placeholder="Enter text"
+                onChange={this.handleChange}
+                value={this.state.searchText}
+              />
+            </FormGroup>
+            <Button onClick={this.handleSubmit} bsStyle="default" type="submit">Search</Button>
+          </form>
+        </Row>
         {(this.state.messageText !== '') ?
-          <Alert bsStyle={this.state.messageType}>
-            {this.state.messageText}
-          </Alert>
+          <Row style={{textAlign: "center", marginBottom: "10px"}}>
+            <Alert bsStyle={this.state.messageType}>
+              {this.state.messageText}
+            </Alert>
+          </Row>
         :
           null
         }
         {(this.state.searching) ?
-          <GridLoader color="red" size="22px" margin="10px"/>
+          <Row style={{textAlign: "center"}}>
+            <div className="gridLoader">
+              <GridLoader color="red" size="22px" margin="10px"/>
+            </div>
+          </Row>
         :
           this.state.results.map( (item, index) => {
             return (
-              <Panel className="product-no-hover">
-                <Panel.Heading style={{backgroundColor: "#dd8047"}}>{item.brand}
-                  <Button bsSize="small" className="addButton" onClick={() => this.handleClick(index)}>Add</Button>
-                </Panel.Heading>
-                <Panel.Body style={{padding: "40px"}}>
-                  <span>UPC: {item.upc}</span>
-                  <Image src={item.images[0]} responsive />
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                </Panel.Body>
-              </Panel>);
+              <Row style={{textAlign: "center"}}>
+                <Panel className="product-no-hover">
+                  <Panel.Heading style={{backgroundColor: "#dd8047"}}>{item.brand}
+                    <Button bsSize="small" className="addButton" onClick={() => this.handleClick(index)}>Add</Button>
+                  </Panel.Heading>
+                  <Panel.Body style={{padding: "40px"}}>
+                    <div style={{paddingBottom: "10px"}}>UPC: {item.upc}</div>
+                    <Image src={item.images[0]} responsive />
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                  </Panel.Body>
+                </Panel>
+              </Row>);
           })}
+
       </div>);
   }
 }
