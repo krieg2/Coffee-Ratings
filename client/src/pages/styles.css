@@ -37,6 +37,19 @@
   margin-top: 5%;
 }
 
+.rotatingBean {
+  animation: rotation 1s infinite linear;
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(720deg);
+    }
+}
+
 .product {
   position: relative;
   display: inline-block;
