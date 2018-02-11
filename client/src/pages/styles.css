@@ -11,6 +11,11 @@
   min-width: 300px;
 }
 
+.center {
+  margin: 0 auto;
+  float: none;
+}
+
 .headings {
   background: #dd8047;
 }
@@ -19,8 +24,10 @@
   margin-top: 50px;
 }
 
-.borderR {
-  border-right: 2px solid #dd8047;
+.gridLoader {
+  display: inline-block;
+  float: none;
+  margin: 10px 0 10px 0;
 }
 
 .productCol {
@@ -28,6 +35,19 @@
   margin: 0 auto;
   float: none;
   margin-top: 5%;
+}
+
+.rotatingBean {
+  animation: rotation 1s infinite linear;
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(720deg);
+    }
 }
 
 .product {

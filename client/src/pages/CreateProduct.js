@@ -15,11 +15,43 @@ class CreateProduct extends Component {
     return(
       <Grid fluid style={{marginBottom: "200px"}}>
         <Row>
-          <Col xs={12} sm={4} md={4} className="lowerTop borderR">
+          <Col xs={12} sm={4} md={4} className="lowerTop">
             <SearchProduct searchType="upc" />
           </Col>
-          <Col xs={12} sm={4} md={4} className="lowerTop borderR">
+          <Col xs={12} sm={4} md={4} className="lowerTop">
             <SearchProduct searchType="name" />
+          </Col>
+          <Col xs={12} sm={4} md={4} className="lowerTop">
+            <form style={{margin: "10px"}}>
+              <FormGroup>
+                <ControlLabel>Enter a new product. (requires approval)</ControlLabel>
+                <FormControl
+                  componentClass="input"
+                  type="text"
+                  name="brand"
+                  placeholder="Enter brand"
+                  onChange={this.handleChange}
+                  value={this.state.brand}
+                />
+                <FormControl
+                  componentClass="input"
+                  type="text"
+                  name="title"
+                  placeholder="Enter title"
+                  onChange={this.handleChange}
+                  value={this.state.title}
+                />
+                <FormControl
+                  componentClass="input"
+                  type="text"
+                  name="description"
+                  placeholder="Enter description"
+                  onChange={this.handleChange}
+                  value={this.state.description}
+                />
+              </FormGroup>
+              <Button onClick={this.handleSubmit} bsStyle="default" type="submit">Search</Button>
+            </form>
           </Col>
         </Row>
       </Grid>);

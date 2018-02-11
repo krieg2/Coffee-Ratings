@@ -11,10 +11,11 @@ import Product from './pages/Product';
 import CafeLocator from './pages/CafeLocator'
 import CreateProduct from './pages/CreateProduct'
 import { Navbar, Nav, Button, NavItem,
-         DropdownButton, MenuItem } from 'react-bootstrap';
+         Image, DropdownButton, MenuItem } from 'react-bootstrap';
 import API from './utils/API';
 import './App.css';
 import './pages/styles.css';
+import beanIcon from './bean-icon.png';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={ props => (
@@ -59,7 +60,8 @@ const SignupButton = withRouter(({ history }) => (
 class App extends Component {
 
   state = {
-    selected: 1
+    selected: 1,
+    rotatingClass: ""
   };
 
   handleSelect = (selectedKey) => {
@@ -70,6 +72,20 @@ class App extends Component {
     this.setState({selected: selectedKey});
   }
 
+  startRotate = (event) => {
+
+    this.setState({
+      rotatingClass: 'rotatingBean'
+    });
+  };
+
+  stopRotate = (event) => {
+
+    this.setState({
+      rotatingClass: ''
+    });
+  };
+
   render() {
 
     return (
@@ -78,17 +94,21 @@ class App extends Component {
           <div className="wrap">
             <Navbar staticTop>
             <Navbar.Toggle />
+
             <Navbar.Collapse>
               <Nav bsStyle="tabs" role="tablist" activeKey={this.state.selected}
                    onSelect={key => this.handleSelect(key)}>
+
                 <NavItem eventKey={1}>
                   <Link to="/">Home</Link>
                 </NavItem>
-                <NavItem eventKey={2}>
-                  <Link to="/reviews">Coffee Reviews</Link>
+                <NavItem eventKey={2} onMouseEnter={this.startRotate}
+                         onMouseLeave={this.stopRotate}>
+                  <Image style={{height: "30px"}} src={beanIcon} className={this.state.rotatingClass} />
+                  <Link to="/reviews">Coffee Ratings</Link>
                 </NavItem>
                 <NavItem eventKey={3}>
-                  <Link to="/cafelocator">Shop Reviews</Link>
+                  <Link to="/cafelocator">Cafe Ratings</Link>
                 </NavItem>
               </Nav>
               <Nav bsStyle="tabs" role="tablist" pullRight
