@@ -16,6 +16,7 @@ import API from './utils/API';
 import './App.css';
 import './pages/styles.css';
 import beanIcon from './bean-icon.png';
+import coffeeCupIcon from './coffee-cup.png';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={ props => (
@@ -61,7 +62,8 @@ class App extends Component {
 
   state = {
     selected: 1,
-    rotatingClass: ""
+    rotatingBean: "",
+    rotatingCup: "",
   };
 
   handleSelect = (selectedKey) => {
@@ -72,17 +74,17 @@ class App extends Component {
     this.setState({selected: selectedKey});
   }
 
-  startRotate = (event) => {
+  startRotate = (iconClass) => {
 
     this.setState({
-      rotatingClass: 'rotatingBean'
+      [iconClass]: iconClass
     });
   };
 
-  stopRotate = (event) => {
+  stopRotate = (iconClass) => {
 
     this.setState({
-      rotatingClass: ''
+      [iconClass]: ''
     });
   };
 
@@ -102,13 +104,15 @@ class App extends Component {
                 <NavItem eventKey={1}>
                   <Link to="/">Home</Link>
                 </NavItem>
-                <NavItem eventKey={2} onMouseEnter={this.startRotate}
-                         onMouseLeave={this.stopRotate}>
-                  <Image style={{height: "30px"}} src={beanIcon} className={this.state.rotatingClass} />
-                  <Link to="/reviews">Coffee Ratings</Link>
+                <NavItem eventKey={2} onMouseEnter={() => this.startRotate('rotatingBean')}
+                         onMouseLeave={() => this.stopRotate('rotatingBean')}>
+                  <Image style={{height: "30px", position: "relative", top: "-5px"}} src={beanIcon} className={this.state.rotatingBean} />
+                  <Link to="/reviews" style={{marginLeft: "10px"}}>Coffee Ratings</Link>
                 </NavItem>
-                <NavItem eventKey={3}>
-                  <Link to="/cafelocator">Cafe Ratings</Link>
+                <NavItem eventKey={3} onMouseEnter={() => this.startRotate('rotatingCup')}
+                         onMouseLeave={() => this.stopRotate('rotatingCup')}>
+                  <Image style={{height: "30px", position: "relative", top: "-8px"}} src={coffeeCupIcon} className={this.state.rotatingCup} />
+                  <Link to="/cafelocator" style={{marginLeft: "10px"}}>Cafe Ratings</Link>
                 </NavItem>
               </Nav>
               <Nav bsStyle="tabs" role="tablist" pullRight
