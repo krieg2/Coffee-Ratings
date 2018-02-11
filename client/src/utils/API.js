@@ -96,6 +96,17 @@ export default {
       callback(err.response);
     });
   },
+  searchProductName: function(text, callback){
+
+    axios.get("/api/productsearch/"+text, {headers: {Authorization: localStorage.getItem('jwtToken')}})
+    .then( res => {
+
+      callback(res);
+    })
+    .catch( err => {
+      callback(err.response);
+    });
+  },
   addProduct: function(data, callback){
 
     axios.post('/api/product/', data, {headers: {Authorization: localStorage.getItem('jwtToken')}})

@@ -153,6 +153,30 @@ module.exports = app => {
     });
   });
 
+  app.get("/api/productsearch/:text", verifyToken, (req, res) => {
+
+    let options = {
+      url: `https://api.upcitemdb.com/prod/trial/search?s=${req.params.text}&category=coffee`
+    };
+
+    request(options, (error, response, body) => {
+
+      if(error){
+        console.log(error);
+        res.status(500).send({ messageText: "Error." });
+      } else{
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        if(body === ""){
+          console.log("Response missing.");
+          res.status(404).send({ messageText: "Response missing." });
+        } else{
+          res.send(JSON.parse(body));
+        }
+      }
+    });
+  });
+
   app.post("/api/product", verifyToken, (req, res) => {
 
     db.Product.find().

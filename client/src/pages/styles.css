@@ -16,7 +16,11 @@
 }
 
 .lowerTop {
-  margin-top: 100px;
+  margin-top: 50px;
+}
+
+.borderR {
+  border-right: 2px solid #dd8047;
 }
 
 .productCol {
@@ -33,6 +37,16 @@
   margin: 0 auto;
   box-shadow: 2px 2px 4px rgba(0,0,0,0.15);
   transition: all 0.2s ease-in-out;
+}
+
+.product-no-hover {
+  position: relative;
+  display: inline-block;
+  width: 256px;
+  margin: 0 auto;
+  float: none;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.15);
+  margin-bottom: 10px;
 }
 
 .product::after {
