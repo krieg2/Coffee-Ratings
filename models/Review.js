@@ -24,5 +24,5 @@ const ReviewSchema = new Schema({
 // Creates the model from the above schema.
 const Review = mongoose.model("Review", ReviewSchema);
 
-// Export the User model.
+// Export the model.
 module.exports = Review;
