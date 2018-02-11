@@ -80,7 +80,6 @@ class Login extends Component {
                         <p><Stars rating={item.avgRating} /></p>
                         <Image src={item.image} responsive />
                         <h3>{item.title}</h3>
-                        <p>{item.description}</p>
                       </Panel.Body>
                       </Panel>
                     </Link>
