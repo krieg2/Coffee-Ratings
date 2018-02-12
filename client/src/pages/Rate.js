@@ -8,6 +8,7 @@ import API from '../utils/API';
 class Login extends Component {
 
   state = {
+    type: "",
     item: {},
     comment: "",
     rating: 0,
@@ -18,7 +19,8 @@ class Login extends Component {
   componentWillMount(){
 
     this.setState({
-      item: this.props.location.state.item
+      item: this.props.location.state.item,
+      type: this.props.location.state.type
     });
   }
 
@@ -67,21 +69,52 @@ class Login extends Component {
 
     event.preventDefault();
 
-    let reviewObj = {
-      rating: this.state.rating,
-      comment: this.state.comment,
-      postedBy: API.getUserId()
-    };
-    API.addReview(this.state.item._id, reviewObj, (response) => {
+    if(this.state.type === 'cafe'){
 
-      if(response.data.messageText){
-
-        this.setState({
-          messageText: response.data.messageText
-        });
+      let id = '';
+      if(this.state.item.externalId){
+        id = this.state.item.externalId;
+      } else{
+        id = this.state.item.id;
       }
 
-    });
+      let reviewObj = {
+        review: {
+          rating: this.state.rating,
+          comment: this.state.comment,
+          postedBy: API.getUserId()
+        },
+        cafe: this.state.item
+      };
+   
+      API.addCafeReview(id, reviewObj, (response) => {
+
+        if(response.data.messageText){
+
+          this.setState({
+            messageText: response.data.messageText
+          });
+        }
+
+      });
+    } else{
+
+      let reviewObj = {
+        rating: this.state.rating,
+        comment: this.state.comment,
+        postedBy: API.getUserId()
+      };
+      API.addReview(this.state.item._id, reviewObj, (response) => {
+
+        if(response.data.messageText){
+
+          this.setState({
+            messageText: response.data.messageText
+          });
+        }
+
+      });
+    }
 
   };
 
@@ -92,9 +125,20 @@ class Login extends Component {
           <Row>
           <Jumbotron style={{position: 'relative'}}>
             <Button onClick={this.props.history.goBack} bsSize="small" bsStyle="default" className="backButton">Back</Button>
-            <h1>{this.state.item.brand}</h1>
-            <h2>{this.state.item.title}</h2>
-            <p>{this.state.item.description}</p>
+            
+            {(this.state.type === 'cafe') ?
+              <div>
+                <h1>{this.state.item.name}</h1>
+                <h2>{this.state.item.url}</h2>
+                <p>{this.state.item.address}</p>
+              </div>
+            :
+              <div>
+                <h1>{this.state.item.brand}</h1>
+                <h2>{this.state.item.title}</h2>
+                <p>{this.state.item.description}</p>
+              </div>
+            }
           </Jumbotron>
           </Row>
           <Row>
@@ -107,14 +151,20 @@ class Login extends Component {
               <form>
                 <FormGroup>
                   <ControlLabel>Star rating:</ControlLabel>
-                  <p>Tell us what you think! Rate this coffee by giving it 1-5 stars and your comments. Here are some aspects to consider:</p>
-                  <ListGroup style={{width: "100px"}}>
-                    <ListGroupItem bsStyle="info"><i className="fa fa-circle"></i>  Aroma</ListGroupItem>
-                    <ListGroupItem bsStyle="info"><i className="fa fa-circle"></i>  Taste</ListGroupItem>
-                    <ListGroupItem bsStyle="info"><i className="fa fa-circle"></i>  Finish</ListGroupItem>
-                    <ListGroupItem bsStyle="info"><i className="fa fa-circle"></i>  Body</ListGroupItem>
-                    <ListGroupItem bsStyle="info"><i className="fa fa-circle"></i>  Acidity</ListGroupItem>
-                  </ListGroup>
+                  {(this.state.type === 'cafe') ?
+                    null
+                  :
+                    <div>
+                      <p>Tell us what you think! Rate this coffee by giving it 1-5 stars and your comments. Here are some aspects to consider:</p>
+                      <ListGroup style={{width: "100px"}}>
+                        <ListGroupItem bsStyle="info"><i className="fa fa-circle"></i>  Aroma</ListGroupItem>
+                        <ListGroupItem bsStyle="info"><i className="fa fa-circle"></i>  Taste</ListGroupItem>
+                        <ListGroupItem bsStyle="info"><i className="fa fa-circle"></i>  Finish</ListGroupItem>
+                        <ListGroupItem bsStyle="info"><i className="fa fa-circle"></i>  Body</ListGroupItem>
+                        <ListGroupItem bsStyle="info"><i className="fa fa-circle"></i>  Acidity</ListGroupItem>
+                      </ListGroup>
+                    </div>
+                  }
                   <ButtonGroup bsSize="large" name="rating">
                     <Button onClick={() => this.handleChange({target: {name: 'rating', value: 1}})}
                             onMouseEnter={() => this.toggleHover(0)}

@@ -151,7 +151,7 @@ class Profile extends Component {
                   </form>
                 </Row>
                 {(this.state.messageText !== '') ?
-                  <Row>
+                  <Row style={{padding: "20px"}}>
                     <Alert bsStyle={this.state.messageType} style={{marginTop: "25px"}}>
                       {this.state.messageText}
                     </Alert>

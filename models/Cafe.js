@@ -36,7 +36,7 @@ const CafeSchema = new Schema({
 });
 
 // Creates the model from the above schema.
-const Cafe = mongoose.model("Cafe", ProductSchema);
+const Cafe = mongoose.model("Cafe", CafeSchema);
 
 // Export the model.
 module.exports = Cafe;

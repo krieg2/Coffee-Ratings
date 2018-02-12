@@ -140,6 +140,17 @@ export default {
       callback(err.response);
     });
   },
+  getCafeByExtId: function(extId, callback){
+
+    axios.get('/api/cafebyextid/'+extId)
+    .then( res => {
+
+      callback(res);
+    })
+    .catch( err => {
+      callback(err.response);
+    });
+  },
   getReviews: function(id, callback){
 
     axios.get('/api/reviews/'+id)
@@ -154,6 +165,17 @@ export default {
   addReview: function(id, data, callback){
 
     axios.post('/api/review/'+id, data, {headers: {Authorization: localStorage.getItem('jwtToken')}})
+    .then( res => {
+
+      callback(res);
+    })
+    .catch( err => {
+      callback(err.response);
+    });
+  },
+  addCafeReview: function(id, data, callback){
+
+    axios.post('/api/review/cafe/'+id, data, {headers: {Authorization: localStorage.getItem('jwtToken')}})
     .then( res => {
 
       callback(res);

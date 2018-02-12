@@ -9,35 +9,45 @@ class Cafe extends Component {
 
   state = {
     reviews: [],
-    cafe: {}
+    cafe: {},
+    saved: false
   };
 
   componentWillMount(){
 
-    //let id = this.props.location.state.cafe._id;
-    this.setState({
-      cafe: this.props.location.state.cafe
+    // This is the externalId from foursquare.
+    let extId = this.props.location.state.cafe.id;
+
+    API.getCafeByExtId(extId, (cafe) => {
+
+      // Find the cafe by external Id.
+      // Populate the page from our database.
+      // Else use the data from search results.
+      if(cafe !== undefined){
+
+        this.setState({
+          cafe: cafe.data,
+          saved: true
+        });
+
+        if(typeof(cafe.data.reviews) === 'object' &&
+          cafe.data.reviews.length > 0){
+
+          this.setState({
+            reviews: cafe.data.reviews
+          });
+        }
+
+      } else {
+
+        let address = this.props.location.state.cafe.location.formattedAddress.join(' ');
+        let cafeData = {
+          cafe: this.props.location.state.cafe
+        };
+        cafeData.cafe.address = address;
+        this.setState(cafeData);
+      }
     });
-
-    // API.getProduct(id, (product) => {
-
-    //   if(product.data){
-
-    //     this.setState({
-    //       cafe: product.data
-    //     });
-    //     API.getReviews(id, (reviews) => {
-
-    //       if(typeof(reviews.data) === 'object' &&
-    //         reviews.data.length > 0){
-
-    //         this.setState({
-    //           reviews: reviews.data
-    //         });
-    //       }
-    //     });
-    //   }
-    // });
   }
 
   render() {
@@ -49,10 +59,10 @@ class Cafe extends Component {
           <Button onClick={this.props.history.goBack} bsSize="small" bsStyle="default" className="backButton">Back</Button>
           <h1>{this.state.cafe.name}</h1>
           <h2>{this.state.cafe.url}</h2>
-          <p>{this.state.cafe.location.formattedAddress}</p>
+          <p>{this.state.cafe.address}</p>
           <p>Average Rating: <span>{this.state.cafe.avgRating}</span></p>
           <p><Stars rating={this.state.cafe.avgRating} /></p>
-          <Link to={{pathname: "/rate", state: {cafe: this.state.cafe}}}><i className="fa fa-thumbs-up"></i>Rate It</Link>
+          <Link to={{pathname: "/rate", state: {item: this.state.cafe, type: 'cafe'}}}><i className="fa fa-thumbs-up"></i>Rate It</Link>
         </Jumbotron>
         </Row>
         <Row>

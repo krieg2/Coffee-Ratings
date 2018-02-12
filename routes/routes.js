@@ -228,6 +228,23 @@ module.exports = app => {
   
   });
 
+  app.get("/api/cafebyextid/:extId", (req, res) => {
+
+    let fields = "firstName lastName location photoUrl";
+    db.Cafe.findOne({externalId: req.params.extId})
+    .populate({path: "reviews",     
+               populate: {path: "postedBy", select: fields}})
+    .then( (cafe) => {
+
+      res.json(cafe);
+    })
+    .catch( (err) => {
+      console.log("error: "+err);
+      res.status(401).send({ messageText: "Error." });
+    });
+  
+  });
+
   app.get("/api/reviews/:id", (req, res) => {
 
     let fields = "firstName lastName location photoUrl";
@@ -271,6 +288,61 @@ module.exports = app => {
         });
       } else{
         res.status(401).send({ messageText: "Product not found." });
+      }
+    });
+  });
+
+  app.post("/api/review/cafe/:id", verifyToken, (req, res) => {
+
+    db.Cafe.findOne({externalId: req.params.id})
+    .then( (cafe) => {
+
+      if(cafe){
+
+        let avgRating = cafe.avgRating;
+
+        let newRating = parseFloat(avgRating + ((req.body.review.rating - avgRating) /
+                                     (cafe.reviews.length + 1))).toFixed(2);
+
+        db.Review.create(req.body.review)
+        .then( (review) => {
+
+          return db.Cafe.findByIdAndUpdate(cafe._id,
+                { $push: {reviews: review._id }, $set: {avgRating: newRating} }, { new: true });
+        })
+        .then( (posted) => {
+          res.status(200).send({ messageText: "Posted!" });
+        })
+        .catch( (err) => {
+          console.log("error: "+err);
+          res.status(401).send({ messageText: "Error." });
+        });
+      } else{
+     
+        let newCafe = req.body.cafe;
+        delete newCafe.id;
+        newCafe.externalId = req.params.id;
+        db.Cafe.create(newCafe)
+        .then( (cafe) => {
+
+          db.Review.create(req.body.review)
+          .then( (review) => {
+
+            let newRating = review.rating;
+            return cafe.update({ $push: {reviews: review._id }, $set: {avgRating: newRating} }, { new: true });
+          })
+          .then( (posted) => {
+            res.status(200).send({ messageText: "Posted!" });
+          })
+          .catch( (err) => {
+            console.log("error: "+err);
+            res.status(401).send({ messageText: "Error." });
+          });
+        })
+        .catch( (err) => {
+          console.log("error: "+err);
+          res.status(401).send({ messageText: "Error." });
+        });
       }
     });
   });
