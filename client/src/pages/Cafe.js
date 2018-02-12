@@ -23,7 +23,7 @@ class Cafe extends Component {
       // Find the cafe by external Id.
       // Populate the page from our database.
       // Else use the data from search results.
-      if(cafe !== undefined){
+      if(cafe.data !== null && cafe !== undefined){
 
         this.setState({
           cafe: cafe.data,
