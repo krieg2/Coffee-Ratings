@@ -50,7 +50,7 @@ class CreateProduct extends Component {
                   value={this.state.description}
                 />
               </FormGroup>
-              <Button onClick={this.handleSubmit} bsStyle="default" type="submit">Search</Button>
+              <Button onClick={this.handleSubmit} bsStyle="default" type="submit">Submit</Button>
             </form>
           </Col>
         </Row>
