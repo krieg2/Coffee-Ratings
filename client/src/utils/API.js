@@ -129,6 +129,17 @@ export default {
       callback(err.response);
     });
   },
+  getProductsSorted: function(sortField, direction, callback){
+
+    axios.get('/api/products/sorted/'+sortField+'/'+direction)
+    .then( res => {
+
+      callback(res);
+    })
+    .catch( err => {
+      callback(err.response);
+    });
+  },
   getProduct: function(id, callback){
 
     axios.get('/api/product/'+id)

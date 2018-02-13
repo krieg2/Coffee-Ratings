@@ -39,7 +39,7 @@ const AuthButton = withRouter(({ history }) => (
         <MenuItem eventKey="1" style={{textAlign: "center"}}>
            <Link to="/profile"><i className="fa fa-user-plus" aria-hidden="true"></i>  Profile</Link>
         </MenuItem>
-        <MenuItem eventKey="1" style={{textAlign: "center"}}>
+        <MenuItem eventKey="2" style={{textAlign: "center"}}>
           <div onClick={ () => {
             API.logout( () => history.push('/'))
           }}><i className="fa fa-power-off" aria-hidden="true"></i>  Log out</div>
