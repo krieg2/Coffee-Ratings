@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactFilestack, { client } from 'filestack-react';
-const filestack = client.init('A7egOJAeHQfyA0UeMv5xHz');
+const filestack = client.init(process.env.REACT_APP_FILESTACK_KEY);
 
 class Filestack extends Component {
 
@@ -29,7 +29,7 @@ class Filestack extends Component {
     return(
       <div style={{margin: "10px 0 10px 0"}}>
 		    <ReactFilestack
-		      apikey={"A7egOJAeHQfyA0UeMv5xHz"}
+		      apikey={process.env.REACT_APP_FILESTACK_KEY}
 		      buttonText="Add photo"
           options={options}
 		      buttonClass="btn btn-default"
