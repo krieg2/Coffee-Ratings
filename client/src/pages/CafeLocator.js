@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import GoogleMapReact from 'google-map-react';
 import { Link } from 'react-router-dom';
 import { Grid, Col, Row, Panel, FormControl,
          FormGroup, Checkbox, ControlLabel,
