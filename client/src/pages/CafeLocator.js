@@ -7,7 +7,7 @@ import { Grid, Col, Row, Panel, FormControl,
          Well } from 'react-bootstrap';
 import ReactMapboxGl, { Layer, Feature, Marker } from "react-mapbox-gl";
 import request from 'react-foursquare';
-import markerUrl from '../mapbox-icon.png';
+import markerUrl from '../coffee-cup.png';
 
 const Map = ReactMapboxGl({
   accessToken: "pk.eyJ1IjoicnVkY2tzOTEiLCJhIjoiY2o4ZHE1YXZtMHQ2NDJ4bW8xbGJzYmZrOCJ9.kGjczis6tYLYQLDnoRt_dg"
@@ -36,7 +36,7 @@ class CafeLocator extends Component {
     navigator.geolocation.getCurrentPosition((position)=>{
       var params = {
         "ll": position.coords.latitude +","+ position.coords.longitude,
-        "query": 'Cafe'
+        "query": 'coffee'
       };
 
       this.setState({
@@ -51,6 +51,13 @@ class CafeLocator extends Component {
     });
   }
 
+  onMove = (event) => {
+    // if (this.state.popup) {
+    //   this.setState({ popup: undefined });
+      console.log(event)
+    }
+
+
 render(){
 console.log(this.state);
 console.log("where am i?")
@@ -60,6 +67,7 @@ console.log("where am i?")
         <Map
           style="mapbox://styles/mapbox/streets-v8"
           zoom={zoom}
+          onMove={this.onMove}
           containerStyle={{
             margin: "50px",
             height: "500px",
@@ -85,7 +93,7 @@ console.log("where am i?")
           })}
         </Map>
       </Col>
-      <Col sm={6} md={6} lg={6} className="lowerTop">
+      <Col sm={5} md={5} lg={5} className="lowerTop">
         {this.state.items.map( (item, index) => {
           return (
             <Link key={index} to={{pathname: "/cafe", state: {cafe: item}}}>
