@@ -58,7 +58,7 @@ class Cafe extends Component {
         <Jumbotron style={{position: 'relative'}}>
           <Button onClick={this.props.history.goBack} bsSize="small" bsStyle="default" className="backButton">Back</Button>
           <h1>{this.state.cafe.name}</h1>
-          <h2>{this.state.cafe.url}</h2>
+          <h2><a href={this.state.cafe.url}>{this.state.cafe.url}</a></h2>
           <p>{this.state.cafe.address}</p>
           <p>Average Rating: <span>{this.state.cafe.avgRating}</span></p>
           <p><Stars rating={this.state.cafe.avgRating} /></p>
