@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactFilestack, { client } from 'filestack-react';
+const filestack = client.init('A7egOJAeHQfyA0UeMv5xHz');
 
 class Filestack extends Component {
 
@@ -7,7 +8,8 @@ class Filestack extends Component {
 
     if(result.filesUploaded.length > 0){
       let url = result.filesUploaded[0].url;
-      this.props.callback(url);
+      let transformedUrl = filestack.transform(url, {resize: {width: 200}});
+      this.props.callback(transformedUrl);
     }
   };
 

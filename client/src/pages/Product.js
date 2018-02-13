@@ -67,7 +67,7 @@ class Product extends Component {
                     <Row>
                     <Col sm={3} style={{borderRight: "1px dotted #dd8047"}}>
                       <div>
-                        <Image style={{width: "50px", height: "50px"}} src={review.postedBy.photoUrl} />
+                        <Image style={{width: "100px", height: "auto"}} src={review.postedBy.photoUrl} />
                       </div>
                       <div>
                       {review.postedBy.firstName} {review.postedBy.lastName}
