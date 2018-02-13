@@ -74,12 +74,28 @@ class Cafe extends Component {
               return (
                 <Row key={index}>
                   <Well>
-                    <div >
-                      <Image style={{width: "50px", height: "50px"}} src={review.postedBy.photoUrl} />
-                    </div>
-                    {review.postedBy.firstName} {review.postedBy.lastName} {review.rating}
-                    <Stars rating={review.rating} />
-                    {review.comment}
+                    <Row>
+                    <Col sm={3} style={{borderRight: "1px dotted #dd8047"}}>
+                      <div>
+                        <Image style={{width: "50px", height: "50px"}} src={review.postedBy.photoUrl} />
+                      </div>
+                      <div>
+                      {review.postedBy.firstName} {review.postedBy.lastName}
+                      </div>
+                      <div>
+                      {review.postedBy.location}
+                      </div>
+                    </Col>
+                    <Col sm={8}>
+                      <div style={{marginBottom: "15px"}}>
+                        <Stars rating={review.rating} />
+                        <span>&nbsp;&nbsp;{review.rating}</span>
+                      </div>
+                      <div>
+                        {review.comment}
+                      </div>
+                    </Col>
+                    </Row>
                   </Well>
                 </Row>);
             })}
