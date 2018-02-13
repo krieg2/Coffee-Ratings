@@ -214,6 +214,21 @@ module.exports = app => {
   
   });
 
+  app.get("/api/products/sorted/:sortField/:direction", (req, res) => {
+
+    db.Product.find()
+    .sort({[req.params.sortField]: req.params.direction})
+    .then( (products) => {
+
+      res.json(products);
+    })
+    .catch( (err) => {
+      console.log("error: "+err);
+      res.status(401).send({ messageText: "Error." });
+    });
+  
+  });
+
   app.get("/api/product/:id", (req, res) => {
 
     db.Product.findById(req.params.id)

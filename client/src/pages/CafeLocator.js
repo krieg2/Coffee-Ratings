@@ -82,7 +82,7 @@ console.log(this.state);
 console.log("where am i?")
   return(
     <Row>
-      <Col sm={6} md={6} lg={6}>
+      <Col sm={6} md={6} lg={6} className="mapCol">
         <Map
           style="mapbox://styles/mapbox/streets-v8"
           zoom={zoom}

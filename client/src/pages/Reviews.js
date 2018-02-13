@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Col, Row, Panel,
          FormGroup, Checkbox, 
-         Image, ControlLabel } from 'react-bootstrap';
+         Image, ControlLabel,
+         DropdownButton, MenuItem,
+         Nav, NavItem, Button } from 'react-bootstrap';
 import API from '../utils/API';
 import Stars from '../components/Stars';
 
@@ -24,54 +26,50 @@ class Login extends Component {
      });
   }
 
-  //handleChange = (event) => {
+  sortBy = (sortField, direction = 'asc') => {
 
-    // this.setState({
-    //   [event.target.name]: event.target.value
-    // });
-  //};
+    API.getProductsSorted(sortField, direction, (res) => {
 
-  // handleSubmit = (event) => {
-
-  //   event.preventDefault();
-  // };
+       if(typeof(res.data) === 'object' &&
+          res.data.length > 0){
+         this.setState({results: res.data});
+       }
+     });
+  };
 
   render() {
 
     return(
       <Grid fluid style={{minHeight: "100%"}}>
         <Row>
-          <Col xs={12} sm={3} md={3}>
-            <Link to="/createproduct">Add a Product</Link>
-            <Panel>
-    		      <Panel.Heading style={{backgroundColor: "#dd8047"}}>Search filters</Panel.Heading>
-    		      <Panel.Body style={{padding: "20px"}}>
-    			    <form>
-    			    <FormGroup>
-    			      <ControlLabel>Roast</ControlLabel>
-    			      <Checkbox>Dark</Checkbox>
-    			      <Checkbox>Medium</Checkbox>
-    		          <Checkbox>Light</Checkbox>
-    			    </FormGroup>
-    			    <FormGroup>
-    			      <ControlLabel>Region</ControlLabel>
-    			      <Checkbox>Central America</Checkbox>
-    			      <Checkbox>South America</Checkbox>
-    		          <Checkbox>Africa</Checkbox>
-    		          <Checkbox>Indonesia</Checkbox>
-    		          <Checkbox>Inda</Checkbox>
-    		          <Checkbox>Jamaica</Checkbox>
-    		          <Checkbox>Hawaii</Checkbox>
-    			    </FormGroup>
-    			    </form>
-    		      </Panel.Body>
-    		    </Panel>
-          </Col>
+          <Col xs={12} sm={12} md={12}>
 
-          <Col xs={12} sm={9} md={9} style={{marginTop: "20px", marginBottom: "40px"}}>
+           <Nav bsStyle="pills" pullRight style={{paddingRight: "50px"}}>
+            <NavItem>
+              <Button><Link to="/createproduct">Add a Product</Link></Button>
+            </NavItem>
+            <NavItem>
+              <DropdownButton title="Sort by" id="sortby">
+                <MenuItem eventKey="1">
+                  <div onClick={() => this.sortBy('brand')}><i className="fa fa-tag"></i> Brand</div>
+                </MenuItem>
+                <MenuItem eventKey="2">
+                  <div onClick={() => this.sortBy('avgRating', 'desc')}><i className="fa fa-star"></i> Rating</div>
+                </MenuItem>
+                <MenuItem eventKey="3">
+                  <div onClick={() => this.sortBy('createdAt', 'desc')}><i className="fa fa-calendar-plus-o"></i> Date created</div>
+                </MenuItem>
+              </DropdownButton>
+            </NavItem>
+          </Nav>
+
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12} sm={9} md={9} style={{marginTop: "20px", marginBottom: "40px", paddingLeft: "50px"}}>
             <Row>
               {this.state.results.map( (item, index) => {
-                return (<Col xs={4} sm={4} md={4} style={{marginBottom: "20px"}}>
+                return (<Col xs={12} sm={6} md={4} style={{marginBottom: "20px"}}>
 
                     <Link to={{pathname: "/product", state: {item: item}}}>
                       <Panel className="product">
