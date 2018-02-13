@@ -35,7 +35,9 @@ class CafeLocator extends Component {
     navigator.geolocation.getCurrentPosition((position)=>{
       var params = {
         "ll": position.coords.latitude +","+ position.coords.longitude,
-        "query": 'coffee'
+        // "query": 'coffee',
+        "radius": 500,
+        "categoryId": "4bf58dd8d48988d1e0931735"
       };
 
       this.setState({
@@ -50,11 +52,29 @@ class CafeLocator extends Component {
     });
   }
 
-  onMove = (event) => {
-    // if (this.state.popup) {
-    //   this.setState({ popup: undefined });
-      console.log(event)
-    }
+  onDragEnd = (map) => {
+
+    let bounds = map.getBounds().getCenter();
+    this.setState({
+      latitude: bounds.lat,
+      longitude: bounds.lng
+    });
+    console.log(bounds);
+    // console.log("hahaahah ", this)
+
+      var params = {
+        "ll": bounds.lat +","+ bounds.lng,
+        "categoryId": "4bf58dd8d48988d1e0931735",
+        "radius": 500
+      };
+
+
+          foursquare.venues.getVenues(params)
+      .then(res=> {
+        this.setState({ items: res.response.venues });
+      });
+  };
+  // LngLat {lng: -74.06539197464527, lat: 40.730735369331114}
 
 
 render(){
@@ -66,7 +86,7 @@ console.log("where am i?")
         <Map
           style="mapbox://styles/mapbox/streets-v8"
           zoom={zoom}
-          onMove={this.onMove}
+          onDragEnd={this.onDragEnd}
           containerStyle={{
             margin: "50px",
             height: "500px",
