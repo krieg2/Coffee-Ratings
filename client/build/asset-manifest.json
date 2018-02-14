@@ -1,9 +1,11 @@
 {
-  "main.css": "static/css/main.e83d90db.css",
-  "main.css.map": "static/css/main.e83d90db.css.map",
-  "main.js": "static/js/main.0f50dd56.js",
-  "main.js.map": "static/js/main.0f50dd56.js.map",
+  "main.css": "static/css/main.50c640aa.css",
+  "main.css.map": "static/css/main.50c640aa.css.map",
+  "main.js": "static/js/main.9f1d5335.js",
+  "main.js.map": "static/js/main.9f1d5335.js.map",
+  "static/media/bean-icon.png": "static/media/bean-icon.7d9fe76b.png",
   "static/media/beans.jpeg": "static/media/beans.b2f08f02.jpeg",
+  "static/media/coffee-cup.png": "static/media/coffee-cup.88fc0ca6.png",
   "static/media/hands.png": "static/media/hands.ab848cba.png",
   "static/media/pexels-photo-373888.jpeg": "static/media/pexels-photo-373888.dea755a8.jpeg"
 }
