@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 import { Grid, Col, Row, Panel, FormControl,
          FormGroup, Checkbox, ControlLabel,
          Well } from 'react-bootstrap';
-import ReactMapboxGl, { Layer, Feature, Marker } from "react-mapbox-gl";
+import ReactMapboxGl, { Layer, Feature, Marker, Popup } from "react-mapbox-gl";
 import request from 'react-foursquare';
 import markerUrl from '../coffee-cup.png';
 
 const Map = ReactMapboxGl({
   accessToken: process.env.REACT_APP_MAPBOX_TOKEN
 });
-const zoom = [13];
+const zoom = [14];
 
 var foursquare = require('react-foursquare')({
   clientID: process.env.REACT_APP_4SQUARE_KEY,
@@ -35,7 +35,6 @@ class CafeLocator extends Component {
     navigator.geolocation.getCurrentPosition((position)=>{
       var params = {
         "ll": position.coords.latitude +","+ position.coords.longitude,
-        // "query": 'coffee',
         "radius": 500,
         "categoryId": "4bf58dd8d48988d1e0931735"
       };
@@ -59,21 +58,19 @@ class CafeLocator extends Component {
       latitude: bounds.lat,
       longitude: bounds.lng
     });
-    console.log(bounds);
 
-      var params = {
-        "ll": bounds.lat +","+ bounds.lng,
-        "categoryId": "4bf58dd8d48988d1e0931735",
-        "radius": 500
-      };
+    let params = {
+      "ll": bounds.lat +","+ bounds.lng,
+      "categoryId": "4bf58dd8d48988d1e0931735",
+      "radius": 500
+    };
 
 
-      foursquare.venues.getVenues(params)
-      .then(res=> {
-        this.setState({ items: res.response.venues });
-      });
+    foursquare.venues.getVenues(params)
+    .then(res=> {
+      this.setState({ items: res.response.venues });
+    });
   };
-  // LngLat {lng: -74.06539197464527, lat: 40.730735369331114}
 
   render(){
 
@@ -89,22 +86,37 @@ class CafeLocator extends Component {
               height: "500px",
               width: "500px"
             }}
-            center={[this.state.longitude, this.state.latitude]}>
-
+            center={[this.state.longitude, this.state.latitude]}
+          >
+       
             <Layer
               type="symbol"
               id="marker"
-              layout={{ "icon-image": "marker-15" }}>
-              <Feature coordinates={[this.state.longitude, this.state.latitude]}/>
+              layout={{ "icon-image": "marker-15" }}
+            >
+              <Feature coordinates={[this.state.longitude, this.state.latitude]} />
             </Layer>
-            {this.state.items.map( (item, index) => {
-              return (
-                <Marker
+              {this.state.items.map( (item, index) => {
+                return (
+                  <Marker
                   key={index}
                   coordinates={[item.location.lng, item.location.lat]}
                   anchor="bottom">
-                  <img src={markerUrl}/>
-                </Marker>
+                    <img src={markerUrl}/>
+                  </Marker>
+                );
+              })}
+            
+            {this.state.items.map( (item, index) => {
+              return (
+                  <Popup
+                    coordinates={[item.location.lng, item.location.lat]}
+                    anchor="bottom"
+                    offset={{
+                      'bottom-left': [12, -38],  'bottom': [0, -38], 'bottom-right': [-12, -38]
+                    }}>
+                    <div>{item.name}</div>
+                  </Popup>
               );
             })}
           </Map>
