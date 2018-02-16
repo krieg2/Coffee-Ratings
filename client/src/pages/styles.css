@@ -211,6 +211,15 @@
   opacity: 0.75;
 }
 
+.fa-facebook, .fa-twitter,
+.fa-google-plus, .fa-instagram,
+.fa-pinterest {
+  text-shadow: 0px -1px 4px white,
+               0px 1px 4px white,
+               0px -2px 8px white,
+               0px 2px 8px white;
+}
+
 @media screen and (min-width: 769px) {
   .mapboxgl-map{
     position: fixed;
