@@ -13,10 +13,13 @@ class Stars extends React.Component {
     }
 
     if(this.props.rating > countFull){
-      result.push(<i key={countFull} className="fa fa-star-half"></i>);
+      result.push(<i className="fa fa-star-half"></i>);
     }
 
-    return result;
+    return (<span>
+    {this.props.rating > 0 ? this.props.rating : 'Not yet rated.'}&nbsp;&nbsp;
+    {result}
+    </span>);
   }
 }
 

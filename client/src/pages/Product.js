@@ -50,8 +50,7 @@ class Product extends Component {
           <h1>{this.state.item.brand}</h1>
           <h2>{this.state.item.title}</h2>
           <p>{this.state.item.description}</p>
-          <p>Average Rating: <span>{this.state.item.avgRating}</span></p>
-          <p><Stars rating={this.state.item.avgRating} /></p>
+          <p>Average Rating:&nbsp;<Stars rating={this.state.item.avgRating} /></p>
           <Link to={{pathname: "/rate", state: {item: this.state.item}}}><i className="fa fa-thumbs-up"></i>Rate It</Link>
         </Jumbotron>
         </Row>
@@ -79,7 +78,6 @@ class Product extends Component {
                     <Col sm={8}>
                       <div style={{marginBottom: "15px"}}>
                         <Stars rating={review.rating} />
-                        <span>&nbsp;&nbsp;{review.rating}</span>
                       </div>
                       <div>
                         {review.comment}

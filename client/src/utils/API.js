@@ -162,6 +162,19 @@ export default {
       callback(err.response);
     });
   },
+  getCafesByExtIds: function(extIdArr, callback){
+
+    axios.post('/api/cafesbyextids/', {
+      extIdArr: extIdArr
+    })
+    .then( res => {
+
+      callback(res);
+    })
+    .catch( err => {
+      callback(err.response);
+    });
+  },
   getReviews: function(id, callback){
 
     axios.get('/api/reviews/'+id)
