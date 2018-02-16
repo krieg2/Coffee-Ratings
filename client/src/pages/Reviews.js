@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Col, Row, Panel,
-         FormGroup, Checkbox, 
-         Image, ControlLabel,
+import { Grid, Col, Row, Panel, Image, 
          DropdownButton, MenuItem,
          Nav, NavItem, Button } from 'react-bootstrap';
 import API from '../utils/API';

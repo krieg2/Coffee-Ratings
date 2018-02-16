@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Col, Row, Panel, FormControl,
+import { Row, Panel, FormControl,
          FormGroup, ControlLabel, Alert,
          Button, Image } from 'react-bootstrap';
 import API from '../utils/API';

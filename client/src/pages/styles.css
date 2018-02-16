@@ -2,6 +2,7 @@
   background: url('../beans.jpeg');
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: top center;
   min-height: 800px;
 }
 
@@ -203,7 +204,8 @@
 }
 
 .mapboxgl-map{
-  margin:0;
+  position: relative;
+  margin: 0;
   padding: 20px;
 }
 
@@ -220,11 +222,37 @@
                0px 2px 8px white;
 }
 
-@media screen and (min-width: 769px) {
+
+@media screen and (min-width: 992px) {
   .mapboxgl-map{
     position: fixed;
-    margin:0;
-    padding: 20px;
   }
+}
 
+@media screen and (min-width: 576px) {
+  .mapboxgl-map{
+    margin-left: 25px;
+    margin-top: 50px;
+    padding: 0;
+    height: 500px;
+    width: 500px;
+  }
+}
+
+@media screen and (max-width: 575.98px) {
+  * {
+   animation: none !important;
+   -webkit-transition: none !important;
+   -moz-transition: none !important;
+   -o-transition: none !important;
+   -ms-transition: none !important;
+   transition: none !important;
+  }
+  .mapboxgl-map{
+    position: relative;
+    margin: 20px;
+    padding: 0;
+    height: 350px;
+    width: 350px;
+  }
 }

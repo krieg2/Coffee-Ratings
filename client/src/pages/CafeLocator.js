@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
-import { Grid, Col, Row, Panel, FormControl,
-         FormGroup, Checkbox, ControlLabel,
-         Well } from 'react-bootstrap';
+import { Col, Row, Well } from 'react-bootstrap';
 import ReactMapboxGl, { Layer, Feature, Marker, Popup } from "react-mapbox-gl";
-import request from 'react-foursquare';
 import update from 'immutability-helper';
 import API from '../utils/API';
 import Stars from '../components/Stars';
@@ -101,16 +97,11 @@ class CafeLocator extends Component {
 
     return(
       <Row>
-        <Col sm={6} md={6} lg={6} className="mapCol">
+        <Col xs={12} sm={12} md={5} lg={5}>
           <Map
             style="mapbox://styles/mapbox/streets-v8"
             zoom={zoom}
             onDragEnd={this.onDragEnd}
-            containerStyle={{
-              margin: "50px",
-              height: "500px",
-              width: "500px"
-            }}
             center={[this.state.longitude, this.state.latitude]}
           >
        
@@ -127,7 +118,7 @@ class CafeLocator extends Component {
                   key={index}
                   coordinates={[item.location.lng, item.location.lat]}
                   anchor="bottom">
-                    <img src={markerUrl}/>
+                    <img src={markerUrl} alt="marker" />
                   </Marker>
                 );
               })}
@@ -147,7 +138,8 @@ class CafeLocator extends Component {
             })}
           </Map>
         </Col>
-        <Col sm={5} md={5} lg={5} className="lowerTop">
+
+        <Col xs={12} sm={12} md={5} lg={5} mdPush={2} className="lowerTop">
           {this.state.items.map( (item, index) => {
             return (
               <Link key={index} to={{pathname: "/cafe", state: {cafe: item}}}>

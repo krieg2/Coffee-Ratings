@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Grid, Col, Row, Panel, FormControl,
-         FormGroup, ControlLabel, Alert,
-         Button, Image } from 'react-bootstrap';
+import { Grid, Col, Row, FormControl,
+         FormGroup, ControlLabel,
+         Button } from 'react-bootstrap';
 import SearchProduct from '../components/SearchProduct.js';
 
 class CreateProduct extends Component {
