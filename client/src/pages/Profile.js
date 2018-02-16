@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Col, Row, Panel, Image,
-         FormGroup, Button, Alert, Clearfix,
+         FormGroup, Button, Alert,
          ControlLabel, FormControl } from 'react-bootstrap';
 import API from '../utils/API';
 import Filestack from '../components/Filestack.js';
