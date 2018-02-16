@@ -6,6 +6,9 @@ import { Grid, Col, Row, Panel, FormControl,
          Well } from 'react-bootstrap';
 import ReactMapboxGl, { Layer, Feature, Marker, Popup } from "react-mapbox-gl";
 import request from 'react-foursquare';
+import update from 'immutability-helper';
+import API from '../utils/API';
+import Stars from '../components/Stars';
 import markerUrl from '../coffee-cup.png';
 
 const Map = ReactMapboxGl({
@@ -20,11 +23,11 @@ var foursquare = require('react-foursquare')({
 
 class CafeLocator extends Component {
 
-
   constructor(props) {
      super(props);
      this.state = {
        items: [],
+       ratings: {},
        latitude: 40.7513171,
        longitude: -73.994459
      };
@@ -45,8 +48,9 @@ class CafeLocator extends Component {
       })
 
       foursquare.venues.getVenues(params)
-      .then(res=> {
+      .then(res => {
         this.setState({ items: res.response.venues });
+        this.getRatingsBatch(res.response.venues);
       });
     });
   }
@@ -67,8 +71,29 @@ class CafeLocator extends Component {
 
 
     foursquare.venues.getVenues(params)
-    .then(res=> {
+    .then(res => {
       this.setState({ items: res.response.venues });
+      this.getRatingsBatch(res.response.venues);
+    });
+  };
+
+  getRatingsBatch = (venues) => {
+
+    let extIds = venues.map((item) => item.id);
+
+    API.getCafesByExtIds(extIds, (cafes) => {
+
+      // Find the cafe by external Id.
+      // Get avg rating value and display.
+      if(cafes !== undefined && cafes.data !== null){
+
+        cafes.data.forEach( (cafe) => {
+            this.setState({
+              ratings: update(this.state.ratings, {[cafe.externalId]: {$set: cafe.avgRating}})
+            });
+          }
+        );
+      }
     });
   };
 
@@ -110,6 +135,7 @@ class CafeLocator extends Component {
             {this.state.items.map( (item, index) => {
               return (
                   <Popup
+                    key={index}
                     coordinates={[item.location.lng, item.location.lat]}
                     anchor="bottom"
                     offset={{
@@ -127,6 +153,9 @@ class CafeLocator extends Component {
               <Link key={index} to={{pathname: "/cafe", state: {cafe: item}}}>
                 <Well>
                   {item.name}
+                  <div className="cafeRating">
+                    <Stars rating={this.state.ratings[item.id]} />
+                  </div>
                 </Well>
               </Link>
             );

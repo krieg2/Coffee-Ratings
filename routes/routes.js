@@ -260,6 +260,21 @@ module.exports = app => {
   
   });
 
+  app.post("/api/cafesbyextids", (req, res) => {
+
+    let fields = "avgRating externalId";
+    db.Cafe.find({externalId: {$in: req.body.extIdArr}})
+    .then( (cafes) => {
+
+      res.json(cafes);
+    })
+    .catch( (err) => {
+      console.log("error: "+err);
+      res.status(401).send({ messageText: "Error." });
+    });
+  
+  });
+
   app.get("/api/reviews/:id", (req, res) => {
 
     let fields = "firstName lastName location photoUrl";

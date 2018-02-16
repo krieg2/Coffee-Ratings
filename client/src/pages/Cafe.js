@@ -60,8 +60,7 @@ class Cafe extends Component {
           <h1>{this.state.cafe.name}</h1>
           <h2><a href={this.state.cafe.url}>{this.state.cafe.url}</a></h2>
           <p>{this.state.cafe.address}</p>
-          <p>Average Rating: <span>{this.state.cafe.avgRating}</span></p>
-          <p><Stars rating={this.state.cafe.avgRating} /></p>
+          <p>Average Rating:&nbsp;<Stars rating={this.state.cafe.avgRating} /></p>
           <Link to={{pathname: "/rate", state: {item: this.state.cafe, type: 'cafe'}}}><i className="fa fa-thumbs-up"></i>Rate It</Link>
         </Jumbotron>
         </Row>
@@ -88,8 +87,7 @@ class Cafe extends Component {
                     </Col>
                     <Col sm={8}>
                       <div style={{marginBottom: "15px"}}>
-                        <Stars rating={review.rating} />
-                        <span>&nbsp;&nbsp;{review.rating}</span>
+                        <Stars rating={review.rating} /> 
                       </div>
                       <div>
                         {review.comment}

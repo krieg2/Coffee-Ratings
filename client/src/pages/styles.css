@@ -102,6 +102,11 @@
   text-decoration: none;
 }
 
+.cafeRating {
+  text-decoration: none;
+  float: right;
+}
+
 #jumbo {
   text-align: center;
   background-color: #74533f;
