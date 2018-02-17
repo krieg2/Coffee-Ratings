@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Col, Row, Well, Image, Clearfix } from 'react-bootstrap';
-import ReactMapboxGl, { Layer, Feature, Marker, Popup } from "react-mapbox-gl";
+import ReactMapboxGl, { Layer, Feature,
+                    ZoomControl, Marker, Popup } from "react-mapbox-gl";
 import update from 'immutability-helper';
 import API from '../utils/API';
 import Stars from '../components/Stars';
 import markerUrl from '../coffee-cup.png';
-import photo from '../pexels-photo-296888.jpeg';
 
 const Map = ReactMapboxGl({
   accessToken: process.env.REACT_APP_MAPBOX_TOKEN
@@ -142,6 +142,7 @@ class CafeLocator extends Component {
                     </Popup>
                 );
               })}
+              <ZoomControl />
             </Map>
           </Col>
           <Clearfix visibleXsBlock />
