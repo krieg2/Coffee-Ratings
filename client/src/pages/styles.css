@@ -234,7 +234,7 @@
     top: 100px;
     border-radius: 10px;
     z-index: 10;
-}
+}   
 
 @media screen and (max-width: 992px) {
   .cafeList {
@@ -254,15 +254,9 @@
 
 @media screen and (min-width: 576px) {
   .mapboxgl-map {
-    border: 2px solid rgba(0,0,0,0.15);
-    position: -webkit-sticky;
-    position: sticky;
-    top: 100px;
-    border-radius: 10px;
-    z-index: 10;
-    box-shadow: 4px 4px 8px rgba(0,0,0,0.15);
     height: 480px;
     width: 480px;
+    box-shadow: 4px 4px 8px rgba(0,0,0,0.15);
   }
   .cafeList {
     width: 480px;

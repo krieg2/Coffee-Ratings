@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Col, Row, Well, Image, Clearfix } from 'react-bootstrap';
+import { Grid, Col, Row, Well, Image } from 'react-bootstrap';
 import ReactMapboxGl, { Layer, Feature,
                     ZoomControl, Marker, Popup } from "react-mapbox-gl";
 import update from 'immutability-helper';
@@ -109,6 +109,14 @@ class CafeLocator extends Component {
               zoom={zoom}
               onDragEnd={this.onDragEnd}
               center={[this.state.longitude, this.state.latitude]}
+              containerStyle={{
+                border: "2px solid rgba(0,0,0,0.15)",
+                position: "-webkit-sticky",
+                position: "sticky",
+                top: "100px",
+                borderRadius: "10px",
+                zIndex: "10"
+              }}
             >
          
               <Layer
@@ -145,7 +153,6 @@ class CafeLocator extends Component {
               <ZoomControl />
             </Map>
           </Col>
-          <Clearfix visibleXsBlock />
      
           <Col xs={12} sm={12} md={5} lg={5} mdPush={1}>
             <div className="cafeList">
