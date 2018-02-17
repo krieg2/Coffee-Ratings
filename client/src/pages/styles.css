@@ -22,7 +22,7 @@
 }
 
 .lowerTop {
-  margin-top: 50px;
+  margin-top: 80px;
 }
 
 .gridLoader {
@@ -114,6 +114,7 @@
   width: 100%;
   border-radius: 0px;
   margin: 0px;
+  margin-top: 67px;
   border-top: 2px solid #dd8047;
   border-bottom: 2px solid #dd8047;
 }
@@ -203,12 +204,6 @@
  cursor: pointer;
 }
 
-.mapboxgl-map{
-  position: relative;
-  margin: 0;
-  padding: 20px;
-}
-
 .mapboxgl-popup {
   opacity: 0.75;
 }
@@ -222,20 +217,55 @@
                0px 2px 8px white;
 }
 
+.cafeLocatorPhoto {
+  background: url('../pexels-photo-296888.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-top: 67px;
+  height: 300px;
+  width: 100%;
+}
 
-@media screen and (min-width: 992px) {
-  .mapboxgl-map{
-    position: fixed;
+.mapboxgl-map {
+    border: 2px solid rgba(0,0,0,0.15);
+    position: -webkit-sticky;
+    position: sticky;
+    top: 100px;
+    border-radius: 10px;
+    z-index: 10;
+}
+
+@media screen and (max-width: 992px) {
+  .cafeList {
+    width: 350px;
+    margin-top: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #jumbo {
+    margin-top: 51px;
+  }
+  .cafeLocatorPhoto {
+    margin-top: 51px;
   }
 }
 
 @media screen and (min-width: 576px) {
-  .mapboxgl-map{
-    margin-left: 25px;
-    margin-top: 50px;
-    padding: 0;
-    height: 500px;
-    width: 500px;
+  .mapboxgl-map {
+    border: 2px solid rgba(0,0,0,0.15);
+    position: -webkit-sticky;
+    position: sticky;
+    top: 100px;
+    border-radius: 10px;
+    z-index: 10;
+    box-shadow: 4px 4px 8px rgba(0,0,0,0.15);
+    height: 480px;
+    width: 480px;
+  }
+  .cafeList {
+    width: 480px;
   }
 }
 
@@ -249,10 +279,11 @@
    transition: none !important;
   }
   .mapboxgl-map{
-    position: relative;
-    margin: 20px;
-    padding: 0;
     height: 350px;
     width: 350px;
+  }
+  .cafeList {
+    width: 350px;
+    margin-top: 30px;
   }
 }
