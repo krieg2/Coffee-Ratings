@@ -38,7 +38,7 @@ class Login extends Component {
   render() {
 
     return(
-      <Grid fluid style={{minHeight: "100%"}}>
+      <Grid fluid style={{minHeight: "100%"}} className="lowerTop">
         <Row>
           <Col xs={12} sm={12} md={12}>
 

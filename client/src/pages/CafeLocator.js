@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Col, Row, Well } from 'react-bootstrap';
+import { Grid, Col, Row, Well, Image, Clearfix } from 'react-bootstrap';
 import ReactMapboxGl, { Layer, Feature, Marker, Popup } from "react-mapbox-gl";
 import update from 'immutability-helper';
 import API from '../utils/API';
 import Stars from '../components/Stars';
 import markerUrl from '../coffee-cup.png';
+import photo from '../pexels-photo-296888.jpeg';
 
 const Map = ReactMapboxGl({
   accessToken: process.env.REACT_APP_MAPBOX_TOKEN
@@ -96,64 +97,73 @@ class CafeLocator extends Component {
   render(){
 
     return(
-      <Row>
-        <Col xs={12} sm={12} md={5} lg={5}>
-          <Map
-            style="mapbox://styles/mapbox/streets-v8"
-            zoom={zoom}
-            onDragEnd={this.onDragEnd}
-            center={[this.state.longitude, this.state.latitude]}
-          >
-       
-            <Layer
-              type="symbol"
-              id="marker"
-              layout={{ "icon-image": "marker-15" }}
+      <Grid fluid style={{padding: "0px", margin: "0 auto"}}>
+        <Row>
+          <div className="cafeLocatorPhoto">
+          </div>
+        </Row>
+        <Row style={{marginTop: "25px", marginLeft: "25px"}}>
+          <Col xs={12} sm={12} md={5} lg={5} style={{height: "100vh"}}>
+            <Map
+              style="mapbox://styles/mapbox/streets-v8"
+              zoom={zoom}
+              onDragEnd={this.onDragEnd}
+              center={[this.state.longitude, this.state.latitude]}
             >
-              <Feature coordinates={[this.state.longitude, this.state.latitude]} />
-            </Layer>
-              {this.state.items.map( (item, index) => {
-                return (
-                  <Marker
-                  key={index}
-                  coordinates={[item.location.lng, item.location.lat]}
-                  anchor="bottom">
-                    <img src={markerUrl} alt="marker" />
-                  </Marker>
-                );
-              })}
-            
-            {this.state.items.map( (item, index) => {
-              return (
-                  <Popup
+         
+              <Layer
+                type="symbol"
+                id="marker"
+                layout={{ "icon-image": "marker-15" }}
+              >
+                <Feature coordinates={[this.state.longitude, this.state.latitude]} />
+              </Layer>
+                {this.state.items.map( (item, index) => {
+                  return (
+                    <Marker
                     key={index}
                     coordinates={[item.location.lng, item.location.lat]}
-                    anchor="bottom"
-                    offset={{
-                      'bottom-left': [12, -38],  'bottom': [0, -38], 'bottom-right': [-12, -38]
-                    }}>
-                    <div>{item.name}</div>
-                  </Popup>
+                    anchor="bottom">
+                      <img src={markerUrl} alt="marker" />
+                    </Marker>
+                  );
+                })}
+              
+              {this.state.items.map( (item, index) => {
+                return (
+                    <Popup
+                      key={index}
+                      coordinates={[item.location.lng, item.location.lat]}
+                      anchor="bottom"
+                      offset={{
+                        'bottom-left': [12, -38],  'bottom': [0, -38], 'bottom-right': [-12, -38]
+                      }}>
+                      <div>{item.name}</div>
+                    </Popup>
+                );
+              })}
+            </Map>
+          </Col>
+          <Clearfix visibleXsBlock />
+     
+          <Col xs={12} sm={12} md={5} lg={5} mdPush={1}>
+            <div className="cafeList">
+            {this.state.items.map( (item, index) => {
+              return (
+                <Link key={index} to={{pathname: "/cafe", state: {cafe: item}}}>
+                  <Well>
+                    {item.name}
+                    <div className="cafeRating">
+                      <Stars rating={this.state.ratings[item.id]} />
+                    </div>
+                  </Well>
+                </Link>
               );
             })}
-          </Map>
-        </Col>
-
-        <Col xs={12} sm={12} md={5} lg={5} mdPush={2} className="lowerTop">
-          {this.state.items.map( (item, index) => {
-            return (
-              <Link key={index} to={{pathname: "/cafe", state: {cafe: item}}}>
-                <Well>
-                  {item.name}
-                  <div className="cafeRating">
-                    <Stars rating={this.state.ratings[item.id]} />
-                  </div>
-                </Well>
-              </Link>
-            );
-          })}
-        </Col>
-      </Row>
+            </div>
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 
