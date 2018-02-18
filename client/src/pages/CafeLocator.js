@@ -151,6 +151,7 @@ class CafeLocator extends Component {
               center={[this.state.longitude, this.state.latitude]}
               containerStyle={{
                 border: "2px solid rgba(0,0,0,0.15)",
+                position: "-webkit-sticky",
                 position: "sticky",
                 top: "100px",
                 borderRadius: "10px",
