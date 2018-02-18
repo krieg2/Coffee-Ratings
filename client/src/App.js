@@ -93,7 +93,7 @@ class App extends Component {
   render() {
 
     return (
-      <div style={{margin: "0"}}>
+      <div className="underNav">
         <Router>
           <div className="wrap">
             <Navbar fixedTop>
