@@ -33,7 +33,7 @@ const CafeSchema = new Schema({
     ref: "Review"
   }]
 
-});
+}, {collection: "cafes"});
 
 // Creates the model from the above schema.
 const Cafe = mongoose.model("Cafe", CafeSchema);
