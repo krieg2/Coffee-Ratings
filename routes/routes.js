@@ -85,7 +85,7 @@ module.exports = app => {
         })
         .catch( (err) => {
           console.log("error: "+err);
-          res.status(401).send({ messageText: err });  
+          res.status(401).send({ messageText: err.message });  
         });
       }
     })
