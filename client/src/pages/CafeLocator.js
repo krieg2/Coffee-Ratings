@@ -6,6 +6,7 @@ import ReactMapboxGl, { Layer, Feature,
 import update from 'immutability-helper';
 import API from '../utils/API';
 import Stars from '../components/Stars';
+import MapSearch from '../components/MapSearch';
 import markerUrl from '../coffee-cup.png';
 
 const Map = ReactMapboxGl({
@@ -13,7 +14,7 @@ const Map = ReactMapboxGl({
 });
 const zoom = [14];
 
-var foursquare = require('react-foursquare')({
+const foursquare = require('react-foursquare')({
   clientID: process.env.REACT_APP_4SQUARE_KEY,
   clientSecret: process.env.REACT_APP_4SQUARE_SECRET
 });
@@ -25,6 +26,7 @@ class CafeLocator extends Component {
      this.state = {
        items: [],
        ratings: {},
+       options: [],
        latitude: 40.7513171,
        longitude: -73.994459
      };
@@ -33,7 +35,8 @@ class CafeLocator extends Component {
   componentDidMount() {
 
     navigator.geolocation.getCurrentPosition((position)=>{
-      var params = {
+
+      let params = {
         "ll": position.coords.latitude +","+ position.coords.longitude,
         "radius": 500,
         "categoryId": "4bf58dd8d48988d1e0931735"
@@ -66,7 +69,6 @@ class CafeLocator extends Component {
       "radius": 500
     };
 
-
     foursquare.venues.getVenues(params)
     .then(res => {
       this.setState({ items: res.response.venues });
@@ -94,6 +96,43 @@ class CafeLocator extends Component {
     });
   };
 
+  onSelectItem = (index) => {
+
+    let selected = this.state.options[index];
+    let lng = selected.center[0];
+    let lat = selected.center[1];
+    this.setState({
+      selected,
+      latitude: lat,
+      longitude: lng
+    });
+
+    let params = {
+      "ll": lat +","+ lng,
+      "categoryId": "4bf58dd8d48988d1e0931735",
+      "radius": 500
+    };
+
+    foursquare.venues.getVenues(params)
+    .then(res => {
+      this.setState({ items: res.response.venues });
+      this.getRatingsBatch(res.response.venues);
+    });
+  };
+
+  onSearch = (query) => {
+
+    API.geoLocate(query, (results) => {
+      console.log(results);
+      if(results){
+        this.setState({
+          options: results.data.features.filter((place) => {
+            return (place.place_type.includes('place'))})
+        });
+      }
+    });
+  };
+
   render(){
 
     return(
@@ -102,8 +141,9 @@ class CafeLocator extends Component {
           <div className="cafeLocatorPhoto">
           </div>
         </Row>
-        <Row style={{marginTop: "25px", marginLeft: "25px"}}>
-          <Col xs={12} sm={12} md={5} lg={5} style={{height: "100vh"}}>
+        <Row style={{marginTop: "25px", marginLeft: "25px", display: "flex", flexWrap: "wrap"}}>
+          <Col xs={12} sm={12} md={6} lg={6}>
+            
             <Map
               style="mapbox://styles/mapbox/streets-v8"
               zoom={zoom}
@@ -111,13 +151,19 @@ class CafeLocator extends Component {
               center={[this.state.longitude, this.state.latitude]}
               containerStyle={{
                 border: "2px solid rgba(0,0,0,0.15)",
-                position: "-webkit-sticky",
                 position: "sticky",
+                position: "-webkit-sticky",
                 top: "100px",
                 borderRadius: "10px",
                 zIndex: "10"
               }}
             >
+
+            <MapSearch
+              onSearch={this.onSearch}
+              onSelectItem={this.onSelectItem}
+              options={this.state.options}
+            />
          
               <Layer
                 type="symbol"
@@ -150,11 +196,10 @@ class CafeLocator extends Component {
                     </Popup>
                 );
               })}
-              <ZoomControl />
+              <ZoomControl position="bottom-right" />
             </Map>
           </Col>
-     
-          <Col xs={12} sm={12} md={5} lg={5} mdPush={1}>
+          <Col xs={12} sm={12} md={6} lg={6}>
             <div className="cafeList">
             {this.state.items.map( (item, index) => {
               return (

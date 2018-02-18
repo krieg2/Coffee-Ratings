@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import jwt from 'jsonwebtoken';
+const mapAccessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 const axios = Axios.create();
 
 const initialState = {
@@ -200,6 +201,18 @@ export default {
   addCafeReview: function(id, data, callback){
 
     axios.post('/api/review/cafe/'+id, data, {headers: {Authorization: localStorage.getItem('jwtToken')}})
+    .then( res => {
+
+      callback(res);
+    })
+    .catch( err => {
+      callback(err.response);
+    });
+  },
+  geoLocate: function(query, callback){
+
+    const geocodingUrl = 'https://api.mapbox.com/geocoding/v5';
+    axios.get(`${geocodingUrl}/mapbox.places/${query}.json?access_token=${mapAccessToken}`)
     .then( res => {
 
       callback(res);
