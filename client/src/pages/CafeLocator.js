@@ -34,7 +34,7 @@ class CafeLocator extends Component {
 
   componentDidMount() {
 
-    navigator.geolocation.getCurrentPosition((position)=>{
+    navigator.geolocation.getCurrentPosition((position) => {
 
       let params = {
         "ll": position.coords.latitude +","+ position.coords.longitude,
@@ -53,7 +53,36 @@ class CafeLocator extends Component {
         this.getRatingsBatch(res.response.venues);
       });
     });
+
+    window.addEventListener("resize", this.onResize);
   }
+
+  componentWillUnmount() {
+
+    window.removeEventListener("resize", this.onResize);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+
+    this.onResize({});
+  }
+
+  onResize = (event) => {
+
+    let col1Height = parseInt(document.getElementById('col1').clientHeight);
+    let col2Height = parseInt(document.getElementById('col2').clientHeight);
+    let mapHeight = parseInt(document.getElementsByClassName('mapboxgl-map')[0].offsetHeight);
+
+    let offsetTop = parseInt(document.getElementById('col2').offsetTop);
+
+    // Column has wrapped to next line if offset > 400.
+    if(offsetTop < 400 && col2Height > col1Height){
+      // Set column 1 height to match column 2.
+      document.getElementById('col1').style.height = col2Height+'px';
+    } else {
+      document.getElementById('col1').style.height = mapHeight+'px';
+    }
+  };
 
   onDragEnd = (map) => {
 
@@ -141,8 +170,8 @@ class CafeLocator extends Component {
           <div className="cafeLocatorPhoto">
           </div>
         </Row>
-        <Row style={{marginTop: "25px", marginLeft: "25px", display: "flex", flexWrap: "wrap"}}>
-          <Col xs={12} sm={12} md={6} lg={6}>
+        <Row className="mapRow">
+          <Col xs={12} sm={12} md={6} lg={6} id="col1">
             
             <Map
               style="mapbox://styles/mapbox/streets-v8"
@@ -152,6 +181,8 @@ class CafeLocator extends Component {
               containerStyle={{
                 border: "2px solid rgba(0,0,0,0.15)",
                 position: "-webkit-sticky",
+                position: "-moz-sticky",
+                position: "-ms-sticky",
                 position: "sticky",
                 top: "100px",
                 borderRadius: "10px",
@@ -199,7 +230,7 @@ class CafeLocator extends Component {
               <ZoomControl position="bottom-right" />
             </Map>
           </Col>
-          <Col xs={12} sm={12} md={6} lg={6}>
+          <Col xs={12} sm={12} md={6} lg={6} id="col2">
             <div className="cafeList">
             {this.state.items.map( (item, index) => {
               return (

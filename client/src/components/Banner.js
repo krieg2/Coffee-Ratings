@@ -10,7 +10,7 @@ class Banner extends Component {
   handleScroll = () => { 
 
     this.setState({
-      scrollPosition: document.documentElement.scrollTop
+      scrollPosition: document.documentElement.scrollTop || document.body.scrollTop
     });
   };
 
@@ -51,7 +51,9 @@ class Banner extends Component {
               fontSize: '24px',
               fontWeight: '400',
               textShadow: '0px -1px 8px white,0px 1px 8px white,0px -2px 12px black,0px 2px 12px black',
-              transform: `translateY(${this.state.scrollPosition/2}%)`
+              transform: `translateY(${this.state.scrollPosition/2}%)`,
+              WebkitTransform: `translateY(${this.state.scrollPosition/2}%)`,
+              MozTransform: `translateY(${this.state.scrollPosition/2}%)`
             }}>
               <p>Read and post reviews of your favorite coffee beans and local coffee shops. Sign up for free today and start drinking better coffee!</p>
             </div>
