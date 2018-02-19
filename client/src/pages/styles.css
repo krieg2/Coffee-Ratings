@@ -276,7 +276,7 @@
   width: 100%;
 }
 
-.mapboxgl-map {
+.map {
   border: 2px solid rgba(0,0,0,0.15);
   position: -moz-sticky;
   position: -ms-sticky;
@@ -345,7 +345,7 @@
 }
 
 @media screen and (min-width: 576px) {
-  .mapboxgl-map {
+  .map {
     position: -moz-sticky;
     position: -ms-sticky;
     position: -webkit-sticky;
@@ -354,6 +354,9 @@
     height: 480px;
     width: 480px;
     box-shadow: 4px 4px 8px rgba(0,0,0,0.15);
+    border: 2px solid rgba(0,0,0,0.15);
+    border-radius: 10px;
+    z-index: 10;
   }
   .cafeList {
     width: 480px;
@@ -370,13 +373,17 @@
    -ms-transition: none !important;
    transition: none !important;
   }
-  .mapboxgl-map{
+  .map{
     position: -moz-sticky;
     position: -ms-sticky;
     position: -webkit-sticky;
     position: sticky;
     height: 350px;
     width: 350px;
+    border: 2px solid rgba(0,0,0,0.15);
+    top: 100px;
+    border-radius: 10px;
+    z-index: 10;
   }
   .cafeList {
     width: 350px;
