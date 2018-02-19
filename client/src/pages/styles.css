@@ -329,7 +329,6 @@
 .mapRow {
   margin-top: 25px;
   margin-left: 25px;
-  height: auto;
 }
 
 @media screen and (max-width: 992px) {
