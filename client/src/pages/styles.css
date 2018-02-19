@@ -276,7 +276,7 @@
   width: 100%;
 }
 
-.map {
+.mapboxgl-map {
   border: 2px solid rgba(0,0,0,0.15);
   position: -moz-sticky;
   position: -ms-sticky;
@@ -345,7 +345,7 @@
 }
 
 @media screen and (min-width: 576px) {
-  .map {
+  .mapboxgl-map {
     position: -moz-sticky;
     position: -ms-sticky;
     position: -webkit-sticky;
@@ -373,7 +373,7 @@
    -ms-transition: none !important;
    transition: none !important;
   }
-  .map{
+  .mapboxgl-map{
     position: -moz-sticky;
     position: -ms-sticky;
     position: -webkit-sticky;

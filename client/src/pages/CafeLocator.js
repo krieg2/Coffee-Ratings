@@ -174,7 +174,6 @@ class CafeLocator extends Component {
           <Col xs={12} sm={12} md={6} lg={6} id="col1">
             
             <Map
-              className="map"
               style="mapbox://styles/mapbox/streets-v8"
               zoom={zoom}
               onDragEnd={this.onDragEnd}
