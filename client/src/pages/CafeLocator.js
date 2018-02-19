@@ -173,12 +173,12 @@ class CafeLocator extends Component {
         <Row className="mapRow">
           <Col xs={12} sm={12} md={6} lg={6} id="col1">
             
+            <div id="map">
             <Map
               style="mapbox://styles/mapbox/streets-v8"
               zoom={zoom}
               onDragEnd={this.onDragEnd}
               center={[this.state.longitude, this.state.latitude]}
-              containerStyle={{position: "sticky; position: -webkit-sticky;"}}
             >
 
             <MapSearch
@@ -219,7 +219,7 @@ class CafeLocator extends Component {
                 );
               })}
               <ZoomControl position="bottom-right" />
-            </Map>
+            </Map></div>
 
           </Col>
           <Col xs={12} sm={12} md={6} lg={6} id="col2">

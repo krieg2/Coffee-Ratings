@@ -278,13 +278,16 @@
 
 .mapboxgl-map {
   border: 2px solid rgba(0,0,0,0.15);
+  border-radius: 10px;
+  z-index: 10;
+}
+
+#map {
   position: -moz-sticky;
   position: -ms-sticky;
   position: -webkit-sticky;
   position: sticky;
   top: 100px;
-  border-radius: 10px;
-  z-index: 10;
 }
 
 .searchItem {
@@ -345,12 +348,14 @@
 }
 
 @media screen and (min-width: 576px) {
-  .mapboxgl-map {
+  #map {
     position: -moz-sticky;
     position: -ms-sticky;
     position: -webkit-sticky;
     position: sticky;
     top: 100px;
+  }
+  .mapboxgl-map {
     height: 480px;
     width: 480px;
     box-shadow: 4px 4px 8px rgba(0,0,0,0.15);
@@ -373,15 +378,17 @@
    -ms-transition: none !important;
    transition: none !important;
   }
-  .mapboxgl-map{
+  #map {
     position: -moz-sticky;
     position: -ms-sticky;
     position: -webkit-sticky;
     position: sticky;
+    top: 100px;
+  }
+  .mapboxgl-map{
     height: 350px;
     width: 350px;
     border: 2px solid rgba(0,0,0,0.15);
-    top: 100px;
     border-radius: 10px;
     z-index: 10;
   }
