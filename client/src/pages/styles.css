@@ -346,6 +346,8 @@
 
 @media screen and (min-width: 576px) {
   .mapboxgl-map {
+    position: -moz-sticky;
+    position: -ms-sticky;
     position: -webkit-sticky;
     position: sticky;
     top: 100px;
@@ -369,6 +371,10 @@
    transition: none !important;
   }
   .mapboxgl-map{
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: -webkit-sticky;
+    position: sticky;
     height: 350px;
     width: 350px;
   }
