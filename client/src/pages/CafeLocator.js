@@ -178,6 +178,7 @@ class CafeLocator extends Component {
               zoom={zoom}
               onDragEnd={this.onDragEnd}
               center={[this.state.longitude, this.state.latitude]}
+              containerStyle={{position: "sticky; position: -webkit-sticky;"}}
             >
 
             <MapSearch
