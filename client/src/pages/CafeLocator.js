@@ -181,6 +181,7 @@ class CafeLocator extends Component {
               containerStyle={{
                 border: "2px solid rgba(0,0,0,0.15)",
                 position: "sticky",
+                position: "-webkit-sticky",
                 top: "100px",
                 borderRadius: "10px",
                 zIndex: "10"
