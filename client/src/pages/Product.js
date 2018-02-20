@@ -28,7 +28,7 @@ class Product extends Component {
         });
         API.getReviews(id, (reviews) => {
 
-          if(typeof(reviews.data) === 'object' &&
+          if(reviews && typeof(reviews.data) === 'object' &&
             reviews.data.length > 0){
 
             this.setState({

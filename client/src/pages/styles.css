@@ -254,10 +254,6 @@
  cursor: pointer;
 }
 
-.mapboxgl-popup {
-  opacity: 0.75;
-}
-
 .fa-facebook, .fa-twitter,
 .fa-google-plus, .fa-instagram,
 .fa-pinterest {

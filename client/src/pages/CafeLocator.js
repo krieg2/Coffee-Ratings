@@ -28,7 +28,8 @@ class CafeLocator extends Component {
        ratings: {},
        options: [],
        latitude: 40.7513171,
-       longitude: -73.994459
+       longitude: -73.994459,
+       hoveredIndex: undefined
      };
    }
 
@@ -53,38 +54,11 @@ class CafeLocator extends Component {
         this.getRatingsBatch(res.response.venues);
       });
     });
-
-    window.addEventListener("resize", this.onResize);
   }
-
-  componentWillUnmount() {
-
-    window.removeEventListener("resize", this.onResize);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-
-    this.onResize({});
-  }
-
-  onResize = (event) => {
-
-    let col1Height = parseInt(document.getElementById('col1').clientHeight);
-    let col2Height = parseInt(document.getElementById('col2').clientHeight);
-    let mapHeight = parseInt(document.getElementsByClassName('mapboxgl-map')[0].offsetHeight);
-
-    let offsetTop = parseInt(document.getElementById('col2').offsetTop);
-
-    // Column has wrapped to next line if offset > 400.
-    if(offsetTop < 400 && col2Height > col1Height){
-      // Set column 1 height to match column 2.
-      document.getElementById('col1').style.height = col2Height+'px';
-    } else {
-      document.getElementById('col1').style.height = mapHeight+'px';
-    }
-  };
 
   onDragEnd = (map) => {
+
+    this.setState({hoveredIndex: undefined});
 
     let bounds = map.getBounds().getCenter();
     this.setState({
@@ -103,6 +77,7 @@ class CafeLocator extends Component {
       this.setState({ items: res.response.venues });
       this.getRatingsBatch(res.response.venues);
     });
+
   };
 
   getRatingsBatch = (venues) => {
@@ -152,18 +127,30 @@ class CafeLocator extends Component {
   onSearch = (query) => {
 
     API.geoLocate(query, (results) => {
-      console.log(results);
+      //console.log(results);
       if(results){
         this.setState({
           options: results.data.features.filter((place) => {
             return (place.place_type.includes('place'))})
         });
+
+        this.setState({hoveredIndex: undefined});
       }
     });
   };
 
+  onMouseOver = (event, index) => {
+
+    this.setState({hoveredIndex: index});
+  };
+
   render(){
 
+    let col2Height = 500;
+    if(document.getElementById('col2')){
+      col2Height = parseInt(document.getElementById('col2').clientHeight);
+    }
+   
     return(
       <Grid fluid style={{padding: "0px", margin: "0 auto"}}>
         <Row>
@@ -171,7 +158,7 @@ class CafeLocator extends Component {
           </div>
         </Row>
         <Row className="mapRow">
-          <Col xs={12} sm={12} md={6} lg={6} id="col1">
+          <Col xs={12} sm={12} md={6} lg={6} id="col1" style={{height: col2Height}}>
             
             <div id="map">
             <Map
@@ -206,15 +193,23 @@ class CafeLocator extends Component {
                 })}
               
               {this.state.items.map( (item, index) => {
+                let popupStyle = {
+                  opacity: this.state.hoveredIndex === index ? 1 : 0.75,
+                  zIndex: this.state.hoveredIndex === index ? 15 : 10
+                };
+                let divStyle = {
+                  borderBottom: this.state.hoveredIndex === index ? '1px solid red' : 'none'
+                };
                 return (
                     <Popup
                       key={index}
+                      style={popupStyle}
                       coordinates={[item.location.lng, item.location.lat]}
                       anchor="bottom"
                       offset={{
                         'bottom-left': [12, -38],  'bottom': [0, -38], 'bottom-right': [-12, -38]
                       }}>
-                      <div>{item.name}</div>
+                      <div style={divStyle}>{item.name}</div>
                     </Popup>
                 );
               })}
@@ -225,15 +220,16 @@ class CafeLocator extends Component {
           <Col xs={12} sm={12} md={6} lg={6} id="col2">
             <div className="cafeList">
             {this.state.items.map( (item, index) => {
+              let wellStyle = {
+                border: this.state.hoveredIndex === index ? '1px solid red' : 'none'
+              };
               return (
-                <Link key={index} to={{pathname: "/cafe", state: {cafe: item}}}>
-                  <Well>
-                    {item.name}
-                    <div className="cafeRating">
-                      <Stars rating={this.state.ratings[item.id]} />
-                    </div>
-                  </Well>
-                </Link>
+                <Well key={index} onMouseOver={(event) => this.onMouseOver(event, index)} style={wellStyle}>
+                  <Link  to={{pathname: "/cafe", state: {cafe: item}}} style={{textDecoration: "none"}}>{item.name}</Link>
+                  <div className="cafeRating">
+                    <Stars rating={this.state.ratings[item.id]} />
+                  </div>
+                </Well>
               );
             })}
             </div>
