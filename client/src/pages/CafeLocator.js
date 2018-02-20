@@ -146,9 +146,20 @@ class CafeLocator extends Component {
 
   render(){
 
+    let col1Height = 500;
     let col2Height = 500;
+    let offsetTop = 0;
+    let calculatedHeight = 500;
+    if(document.getElementById('col1')){
+      col1Height = parseInt(document.getElementById('col1').clientHeight);
+    }
     if(document.getElementById('col2')){
       col2Height = parseInt(document.getElementById('col2').clientHeight);
+      offsetTop = parseInt(document.getElementById('col2').offsetTop);
+
+      if(offsetTop < 400 && col2Height > 500) {
+        calculatedHeight = col2Height;
+      }
     }
    
     return(
@@ -158,7 +169,7 @@ class CafeLocator extends Component {
           </div>
         </Row>
         <Row className="mapRow">
-          <Col xs={12} sm={12} md={6} lg={6} id="col1" style={{height: col2Height}}>
+          <Col xs={12} sm={12} md={6} lg={6} id="col1" style={{height: calculatedHeight+'px'}}>
             
             <div id="map">
             <Map
@@ -225,7 +236,8 @@ class CafeLocator extends Component {
               };
               return (
                 <Well key={index} onMouseOver={(event) => this.onMouseOver(event, index)} style={wellStyle}>
-                  <Link  to={{pathname: "/cafe", state: {cafe: item}}} style={{textDecoration: "none"}}>{item.name}</Link>
+                  <Link  to={{pathname: "/cafe", state: {cafe: item}}}
+                         style={{textDecoration: "none", fontSize: "18px"}}>{item.name}</Link>
                   <div className="cafeRating">
                     <Stars rating={this.state.ratings[item.id]} />
                   </div>
