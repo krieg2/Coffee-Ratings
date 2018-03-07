@@ -41,9 +41,9 @@ class Landing extends Component {
     return (
       <div className={(this.state.animated === true) ? "landing" : "animated-landing"}
            ref={(instance) => { this.instance = instance; }}>
-        <h2>{this.props.title}</h2>
-        <h1><i className={this.props.fontAwesome} aria-hidden="true"></i></h1>
-        <p>{this.props.description}</p>
+        <h2><b>{this.props.title}</b></h2>
+        <h1><i className={this.props.fontAwesome} style={{textShadow: "3px 3px 5px"}} aria-hidden="true"></i></h1>
+        <p style={{fontSize: "19px"}}>{this.props.description}</p>
       </div>
      );
    }

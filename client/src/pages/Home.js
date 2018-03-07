@@ -22,7 +22,7 @@ class Home extends Component {
           <Row>
             <Banner />
           </Row>
-          <Row style={{backgroundColor: "#94b6d2", textAlign: "center", padding: "10px"}}>
+          <Row id="landingRow">
             <Col sm={4} style={{padding: "20px"}}>
               <Landing title="Share" fontAwesome="fa fa-share"
                        description={"Share your favorite coffee with the community."}

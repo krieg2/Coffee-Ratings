@@ -48,7 +48,7 @@ const AuthButton = withRouter(({ history }) => (
       </DropdownButton>
     </div>
   ) : (
-    <Link to="/login"><Button>Log In</Button></Link>
+    <Link to="/login"><Button style={{boxShadow: "2px 2px 4px"}}>Log In</Button></Link>
   )
 ));
 
@@ -56,7 +56,7 @@ const SignupButton = withRouter(({ history }) => (
   API.isAuthenticated() ? (
     <span>Welcome {API.getName()}!</span>
   ) : (
-    <Link to="/signup"><Button>Sign Up</Button></Link>
+    <Link to="/signup"><Button style={{boxShadow: "2px 2px 4px"}}>Sign Up</Button></Link>
   )
 ));
 
@@ -148,22 +148,22 @@ class App extends Component {
             <Row>
             <div className="footer-copyright">
               <Col xs={2} smPush={1}>
-                <a href="https://www.facebook.com/coffee.app.58"><i className="fa fa-facebook" style={{fontSize:'40px', padding: '40px'}}></i></a>
+                <a href="https://www.facebook.com/coffee.app.58"><i className="fa fa-facebook" style={{fontSize:'40px', paddingTop: '30px'}}></i></a>
               </Col>
               <Col xs={2} smPush={1}>
-                <a href="https://twitter.com/app_coffee"><i className="fa fa-twitter" style={{fontSize:'40px', padding: '40px'}}></i></a>
+                <a href="https://twitter.com/app_coffee"><i className="fa fa-twitter" style={{fontSize:'40px', paddingTop: '30px'}}></i></a>
               </Col>
               <Col xs={2} smPush={1}> 
-                <a href="https://plus.google.com/115860816639015232861"><i className="fa fa-google-plus" style={{fontSize:'40px', padding: '40px'}}></i></a>
+                <a href="https://plus.google.com/115860816639015232861"><i className="fa fa-google-plus" style={{fontSize:'40px', paddingTop: '30px'}}></i></a>
               </Col>
               <Col xs={2} smPush={1}> 
-                <a href="https://www.instagram.com/coffeeratingapp/"><i className="fa fa-instagram" style={{fontSize:'40px', padding: '40px'}}></i></a>
+                <a href="https://www.instagram.com/coffeeratingapp/"><i className="fa fa-instagram" style={{fontSize:'40px', paddingTop: '30px'}}></i></a>
               </Col>
               <Col xs={2} smPush={1}>
-                <a href="https://www.pinterest.com/coffeeapp/"><i className="fa fa-pinterest" style={{fontSize:'40px', padding: '40px'}} ></i></a>
+                <a href="https://www.pinterest.com/coffeeapp/"><i className="fa fa-pinterest" style={{fontSize:'40px', paddingTop: '30px'}} ></i></a>
               </Col>
               <Col xs={12}>
-                <Grid style={{color: "#ebd69c", margin: "0 auto"}}>© 2018 Copyright Coffee Rating App</Grid>
+                <Grid style={{color: "#ebd69c", margin: "0 auto", padding: "20px 0 10px 0"}}>© 2018 Copyright Coffee Rating App</Grid>
               </Col>
             </div>
             </Row>

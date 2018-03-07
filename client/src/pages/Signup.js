@@ -59,7 +59,7 @@ class Signup extends Component {
       <Grid fluid className="loginPage">
         <Row>
           <Col xs={8} sm={6} md={5} className="centerCol lowerTop">
-            <Panel style={{boxShadow: "10px 10px 20px"}}>
+            <Panel>
               <Panel.Heading style={{backgroundColor: "#dd8047"}}>Sign Up</Panel.Heading>
               <Panel.Body style={{padding: "40px"}}>
 
