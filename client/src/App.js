@@ -11,6 +11,7 @@ import Product from './pages/Product';
 import Cafe from './pages/Cafe';
 import CafeLocator from './pages/CafeLocator'
 import CreateProduct from './pages/CreateProduct'
+import AddProduct from './pages/AddProduct'
 import { Navbar, Nav, Button, NavItem,
          Image, DropdownButton, MenuItem,
          Grid, Row, Col } from 'react-bootstrap';
@@ -138,6 +139,7 @@ class App extends Component {
             <Route exact path="/cafe" component={Cafe} />
             <PrivateRoute exact path="/rate" component={Rate} />
             <PrivateRoute exact path="/createproduct" component={CreateProduct} />
+            <PrivateRoute exact path="/addproduct" component={AddProduct} />
             <PrivateRoute exact path="/profile" component={Profile} />
           </div>
         </Router>

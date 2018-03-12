@@ -44,7 +44,7 @@ class Login extends Component {
 
            <Nav bsStyle="pills" pullRight style={{paddingRight: "50px"}}>
             <NavItem>
-              <Button><Link to="/createproduct">Add a Product</Link></Button>
+              <Link to="/createproduct"><Button>Add a Product</Button></Link>
             </NavItem>
             <NavItem>
               <DropdownButton title="Sort by" id="sortby">

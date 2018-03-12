@@ -122,6 +122,7 @@ class SearchProduct extends Component {
         {(this.state.searching) ?
           <Row style={{textAlign: "center"}}>
             <div className="gridLoader">
+              <b><i style={{color: "red"}}>Searching...</i></b>
               <GridLoader color="red" size="22px" margin="10px"/>
             </div>
           </Row>

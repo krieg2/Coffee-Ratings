@@ -2,12 +2,24 @@ import React, { Component } from 'react';
 import { Grid, Col, Row, FormControl,
          FormGroup, ControlLabel,
          Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import SearchProduct from '../components/SearchProduct.js';
 
 class CreateProduct extends Component {
 
   state = {
-    upc: ""
+    upc: "",
+    brand: "",
+    title: "",
+    description: ""
+  };
+
+  handleChange = (event) => {
+
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+
   };
 
   render() {
@@ -36,6 +48,14 @@ class CreateProduct extends Component {
                 <FormControl
                   componentClass="input"
                   type="text"
+                  name="upc"
+                  placeholder="Enter UPC code (optional)"
+                  onChange={this.handleChange}
+                  value={this.state.upc}
+                />
+                <FormControl
+                  componentClass="input"
+                  type="text"
                   name="title"
                   placeholder="Enter title"
                   onChange={this.handleChange}
@@ -50,7 +70,12 @@ class CreateProduct extends Component {
                   value={this.state.description}
                 />
               </FormGroup>
-              <Button onClick={this.handleSubmit} bsStyle="default" type="submit">Submit</Button>
+              <Link to={{
+                pathname: '/addproduct',
+                state: this.state
+              }}>
+                <Button onClick={this.handleSubmit} bsStyle="default" type="submit">Submit</Button>
+              </Link>
             </form>
           </Col>
         </Row>

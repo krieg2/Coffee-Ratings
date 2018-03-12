@@ -20,10 +20,10 @@ class Filestack extends Component {
   render(){
 
     const options = {
-      fromSources:['local_file_system','url','imagesearch',
-                   'facebook','instagram','dropbox','webcam'],
-      maxFiles:1,
-      minFiles:1
+      fromSources: ['local_file_system','webcam','url',
+                   'facebook','instagram','dropbox'],
+      maxFiles: 1,
+      minFiles: 1
     };
 
     return(

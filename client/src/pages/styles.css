@@ -177,6 +177,16 @@
   border: 2px solid #dd8047;
 }
 
+.productPhoto {
+  text-align: center;
+  width: 200px;
+  height: auto;
+  border: 1px solid #dd8047;
+  margin: 0 auto;
+  padding: 20px;
+  margin-bottom: 10px;
+}
+
 .navbar {
   margin: 0px;
 }

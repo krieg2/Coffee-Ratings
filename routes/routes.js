@@ -13,6 +13,7 @@ function verifyToken(req, res, next) {
       if(err){
         res.sendStatus(403);
       } else{
+        req.user = data;
         next();
       }
   });
@@ -188,9 +189,38 @@ module.exports = app => {
         res.status(401).send({ messageText: "Product already exists." });
       } else {
 
-        db.Product.create(req.body)
+        let newProduct = req.body;
+        newProduct.createdBy = req.user._id;
+
+        db.Product.create(newProduct)
         .then( (product) => {
           res.status(200).send({ messageText: "Added." });
+        })
+        .catch( (err) => {
+          console.log("error: "+err);
+          res.status(401).send({ messageText: "Error." });
+        });
+      }
+    });
+  });
+
+  app.post("/api/pending/product", verifyToken, (req, res) => {
+
+    db.Product.find().
+    where("upc").equals(req.body.upc)
+    .then( (products) => {
+
+      if(products.length > 0){
+
+        res.status(401).send({ messageText: "Product already exists." });
+      } else {
+
+        let newProduct = req.body;
+        newProduct.createdBy = req.user._id;
+
+        db.PendingProduct.create(newProduct)
+        .then( (product) => {
+          res.status(200).send({ messageText: "Thank you. This product is pending review." });
         })
         .catch( (err) => {
           console.log("error: "+err);

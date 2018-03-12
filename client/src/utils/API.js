@@ -119,6 +119,17 @@ export default {
       callback(err.response);
     });
   },
+  addPendingProduct: function(data, callback){
+
+    axios.post('/api/pending/product/', data, {headers: {Authorization: localStorage.getItem('jwtToken')}})
+    .then( res => {
+
+      callback(res);
+    })
+    .catch( err => {
+      callback(err.response);
+    });
+  },
   getProducts: function(callback){
 
     axios.get('/api/products/')

@@ -45,7 +45,7 @@ const ProductSchema = new Schema({
 });
 
 // Creates the model from the above schema.
-const Product = mongoose.model("Product", ProductSchema);
+const PendingProduct = mongoose.model("PendingProduct", ProductSchema);
 
 // Export the model.
-module.exports = Product;
+module.exports = PendingProduct;
