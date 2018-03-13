@@ -10,15 +10,26 @@ const Mailgun    = require("mailgun-js");
 const api_key = process.env["MAILGUN_API_KEY"];
 const domain = process.env["MAILGUN_DOMAIN"];
 const from_who = process.env["MAILGUN_FROM"];
+const admin_email = process.env["ADMIN_EMAIL"];
 
-// Import the email template.
-let email_template = "";
-fs.readFile(__dirname + "/../public/email_template.html", "utf8", (err, html) => {
-  if(err){
-    console.log(err);
-  } else{
-    email_template = html;
-  }
+// Import the email templates.
+let emailTemplates = {};
+fs.readdir(__dirname + "/../templates/", (err, items) => {
+
+    for (let i=0; i < items.length; i++){
+
+      let templateName = items[i];
+      if(templateName.lastIndexOf(".") >= 0){
+        templateName = templateName.slice(0, templateName.lastIndexOf("."));
+      }
+      fs.readFile(__dirname + "/../templates/" + items[i], "utf8", (err, html) => {
+        if(err){
+          console.log(err);
+        } else{
+          emailTemplates[templateName] = html;
+        }
+      });
+    }
 });
 
 function verifyToken(req, res, next) {
@@ -242,15 +253,28 @@ module.exports = app => {
 
           let mailgun = new Mailgun({apiKey: api_key, domain: domain});
 
-          let data = {
+          let emailUser = {
             from: from_who,
             to: req.user.email,
-            subject: "New Coffee Added",
-            html: email_template
+            subject: "New Coffee Submitted",
+            html: emailTemplates.new_product_user
           };
 
-          mailgun.messages().send(data, (err, body) => {
-            if (err) {
+          mailgun.messages().send(emailUser, (err, body) => {
+            if(err){
+              console.log("Mailgun error: ", err);
+            }
+          });
+
+          let emailAdmin = {
+            from: from_who,
+            to: admin_email,
+            subject: "New Coffee Submitted",
+            html: emailTemplates.new_product_admin
+          };
+
+          mailgun.messages().send(emailAdmin, (err, body) => {
+            if(err){
               console.log("Mailgun error: ", err);
             }
           });
