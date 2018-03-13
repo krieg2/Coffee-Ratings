@@ -3,6 +3,23 @@ const mongoose   = require("mongoose");
 const jwt        = require("jsonwebtoken");
 const db         = require("../models");
 const request    = require("request");
+const fs         = require("fs");
+const Mailgun    = require("mailgun-js");
+
+// Mailgun configuration.
+const api_key = process.env["MAILGUN_API_KEY"];
+const domain = process.env["MAILGUN_DOMAIN"];
+const from_who = process.env["MAILGUN_FROM"];
+
+// Import the email template.
+let email_template = "";
+fs.readFile(__dirname + "/../public/email_template.html", "utf8", (err, html) => {
+  if(err){
+    console.log(err);
+  } else{
+    email_template = html;
+  }
+});
 
 function verifyToken(req, res, next) {
 
@@ -220,7 +237,24 @@ module.exports = app => {
 
         db.PendingProduct.create(newProduct)
         .then( (product) => {
+
           res.status(200).send({ messageText: "Thank you. This product is pending review." });
+
+          let mailgun = new Mailgun({apiKey: api_key, domain: domain});
+
+          let data = {
+            from: from_who,
+            to: req.user.email,
+            subject: "New Coffee Added",
+            html: email_template
+          };
+
+          mailgun.messages().send(data, (err, body) => {
+            if (err) {
+              console.log("Mailgun error: ", err);
+            }
+          });
+
         })
         .catch( (err) => {
           console.log("error: "+err);
