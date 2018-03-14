@@ -38,12 +38,19 @@ class Landing extends Component {
 
   render() {
 
+    let circle = {
+      textShadow: "4px 3px 3px #999",
+      border: "2px solid #dd8047",
+      borderRadius: "50%",
+      padding: "25px"
+    }
+
     return (
       <div className={(this.state.animated === true) ? "landing" : "animated-landing"}
            ref={(instance) => { this.instance = instance; }}>
-        <h2><b>{this.props.title}</b></h2>
-        <h1><i className={this.props.fontAwesome} style={{textShadow: "3px 3px 5px"}} aria-hidden="true"></i></h1>
-        <p style={{fontSize: "19px"}}>{this.props.description}</p>
+        <h2 style={{color: "#dd8047"}}><b>{this.props.title}</b></h2>
+        <h1 style={{}}><i className={this.props.fontAwesome} style={circle} aria-hidden="true"></i></h1>
+        <p style={{fontSize: "18px", letterSpacing: ".1rem"}}>{this.props.description}</p>
       </div>
      );
    }

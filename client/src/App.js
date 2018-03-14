@@ -14,7 +14,7 @@ import CreateProduct from './pages/CreateProduct'
 import AddProduct from './pages/AddProduct'
 import { Navbar, Nav, Button, NavItem,
          Image, DropdownButton, MenuItem,
-         Grid, Row, Col } from 'react-bootstrap';
+         Grid, Row, Col, Clearfix } from 'react-bootstrap';
 import API from './utils/API';
 import './App.css';
 import './pages/styles.css';
@@ -99,6 +99,13 @@ class App extends Component {
           <div className="wrap">
             <Navbar fixedTop>
             <Navbar.Toggle />
+            <Navbar.Brand style={{color: "#74533f",
+                          fontSize: "20px",
+                          fontFamily: "'Spectral SC', serif"}}>Coffee rating app
+            </Navbar.Brand>
+            
+            <Clearfix visibleXsBlock>
+            </Clearfix>
 
             <Navbar.Collapse>
               <Nav bsStyle="tabs" role="tablist" activeKey={this.state.selected}
@@ -165,7 +172,7 @@ class App extends Component {
                 <a href="https://www.pinterest.com/coffeeapp/"><i className="fa fa-pinterest" style={{fontSize:'40px', paddingTop: '30px'}} ></i></a>
               </Col>
               <Col xs={12}>
-                <Grid style={{color: "#ebd69c", margin: "0 auto", padding: "20px 0 10px 0"}}>© 2018 Copyright Coffee Rating App</Grid>
+                <Grid style={{color: "#fff", opacity: 0.8, margin: "0 auto", padding: "20px 0 10px 0"}}>© 2018 Copyright Coffee Rating App</Grid>
               </Col>
             </div>
             </Row>

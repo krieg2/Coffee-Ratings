@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import background from '../pexels-photo-373888.jpeg';
+import backgroundImg from '../pexels-photo-373888.jpeg';
+import video from "../699570857.mp4";
 
 class Banner extends Component {
 
@@ -33,30 +34,29 @@ class Banner extends Component {
           position: 'relative',
           height: '100%',
           width: '100%',
-          backgroundImage: `url(${background})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'top center',
-          backgroundSize: 'cover',
-          backgroundAttachment: 'fixed',
           overflow: 'hidden'
         }}>
 
-            <div style={{
-              position: 'absolute',
-              top: '2%',
-              right: '10%',
-              height: '100px',
-              width: '300px',
-              color: 'white',
-              fontSize: '24px',
-              fontWeight: '400',
-              textShadow: '0px -1px 8px white,0px 1px 8px white,0px -2px 12px black,0px 2px 12px black',
-              transform: `translateY(${this.state.scrollPosition/2}%)`,
-              WebkitTransform: `translateY(${this.state.scrollPosition/2}%)`,
-              MozTransform: `translateY(${this.state.scrollPosition/2}%)`
-            }}>
-              <p>Read and post reviews of your favorite coffee beans and local coffee shops. Sign up for free today and start drinking better coffee!</p>
-            </div>
+          <video autoPlay loop style={{position: "absolute", height: "auto", width: "100%"}} poster={backgroundImg}>
+            <source src={video}></source>
+          </video>
+
+          <div style={{
+            position: 'absolute',
+            top: '8%',
+            right: '10%',
+            height: '100px',
+            width: '250px',
+            color: 'white',
+            fontSize: '20px',
+            fontWeight: '100',
+            letterSpacing: '.2rem',
+            transform: `translateY(${this.state.scrollPosition/1.2}%)`,
+            WebkitTransform: `translateY(${this.state.scrollPosition/1.2}%)`,
+            MozTransform: `translateY(${this.state.scrollPosition/1.2}%)`
+          }}>
+            <p>Read and post reviews of your favorite coffee beans and local coffee shops. Sign up for free today and start drinking better coffee!</p>
+          </div>
 
         </div>
       </div>

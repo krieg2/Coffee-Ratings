@@ -9,15 +9,6 @@ class Home extends Component {
 
     return (
       <Grid fluid style={{padding: "0", margin: "0"}}>
-        <Row style={{width: "100%", padding: "0", margin: "0"}}>
-          <Jumbotron id="jumbo">
-            <h1 style={{color: "#ebd69c",
-                        fontFamily: "'Spectral SC', serif"}}>Coffee rating app</h1>
-            <p style={{color: "#ebd69c",
-                       fontSize: "40px",
-                       fontFamily: "'Tangerine', cursive"}}><em>Life is too short to drink bad coffee.</em></p> 
-          </Jumbotron>
-        </Row>
 
           <Row>
             <Banner />

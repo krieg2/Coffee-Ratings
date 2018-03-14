@@ -189,17 +189,22 @@
 
 .navbar {
   margin: 0px;
+  background-color: #fff;
 }
 
 .navbar-nav > li > a > a {
   font-size: 22px;
   font-weight: 100;
   text-decoration: none;
-  color: grey;
+  color: #74533f;
+}
+
+.navbar-nav > li.active > a {
+  border-color: #74533f;
 }
 
 .navbar-nav > li > a > a:hover {
- color: black;
+  color: #4791FF;
 }
 
 .page-footer {
@@ -208,6 +213,7 @@
   height: 120px;
   margin: 0;
   background-color: #74533f;
+  box-shadow: 0 -3px 3px #74533f;
 }
 
 .wrap{
@@ -282,12 +288,13 @@
 }
 
 .cafeLocatorPhoto {
-  background: url('../pexels-photo-296888.jpeg');
+  /*background: url('../pexels-photo-296888.jpeg');*/
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   height: 300px;
   width: 100%;
+  overflow: hidden;
 }
 
 .mapboxgl-map {
