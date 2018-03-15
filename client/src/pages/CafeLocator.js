@@ -8,7 +8,7 @@ import API from '../utils/API';
 import Stars from '../components/Stars';
 import MapSearch from '../components/MapSearch';
 import markerUrl from '../coffee-cup.png';
-import backgroundImg from '../pexels-photo-296888.jpeg';
+import stillImg from '../still_343010495.png';
 import video from '../343010495.mp4';
 
 const Map = ReactMapboxGl({
@@ -168,7 +168,7 @@ class CafeLocator extends Component {
       <Grid fluid style={{padding: "0px", margin: "0 auto"}}>
          <Row>
            <div className="cafeLocatorPhoto">
-            <video autoPlay loop style={{height: "auto", width: "100%"}} poster={backgroundImg}>
+            <video autoPlay loop style={{height: "auto", width: "100%"}} poster={stillImg}>
               <source src={video}></source>
             </video>
            </div>

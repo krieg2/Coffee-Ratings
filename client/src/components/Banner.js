@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import backgroundImg from '../pexels-photo-373888.jpeg';
-import video from "../699570857.mp4";
+import stillImg from '../still_699570857.png';
+import video from '../699570857.mp4';
 
 class Banner extends Component {
 
@@ -37,7 +37,7 @@ class Banner extends Component {
           overflow: 'hidden'
         }}>
 
-          <video autoPlay loop style={{position: "absolute", height: "auto", width: "100%"}} poster={backgroundImg}>
+          <video autoPlay loop style={{position: "absolute", height: "auto", width: "100%"}} poster={stillImg}>
             <source src={video}></source>
           </video>
 
