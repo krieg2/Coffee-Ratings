@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Banner from '../components/Banner.js';
 import Landing from '../components/Landing.js';
+import TopTenCoffees from '../components/TopTenCoffees.js';
 import { Grid, Col, Row, Jumbotron } from 'react-bootstrap';
 
 class Home extends Component {
@@ -9,7 +10,6 @@ class Home extends Component {
 
     return (
       <Grid fluid style={{padding: "0", margin: "0"}}>
-
           <Row>
             <Banner />
           </Row>
@@ -29,6 +29,9 @@ class Home extends Component {
                        description={"Purchase coffee online and have it shipped to your door."}
                        offset={3} />
             </Col>
+          </Row>
+          <Row id="topTenCoffees">
+            <TopTenCoffees />
           </Row>
       </Grid>);
   }

@@ -152,6 +152,28 @@ export default {
       callback(err.response);
     });
   },
+  getTopTen: function(type, callback){
+
+    if(type === 'coffee'){
+      axios.get('/api/toptencoffees/')
+      .then( res => {
+
+        callback(res);
+      })
+      .catch( err => {
+        callback(err.response);
+      });
+    } else if(type === 'cafe'){
+      axios.get('/api/toptencafes/')
+      .then( res => {
+
+        callback(res);
+      })
+      .catch( err => {
+        callback(err.response);
+      });
+    }
+  },
   getProduct: function(id, callback){
 
     axios.get('/api/product/'+id)

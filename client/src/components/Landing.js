@@ -17,11 +17,6 @@ class Landing extends Component {
           animated: true
         });
       }, (700 * (Math.exp(this.props.offset * 0.14))) - 700);
-    } else {
-
-      this.setState({
-        animated: false
-      });
     }
 
   };

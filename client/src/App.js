@@ -151,10 +151,9 @@ class App extends Component {
           </div>
         </Router>
 
-        <footer className="page-footer blue center-on-small-only">
-          <Grid fluid>
-
+        <Grid fluid style={{padding: "0", margin: "0"}}>
             <Row>
+            <footer className="page-footer blue center-on-small-only">
             <div className="footer-copyright">
               <Col xs={2} smPush={1}>
                 <a href="https://www.facebook.com/coffee.app.58"><i className="fa fa-facebook" style={{fontSize:'40px', paddingTop: '30px'}}></i></a>
@@ -175,12 +174,10 @@ class App extends Component {
                 <Grid style={{color: "#fff", opacity: 0.8, margin: "0 auto", padding: "20px 0 10px 0"}}>© 2018 Copyright Coffee Rating App</Grid>
               </Col>
             </div>
+            </footer>
             </Row>
-
-          </Grid>
-        </footer>
-        </div>
-
+        </Grid>
+      </div>
     );
   }
 }

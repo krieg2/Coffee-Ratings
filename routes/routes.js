@@ -331,6 +331,38 @@ module.exports = app => {
   
   });
 
+  app.get("/api/toptencoffees", (req, res) => {
+
+    db.Product.find()
+    .sort({avgRating: 1})
+    .limit(10)
+    .then( (products) => {
+
+      res.json(products);
+    })
+    .catch( (err) => {
+      console.log("error: "+err);
+      res.status(401).send({ messageText: "Error." });
+    });
+  
+  });
+
+  app.get("/api/toptencafes", (req, res) => {
+
+    db.Cafe.find()
+    .sort({avgRating: 1})
+    .limit(10)
+    .then( (cafes) => {
+
+      res.json(cafes);
+    })
+    .catch( (err) => {
+      console.log("error: "+err);
+      res.status(401).send({ messageText: "Error." });
+    });
+  
+  });
+
   app.get("/api/cafebyextid/:extId", (req, res) => {
 
     let fields = "firstName lastName location photoUrl";

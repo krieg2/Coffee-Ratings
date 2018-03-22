@@ -37,7 +37,7 @@ class Banner extends Component {
           overflow: 'hidden'
         }}>
 
-          <video autoPlay loop style={{position: "absolute", height: "auto", width: "100%"}} poster={stillImg}>
+          <video autoPlay muted loop style={{position: "absolute", height: "auto", width: "100%"}} poster={stillImg}>
             <source src={video}></source>
           </video>
 
