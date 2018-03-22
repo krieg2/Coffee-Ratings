@@ -260,6 +260,14 @@
   color: #333;
 }
 
+.carousel-indicators > li {
+  background-color: #dd8047;
+}
+
+.carousel-indicators > .active {
+  background-color: #74533f;
+}
+
 .landing {
   opacity: 1;
   -moz-transform: translateY(0px);
