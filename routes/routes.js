@@ -334,7 +334,7 @@ module.exports = app => {
   app.get("/api/toptencoffees", (req, res) => {
 
     db.Product.find()
-    .sort({avgRating: 1})
+    .sort({avgRating: -1})
     .limit(10)
     .then( (products) => {
 
@@ -350,7 +350,7 @@ module.exports = app => {
   app.get("/api/toptencafes", (req, res) => {
 
     db.Cafe.find()
-    .sort({avgRating: 1})
+    .sort({avgRating: -1})
     .limit(10)
     .then( (cafes) => {
 
