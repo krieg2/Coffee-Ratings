@@ -74,7 +74,7 @@ class Cafe extends Component {
                 <Row key={index}>
                   <Well>
                     <Row>
-                    <Col sm={3} style={{borderRight: "1px dotted #dd8047"}}>
+                    <Col xs={3} sm={3} style={{borderRight: "2px dotted #dd8047"}}>
                       <div>
                         <Image style={{width: "100px", height: "auto"}} src={review.postedBy.photoUrl} />
                       </div>
@@ -85,7 +85,7 @@ class Cafe extends Component {
                       {review.postedBy.location}
                       </div>
                     </Col>
-                    <Col sm={8}>
+                    <Col xs={7} sm={8}>
                       <div style={{marginBottom: "15px"}}>
                         <Stars rating={review.rating} /> 
                       </div>

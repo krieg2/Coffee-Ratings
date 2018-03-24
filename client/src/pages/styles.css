@@ -261,11 +261,11 @@
 }
 
 .carousel-indicators > li {
-  background-color: #dd8047;
+  background-color: #74533f;
 }
 
 .carousel-indicators > .active {
-  background-color: #74533f;
+  background-color: #337ab7;
 }
 
 .landing {

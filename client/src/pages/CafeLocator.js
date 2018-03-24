@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Col, Row, Well, Image } from 'react-bootstrap';
+import { Grid, Col, Row, Well } from 'react-bootstrap';
 import ReactMapboxGl, { Layer, Feature,
                     ZoomControl, Marker, Popup } from "react-mapbox-gl";
 import update from 'immutability-helper';
@@ -28,6 +28,7 @@ class CafeLocator extends Component {
      this.state = {
        items: [],
        ratings: {},
+       images: {},
        options: [],
        latitude: 40.7513171,
        longitude: -73.994459,
@@ -35,7 +36,7 @@ class CafeLocator extends Component {
      };
    }
 
-  componentDidMount() {
+  componentWillMount() {
 
     navigator.geolocation.getCurrentPosition((position) => {
 
@@ -51,9 +52,30 @@ class CafeLocator extends Component {
       })
 
       foursquare.venues.getVenues(params)
-      .then(res => {
-        this.setState({ items: res.response.venues });
-        this.getRatingsBatch(res.response.venues);
+      .then( venues => {
+
+        this.setState({ items: venues.response.venues });
+        this.getRatingsBatch(venues.response.venues);
+
+        venues.response.venues.forEach( (venue) => {
+
+          foursquare.venues.getVenuePhotos({venue_id: venue.id})
+          .then( res => {
+
+            if(res.response.photos.count > 0){
+
+              let imageUrl = res.response.photos.items[0].prefix +
+                             'width300' +
+                             res.response.photos.items[0].suffix;
+
+              this.setState({
+                images: update(this.state.images, 
+                             {[venue.id]: {$set: imageUrl}})
+              });
+            }
+          });
+        });
+        
       });
     });
   }
@@ -75,10 +97,31 @@ class CafeLocator extends Component {
     };
 
     foursquare.venues.getVenues(params)
-    .then(res => {
-      this.setState({ items: res.response.venues });
-      this.getRatingsBatch(res.response.venues);
-    });
+      .then( venues => {
+
+        this.setState({ items: venues.response.venues });
+        this.getRatingsBatch(venues.response.venues);
+
+        venues.response.venues.forEach( (venue) => {
+
+          foursquare.venues.getVenuePhotos({venue_id: venue.id})
+          .then( res => {
+
+            if(res.response.photos.count > 0){
+
+              let imageUrl = res.response.photos.items[0].prefix +
+                             'width300' +
+                             res.response.photos.items[0].suffix;
+
+              this.setState({
+                images: update(this.state.images, 
+                             {[venue.id]: {$set: imageUrl}})
+              });
+            }
+          });
+        });
+        
+      });
 
   };
 
@@ -129,7 +172,6 @@ class CafeLocator extends Component {
   onSearch = (query) => {
 
     API.geoLocate(query, (results) => {
-      //console.log(results);
       if(results){
         this.setState({
           options: results.data.features.filter((place) => {
@@ -148,13 +190,10 @@ class CafeLocator extends Component {
 
   render(){
 
-    let col1Height = 500;
     let col2Height = 500;
     let offsetTop = 0;
     let calculatedHeight = 500;
-    if(document.getElementById('col1')){
-      col1Height = parseInt(document.getElementById('col1').clientHeight);
-    }
+
     if(document.getElementById('col2')){
       col2Height = parseInt(document.getElementById('col2').clientHeight);
       offsetTop = parseInt(document.getElementById('col2').offsetTop);
@@ -237,12 +276,17 @@ class CafeLocator extends Component {
             <div className="cafeList">
             {this.state.items.map( (item, index) => {
               let wellStyle = {
+                backgroundImage: `url('${this.state.images[item.id]}')`,
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                textShadow: "2px 1px 2px #fff, 0px -1px 1px #fff",
                 border: this.state.hoveredIndex === index ? '1px solid red' : 'none'
               };
               return (
                 <Well key={index} onMouseOver={(event) => this.onMouseOver(event, index)} style={wellStyle}>
-                  <Link  to={{pathname: "/cafe", state: {cafe: item}}}
-                         style={{textDecoration: "none", fontSize: "18px"}}>{item.name}</Link>
+                  <Link to={{pathname: "/cafe", state: {cafe: item}}}
+                         style={{textDecoration: "none", fontSize: "18px", color: "#74533f"}}>{item.name}</Link>
+                  
                   <div className="cafeRating">
                     <Stars rating={this.state.ratings[item.id]} />
                   </div>

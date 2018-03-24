@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Banner from '../components/Banner.js';
 import Landing from '../components/Landing.js';
 import TopTenCoffees from '../components/TopTenCoffees.js';
-import { Grid, Col, Row, Jumbotron } from 'react-bootstrap';
+import { Grid, Col, Row } from 'react-bootstrap';
 
 class Home extends Component {
 
